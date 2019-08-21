@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/splash/SplashScreenWidget.dart';
+import 'package:flutter_app/resource/string/resource_string.dart';
+import 'package:flutter_app/ui/splash/splash_screen_widget.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class AppWidget extends StatelessWidget {
@@ -7,7 +8,7 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Gnam Gnam Manga',
+      title: APP_NAME,
       theme: ThemeData(
           primaryColor: Colors.indigoAccent, primaryColorDark: Colors.indigo),
       home: SplashScreenWidget(),
