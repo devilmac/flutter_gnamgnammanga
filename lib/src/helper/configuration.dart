@@ -18,3 +18,6 @@ Future<File> get _localFile async {
 Future<File> getAppDirectory() {
   return _localFile;
 }
+
+const gridImagePlaceholder =
+    "http://img2.wikia.nocookie.net/__cb20140715205720/theannoyingroleplayers/images/4/47/Placeholder.png";

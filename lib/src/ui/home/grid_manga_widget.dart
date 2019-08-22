@@ -1,42 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/domain/manga.dart';
+import 'package:flutter_app/src/state/app_state.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+
+import 'home_grid_item_widget.dart';
 
 class GridMangaWidget extends StatelessWidget {
-//  GridMangaWidget({this.mangas});
-
-//  final List<int> mangas;
-
   @override
   Widget build(BuildContext context) {
-    //TODO Create grid layout to show manga
-    return Center(
-      child: FutureBuilder<Manga>(
-//        future: fetchManga(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return Text(snapshot.data.title);
-          } else if (snapshot.hasError) {
-            return Text("${snapshot.error}");
-          }
+    return Observer(
+      builder: (_) {
+        if (appState.mangaList != null) {
+          if (appState.mangaList.isNotEmpty) {
+            var staggeredGrid = StaggeredGridView.countBuilder(
+              crossAxisCount: 4,
+              mainAxisSpacing: 8.0,
+              itemCount: appState.mangaList.length,
+              padding: const EdgeInsets.all(16.0),
+              crossAxisSpacing: 8.0,
+              itemBuilder: (context, index) =>
+                  _getItemList(appState.mangaList, index),
+              staggeredTileBuilder: (index) => StaggeredTile.fit(2),
+            );
 
-          // By default, show a loading spinner
-          return Center(child: CircularProgressIndicator());
-        },
-      ),
+            return staggeredGrid;
+          } else {
+            return _errorOnLoadingManga();
+          }
+        } else {
+          return _errorOnLoadingManga();
+        }
+      },
     );
-//    return GridView.count(
-//      primary: false,
-//      padding: const EdgeInsets.all(20.0),
-//      crossAxisSpacing: 10.0,
-//      crossAxisCount: 2,
-//      children: <Widget>[
-//        const Text('He\'d have you all unravel at the'),
-//        const Text('Heed not the rabble'),
-//        const Text('Sound of screams but the'),
-//        const Text('Who scream'),
-//        const Text('Revolution is coming...'),
-//        const Text('Revolution, they...'),
-//      ],
-//    );
+  }
+
+  Widget _errorOnLoadingManga() {
+    return SnackBar(
+      content: Text("Error on loading manga"),
+    );
+  }
+
+  Widget _getItemList(List<Manga> movies, int index) {
+    Manga manga = movies[index];
+
+    return HomeGridItemWidget(manga);
   }
 }

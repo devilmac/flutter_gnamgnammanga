@@ -1,6 +1,7 @@
 import 'chapter.dart';
 
 class Manga {
+  String mangaID;
   List<String> aka;
   String author;
   List<String> categories;
@@ -15,6 +16,7 @@ class Manga {
   String title;
 
   Manga({
+    this.mangaID,
     this.aka,
     this.author,
     this.categories,

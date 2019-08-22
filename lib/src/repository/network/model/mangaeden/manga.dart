@@ -2,8 +2,11 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'manga.g.dart';
 
-@JsonSerializable(nullable: false)
+@JsonSerializable()
 class Manga {
+  @JsonKey(name: "i", required: true)
+  final String mangaID;
+
   final List<String> aka;
 
   @JsonKey(name: "aka-alias")
@@ -18,7 +21,10 @@ class Manga {
   @JsonKey(name: "author_kw")
   final List<String> authorKw;
   final bool baka;
+
+  @JsonKey(name: "c")
   final List<String> categories;
+
   final List<List<dynamic>> chapters;
 
   @JsonKey(name: "chapters_len")
@@ -26,16 +32,22 @@ class Manga {
   final double created;
   final String description;
   final int hits;
+
+  @JsonKey(name: "im")
   final String image;
   final String imageURL;
   final int language;
 
-  @JsonKey(name: "last_chapter_date")
+  @JsonKey(name: "ld")
   final double lastChapterDate;
   final List<double> random;
   final int released;
   final String startsWith;
+
+  @JsonKey(name: "s")
   final int status;
+
+  @JsonKey(name: "t")
   final String title;
 
   @JsonKey(name: "title_kw")
@@ -44,6 +56,7 @@ class Manga {
   final bool updatedKeywords;
 
   Manga(
+      this.mangaID,
       this.aka,
       this.akaAlias,
       this.alias,

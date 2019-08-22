@@ -12,6 +12,8 @@ import 'package:http/http.dart' as http;
 const String BASE_URL = "https://www.mangaeden.com/api";
 const String MANGA_LIST = "$BASE_URL/list/1/";
 
+String baseImageUrl = "https://cdn.mangaeden.com/mangasimg/";
+
 class MangaedenService extends MangaService {
   @override
   Future<List<domain.Manga>> getManga() async {
@@ -42,13 +44,14 @@ class MangaedenService extends MangaService {
 
   domain.Manga _mapManga(network.Manga manga) {
     domain.Manga result = domain.Manga(
+        mangaID: manga.mangaID,
         aka: manga.aka,
         author: manga.author,
         categories: manga.categories,
         chapters: _mapChapters(manga.chapters),
         chaptersLen: manga.chaptersLen,
         description: manga.description,
-        image: manga.image,
+        image: "$baseImageUrl${manga.image}",
         language: _mapLanguage(manga.language),
         lastChapterDate: manga.lastChapterDate,
         released: manga.released,
@@ -58,10 +61,10 @@ class MangaedenService extends MangaService {
   }
 
   List<domain.Chapter> _mapChapters(List<List<dynamic>> chaptersFromNetwork) {
-    var chapters = chaptersFromNetwork.map((List<dynamic> chapter) {
+    var chapters = chaptersFromNetwork?.map((List<dynamic> chapter) {
       return domain.Chapter(chapter[0] as double, chapter[1] as double,
           chapter[2] as String, chapter[3] as String);
-    }).toList();
+    })?.toList();
 
     return chapters;
   }

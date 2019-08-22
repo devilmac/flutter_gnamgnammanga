@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/src/repository/manga_adapter.dart';
 import 'package:flutter_app/src/repository/network/manga_network_adapter.dart';
 import 'package:flutter_app/src/repository/network/service/mangaeden_service.dart';
+import 'package:flutter_app/src/state/app_state.dart';
 import 'package:flutter_app/src/ui/home/home_page_widget.dart';
 
 class SplashScreenWidget extends StatelessWidget {
@@ -20,29 +21,11 @@ class SplashScreenWidget extends StatelessWidget {
     return Center(child: CircularProgressIndicator());
   }
 
-  Future fetchManga() async {
+  Future<void> fetchManga() async {
     MangaAdapter adapter = MangaNetworkAdapter(MangaedenService());
 
     var mangaList = await adapter.getMangaList();
 
-//    final response = await http.get(Config.MANGA_LIST);
-//
-//    if (response.statusCode == 200) {
-//      // If the call to the server was successful, parse the JSON
-//
-//      var jsonFile = json.decode(response.body);
-//
-////      writeJsonOnFile(jsonFile);
-//    } else {
-//      // If that call was not successful, throw an error.
-//      throw Exception('Failed to load manga');
-//    }
+    appState.mangaList = mangaList;
   }
-//
-//  Future<File> writeJsonOnFile(String jsonFile) async {
-//    final file = await Config.getAppDirectory();
-//
-//    // Write the file
-//    return file.writeAsString(jsonFile);
-//  }
 }
