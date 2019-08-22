@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 
 const String BASE_URL = "https://www.mangaeden.com/api";
 const String MANGA_LIST = "$BASE_URL/list/1/";
+const String MANGA_DETAIL = "$BASE_URL/manga/";
 
 String baseImageUrl = "https://cdn.mangaeden.com/mangasimg/";
 
@@ -37,9 +38,20 @@ class MangaedenService extends MangaService {
   }
 
   @override
-  Future<domain.Manga> getMangaDetail(String mangaID) {
-    // TODO: implement getMangaDetail
-    return null;
+  Future<domain.Manga> getMangaDetail(String mangaID) async {
+    domain.Manga result;
+
+    final response = await http.get(MANGA_DETAIL);
+
+    if (response.statusCode == 200) {
+      var body = json.decode(response.body);
+
+      var manga = network.Manga.fromJson(body);
+
+      result = _mapManga(manga);
+    }
+
+    return result;
   }
 
   domain.Manga _mapManga(network.Manga manga) {

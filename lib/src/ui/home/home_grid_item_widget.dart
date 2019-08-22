@@ -23,12 +23,14 @@ class HomeGridItemWidget extends StatelessWidget {
                 textDirection: TextDirection.ltr,
                 children: <Widget>[
                   Center(
+                      child: Hero(
+                    tag: "",
                     child: FadeInImage.memoryNetwork(
                         placeholder: kTransparentImage,
                         image: _manga.image != null
                             ? _manga.image
                             : gridImagePlaceholder),
-                  )
+                  ))
                 ],
               ),
               Padding(
