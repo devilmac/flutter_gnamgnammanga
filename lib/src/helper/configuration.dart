@@ -20,4 +20,4 @@ Future<File> getAppDirectory() {
 }
 
 const gridImagePlaceholder =
-    "http://img2.wikia.nocookie.net/__cb20140715205720/theannoyingroleplayers/images/4/47/Placeholder.png";
+    "https://impacttheory.com/wp-content/uploads/2018/11/placeholder-300x300.png";

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/resource/resource_string.dart';
-import 'package:flutter_app/src/ui/splash/splash_screen_widget.dart';
+import 'package:flutter_app/src/ui/home/home_page_widget.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class AppWidget extends StatelessWidget {
@@ -11,7 +11,7 @@ class AppWidget extends StatelessWidget {
       title: APP_NAME,
       theme: ThemeData(
           primaryColor: Colors.indigoAccent, primaryColorDark: Colors.indigo),
-      home: SplashScreenWidget(),
+      home: MangaHomePage.gnamGnamHomePage(title: 'Manga'),
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/src/resource/resource_string.dart';
 
 import 'grid_manga_widget.dart';
+import 'manga_search_delegate.dart';
 
 class MangaHomePage extends StatefulWidget {
   final String title;
@@ -39,6 +40,14 @@ class MangaHomePageState extends State<MangaHomePage>
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              showSearch(context: context, delegate: MangaSearchDelegate());
+            },
+          )
+        ],
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: new Text((context.widget as MangaHomePage).title),

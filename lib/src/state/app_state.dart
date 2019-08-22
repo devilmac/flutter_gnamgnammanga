@@ -7,7 +7,7 @@ class AppState = _AppState with _$AppState;
 
 abstract class _AppState with Store {
   @observable
-  List<Manga> mangaList = <Manga>[];
+  List<Manga> mangaList;
 }
 
 final appState = AppState();

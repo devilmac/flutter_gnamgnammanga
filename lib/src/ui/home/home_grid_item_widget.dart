@@ -10,21 +10,19 @@ class HomeGridItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-//        _navigateToMovieDetailPage(context);
-      },
-      child: Card(
-          elevation: 4,
-          clipBehavior: Clip.antiAlias,
-          child: Column(
+    return Card(
+      elevation: 4,
+      clipBehavior: Clip.antiAlias,
+      child: Stack(
+        children: <Widget>[
+          Column(
             children: <Widget>[
               Stack(
                 textDirection: TextDirection.ltr,
                 children: <Widget>[
                   Center(
                       child: Hero(
-                    tag: "",
+                    tag: _manga.mangaID,
                     child: FadeInImage.memoryNetwork(
                         placeholder: kTransparentImage,
                         image: _manga.image != null
@@ -44,7 +42,18 @@ class HomeGridItemWidget extends StatelessWidget {
                     ),
                   ))
             ],
-          )),
+          ),
+          Positioned.fill(
+              child: Material(
+            type: MaterialType.transparency,
+            child: InkWell(
+              onTap: () {
+//              _navigateToMovieDetailPage(context);
+              },
+            ),
+          ))
+        ],
+      ),
     );
   }
 

@@ -63,7 +63,7 @@ class MangaedenService extends MangaService {
         chapters: _mapChapters(manga.chapters),
         chaptersLen: manga.chaptersLen,
         description: manga.description,
-        image: "$baseImageUrl${manga.image}",
+        image: _mapImage(manga.image),
         language: _mapLanguage(manga.language),
         lastChapterDate: manga.lastChapterDate,
         released: manga.released,
@@ -87,5 +87,15 @@ class MangaedenService extends MangaService {
 
   String _mapLanguage(int language) {
     return mangaLanguage[language];
+  }
+
+  String _mapImage(String image) {
+    String result;
+
+    if (image != null) {
+      result = "$baseImageUrl$image";
+    }
+
+    return result;
   }
 }
