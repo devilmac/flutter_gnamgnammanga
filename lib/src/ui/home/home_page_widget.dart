@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/resource/string/resource_string.dart';
+import 'package:flutter_app/src/resource/resource_string.dart';
 
 import 'grid_manga_widget.dart';
 

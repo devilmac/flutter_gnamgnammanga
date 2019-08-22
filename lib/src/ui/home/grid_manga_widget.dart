@@ -1,22 +1,5 @@
-import 'dart:async';
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_app/repository/network/model/mangaeden/manga.dart';
-import 'package:http/http.dart' as http;
-
-Future<Manga> fetchManga() async {
-  final response =
-      await http.get("https://jsonplaceholder.typicode.com/posts/1");
-
-  if (response.statusCode == 200) {
-    // If the call to the server was successful, parse the JSON
-    return Manga.fromJson(json.decode(response.body));
-  } else {
-    // If that call was not successful, throw an error.
-    throw Exception('Failed to load manga');
-  }
-}
+import 'package:flutter_app/src/domain/manga.dart';
 
 class GridMangaWidget extends StatelessWidget {
 //  GridMangaWidget({this.mangas});
@@ -28,7 +11,7 @@ class GridMangaWidget extends StatelessWidget {
     //TODO Create grid layout to show manga
     return Center(
       child: FutureBuilder<Manga>(
-        future: fetchManga(),
+//        future: fetchManga(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Text(snapshot.data.title);
@@ -37,7 +20,7 @@ class GridMangaWidget extends StatelessWidget {
           }
 
           // By default, show a loading spinner
-          return CircularProgressIndicator();
+          return Center(child: CircularProgressIndicator());
         },
       ),
     );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/resource/string/resource_string.dart';
-import 'package:flutter_app/ui/splash/splash_screen_widget.dart';
+import 'package:flutter_app/src/resource/resource_string.dart';
+import 'package:flutter_app/src/ui/splash/splash_screen_widget.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class AppWidget extends StatelessWidget {

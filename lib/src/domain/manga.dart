@@ -14,7 +14,7 @@ class Manga {
   String status;
   String title;
 
-  Manga(
+  Manga({
     this.aka,
     this.author,
     this.categories,
@@ -27,5 +27,5 @@ class Manga {
     this.released,
     this.status,
     this.title,
-  );
+  });
 }

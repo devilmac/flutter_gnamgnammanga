@@ -1,4 +1,4 @@
-import 'package:flutter_app/domain/manga.dart' as domain;
+import 'package:flutter_app/src/domain/manga.dart' as domain;
 
 import '../manga_adapter.dart';
 import 'manga_database.dart';

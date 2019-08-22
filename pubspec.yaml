@@ -1,6 +1,8 @@
 name: flutter_app
 description: A new Flutter application.
 
+version: 0.0.2
+
 dependencies:
   flutter:
     sdk: flutter
@@ -9,25 +11,35 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
 
-  flutter_staggered_grid_view:
-
   flutter_localizations:
     sdk: flutter
 
+  flutter_staggered_grid_view:
   http: any
-
-  json_serializable:
   json_annotation:
-
   sqflite:
   path_provider: any
-
+  smooth_star_rating:
+  equatable:
+  path:
+  mobx:
+  flutter_mobx:
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   build_runner:
-  chopper_generator:
+
+  mobx_codegen:
+
+  json_serializable:
+
+  mockito: any
+  flutter_driver:
+    sdk: flutter
+  test: any
+
+  image_test_utils: any
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
