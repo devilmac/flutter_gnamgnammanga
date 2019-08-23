@@ -7,7 +7,7 @@ class MangaSearchDelegate extends SearchDelegate {
       IconButton(
         icon: Icon(Icons.clear),
         onPressed: () {
-          close(context, null);
+          query = "";
         },
       ),
     ];

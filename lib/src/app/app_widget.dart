@@ -11,7 +11,7 @@ class AppWidget extends StatelessWidget {
       title: APP_NAME,
       theme: ThemeData(
           primaryColor: Colors.indigoAccent, primaryColorDark: Colors.indigo),
-      home: MangaHomePage.gnamGnamHomePage(title: 'Manga'),
+      home: MangaHomePage(title: 'Manga'),
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

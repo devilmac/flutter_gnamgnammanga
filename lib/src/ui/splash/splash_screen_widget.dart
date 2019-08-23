@@ -13,8 +13,7 @@ class SplashScreenWidget extends StatelessWidget {
     fetchManga().then((value) => Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                MangaHomePage.gnamGnamHomePage(title: 'Manga'),
+            builder: (context) => MangaHomePage(title: 'Manga'),
           ),
         ));
 

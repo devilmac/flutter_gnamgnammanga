@@ -7,7 +7,7 @@ import 'manga_search_delegate.dart';
 class MangaHomePage extends StatefulWidget {
   final String title;
 
-  MangaHomePage.gnamGnamHomePage({Key key, this.title}) : super(key: key);
+  MangaHomePage({Key key, this.title}) : super(key: key);
 
   @override
   MangaHomePageState createState() {

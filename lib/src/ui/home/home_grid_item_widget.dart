@@ -48,7 +48,7 @@ class HomeGridItemWidget extends StatelessWidget {
             type: MaterialType.transparency,
             child: InkWell(
               onTap: () {
-//              _navigateToMovieDetailPage(context);
+//                _navigateToMangaDetailPage(context);
               },
             ),
           ))
@@ -57,7 +57,7 @@ class HomeGridItemWidget extends StatelessWidget {
     );
   }
 
-//  _navigateToMovieDetailPage(BuildContext context) {
+//  _navigateToMangaDetailPage(BuildContext context) {
 //    Navigator.push(context,
 //        MaterialPageRoute(builder: (context) => MovieDetailWidget(_movie)));
 //  }
