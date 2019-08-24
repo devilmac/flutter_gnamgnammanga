@@ -22,18 +22,19 @@ dependencies:
   smooth_star_rating:
   equatable:
   path:
+
   mobx:
   flutter_mobx:
+
   transparent_image:
   intro_views_flutter:
+  clippy_flutter:
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   build_runner:
-
   mobx_codegen:
-
   json_serializable:
 
   mockito: any
