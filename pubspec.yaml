@@ -29,6 +29,7 @@ dependencies:
   transparent_image:
   intro_views_flutter:
   clippy_flutter:
+  flutter_swiper:
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -25,4 +25,21 @@ mixin _$AppState on _AppState, Store {
       _$mangaListAtom.reportChanged();
     }, _$mangaListAtom, name: '${_$mangaListAtom.name}_set');
   }
+
+  final _$mangaAtom = Atom(name: '_AppState.manga');
+
+  @override
+  Manga get manga {
+    _$mangaAtom.context.enforceReadPolicy(_$mangaAtom);
+    _$mangaAtom.reportObserved();
+    return super.manga;
+  }
+
+  @override
+  set manga(Manga value) {
+    _$mangaAtom.context.conditionallyRunInAction(() {
+      super.manga = value;
+      _$mangaAtom.reportChanged();
+    }, _$mangaAtom, name: '${_$mangaAtom.name}_set');
+  }
 }

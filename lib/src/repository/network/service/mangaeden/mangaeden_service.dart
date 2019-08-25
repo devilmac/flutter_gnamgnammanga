@@ -41,7 +41,7 @@ class MangaedenService extends MangaService {
   Future<domain.Manga> getMangaDetail(String mangaID) async {
     domain.Manga result;
 
-    final response = await http.get(MANGA_DETAIL);
+    final response = await http.get("$MANGA_DETAIL$mangaID");
 
     if (response.statusCode == 200) {
       var body = json.decode(response.body);
@@ -59,22 +59,22 @@ class MangaedenService extends MangaService {
         mangaID: manga.mangaID,
         aka: manga.aka,
         author: manga.author,
-        categories: manga.categories,
+        categories: manga.c != null ? manga.c : manga.categories,
         chapters: _mapChapters(manga.chapters),
         chaptersLen: manga.chaptersLen,
         description: manga.description,
         image: _mapImage(manga.image),
         language: _mapLanguage(manga.language),
-        lastChapterDate: manga.lastChapterDate,
+        lastChapterDate: manga.ld != null ? manga.ld : manga.lastChapterDate,
         released: manga.released,
         status: _mapStatus(manga.status),
-        title: manga.title);
+        title: manga.t != null ? manga.t : manga.title);
     return result;
   }
 
   List<domain.Chapter> _mapChapters(List<List<dynamic>> chaptersFromNetwork) {
     var chapters = chaptersFromNetwork?.map((List<dynamic> chapter) {
-      return domain.Chapter(chapter[0] as double, chapter[1] as double,
+      return domain.Chapter(chapter[0].toString(), chapter[1] as double,
           chapter[2] as String, chapter[3] as String);
     })?.toList();
 

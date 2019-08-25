@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/domain/manga.dart';
 import 'package:flutter_app/src/helper/configuration.dart';
-import 'package:flutter_app/src/ui/detail/manga_detail_widget.dart';
+import 'package:flutter_app/src/state/app_state.dart';
+import 'package:flutter_app/src/ui/detail/detail_manga_widget.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class HomeGridItemWidget extends StatelessWidget {
@@ -49,6 +50,7 @@ class HomeGridItemWidget extends StatelessWidget {
             type: MaterialType.transparency,
             child: InkWell(
               onTap: () {
+                appState.manga = null;
                 _navigateToMangaDetailPage(context, _manga);
               },
             ),
@@ -59,14 +61,8 @@ class HomeGridItemWidget extends StatelessWidget {
   }
 
   _navigateToMangaDetailPage(BuildContext context, Manga manga) {
-//    PageRouteBuilder(
-//        transitionDuration: Duration(seconds: 2),
-//        pageBuilder: (_, __, ___) => MangaDetailWidget(manga));
-
-    Navigator.push(
-        context,
-        PageRouteBuilder(
-            transitionDuration: Duration(seconds: 1, milliseconds: 500),
-            pageBuilder: (_, __, ___) => MangaDetailWidget(manga)));
+    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+      return DetailMangaWidget(manga);
+    }));
   }
 }

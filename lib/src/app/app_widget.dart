@@ -10,7 +10,8 @@ class AppWidget extends StatelessWidget {
     return MaterialApp(
       title: APP_NAME,
       theme: ThemeData(
-          primaryColor: Colors.indigoAccent, primaryColorDark: Colors.indigo),
+          primaryColor: Colors.deepPurpleAccent,
+          primaryColorDark: Colors.deepPurple),
       home: MangaHomePage(title: 'Manga'),
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,

@@ -7,7 +7,6 @@ part of 'manga.dart';
 // **************************************************************************
 
 Manga _$MangaFromJson(Map<String, dynamic> json) {
-  $checkKeys(json, requiredKeys: const ['i']);
   return Manga(
     json['i'] as String,
     (json['aka'] as List)?.map((e) => e as String)?.toList(),
@@ -27,20 +26,23 @@ Manga _$MangaFromJson(Map<String, dynamic> json) {
     json['im'] as String,
     json['imageURL'] as String,
     json['language'] as int,
-    (json['ld'] as num)?.toDouble(),
+    (json['last_chapter_date'] as num)?.toDouble(),
     (json['random'] as List)?.map((e) => (e as num)?.toDouble())?.toList(),
     json['released'] as int,
     json['startsWith'] as String,
     json['s'] as int,
-    json['t'] as String,
+    json['title'] as String,
     (json['title_kw'] as List)?.map((e) => e as String)?.toList(),
     json['type'] as int,
     json['updatedKeywords'] as bool,
-  );
+    (json['ld'] as num)?.toDouble(),
+    json['t'] as String,
+  )..categories =
+      (json['categories'] as List)?.map((e) => e as String)?.toList();
 }
 
 Map<String, dynamic> _$MangaToJson(Manga instance) => <String, dynamic>{
-      'i': instance.mangaID,
+      'i': instance.i,
       'aka': instance.aka,
       'aka-alias': instance.akaAlias,
       'alias': instance.alias,
@@ -49,7 +51,8 @@ Map<String, dynamic> _$MangaToJson(Manga instance) => <String, dynamic>{
       'author': instance.author,
       'author_kw': instance.authorKw,
       'baka': instance.baka,
-      'c': instance.categories,
+      'c': instance.c,
+      'categories': instance.categories,
       'chapters': instance.chapters,
       'chapters_len': instance.chaptersLen,
       'created': instance.created,
@@ -58,12 +61,14 @@ Map<String, dynamic> _$MangaToJson(Manga instance) => <String, dynamic>{
       'im': instance.image,
       'imageURL': instance.imageURL,
       'language': instance.language,
-      'ld': instance.lastChapterDate,
+      'ld': instance.ld,
+      'last_chapter_date': instance.lastChapterDate,
       'random': instance.random,
       'released': instance.released,
       'startsWith': instance.startsWith,
       's': instance.status,
-      't': instance.title,
+      't': instance.t,
+      'title': instance.title,
       'title_kw': instance.titleKw,
       'type': instance.type,
       'updatedKeywords': instance.updatedKeywords,

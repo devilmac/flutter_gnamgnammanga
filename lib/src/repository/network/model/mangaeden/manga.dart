@@ -4,8 +4,11 @@ part 'manga.g.dart';
 
 @JsonSerializable()
 class Manga {
-  @JsonKey(name: "i", required: true)
-  final String mangaID;
+  @JsonKey(name: "i")
+  final String i;
+
+  @JsonKey(ignore: true)
+  String mangaID;
 
   final List<String> aka;
 
@@ -23,7 +26,9 @@ class Manga {
   final bool baka;
 
   @JsonKey(name: "c")
-  final List<String> categories;
+  final List<String> c;
+
+  List<String> categories;
 
   final List<List<dynamic>> chapters;
 
@@ -39,7 +44,11 @@ class Manga {
   final int language;
 
   @JsonKey(name: "ld")
+  final double ld;
+
+  @JsonKey(name: "last_chapter_date")
   final double lastChapterDate;
+
   final List<double> random;
   final int released;
   final String startsWith;
@@ -48,6 +57,8 @@ class Manga {
   final int status;
 
   @JsonKey(name: "t")
+  final String t;
+
   final String title;
 
   @JsonKey(name: "title_kw")
@@ -56,7 +67,7 @@ class Manga {
   final bool updatedKeywords;
 
   Manga(
-      this.mangaID,
+      this.i,
       this.aka,
       this.akaAlias,
       this.alias,
@@ -65,7 +76,7 @@ class Manga {
       this.author,
       this.authorKw,
       this.baka,
-      this.categories,
+      this.c,
       this.chapters,
       this.chaptersLen,
       this.created,
@@ -82,8 +93,18 @@ class Manga {
       this.title,
       this.titleKw,
       this.type,
-      this.updatedKeywords);
+      this.updatedKeywords,
+      this.ld,
+      this.t) {
+    mangaID = i;
+    categories = c;
+  }
 
   factory Manga.fromJson(Map<String, dynamic> json) => _$MangaFromJson(json);
   Map<String, dynamic> toJson() => _$MangaToJson(this);
+
+  @override
+  String toString() {
+    return 'Manga{mangaID: $mangaID, title: $title}';
+  }
 }
