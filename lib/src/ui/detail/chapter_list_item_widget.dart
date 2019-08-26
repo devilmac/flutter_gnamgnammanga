@@ -1,29 +1,67 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/domain/chapter.dart';
-import 'package:flutter_app/src/repository/manga_adapter.dart';
-import 'package:flutter_app/src/repository/network/manga_network_adapter.dart';
-import 'package:flutter_app/src/repository/network/service/mangaeden/mangaeden_service.dart';
+import 'package:flutter_app/src/ui/custom/material_ripple.dart';
 
-class ChapterListItemWidget extends StatefulWidget {
+class ChapterListItemWidget extends StatelessWidget {
   final Chapter _chapter;
 
   ChapterListItemWidget(this._chapter);
 
   @override
-  _ChapterListItemWidgetState createState() => _ChapterListItemWidgetState();
-}
-
-class _ChapterListItemWidgetState extends State<ChapterListItemWidget> {
-  @override
   Widget build(BuildContext context) {
-    return null;
+    return SizedBox(
+        child: Card(
+      elevation: 4,
+      clipBehavior: Clip.antiAlias,
+      child: Stack(
+        children: <Widget>[
+          Column(
+            children: <Widget>[
+              Expanded(
+                child: Stack(
+                  textDirection: TextDirection.ltr,
+                  children: <Widget>[
+                    Center(
+                        child: Hero(
+                            tag: _chapter.chapterID,
+                            child:
+                                Image.asset("assets/chapter_placeholder.png")))
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Text(
+                  "Chapter " + _chapter.number,
+                ),
+              )
+            ],
+          ),
+          Positioned.fill(
+              child: MaterialRipple(
+            onPressed: () {},
+          ))
+        ],
+      ),
+    ));
+//        } else {
+//          return Container(
+//            child: Padding(
+//              padding: const EdgeInsets.all(8.0),
+//              child: Center(child: CircularProgressIndicator()),
+//            ),
+//          );
+//        }
+//  );
   }
 
-  Future<void> fetchChapterDetail(String chapterID) async {
-    MangaAdapter adapter = MangaNetworkAdapter(MangaedenService());
+//  Future<List<ChapterImage>> _fetchChapterDetail(String chapterID) {
+//    MangaAdapter adapter = MangaNetworkAdapter(MangaedenService());
+//
+//    return adapter.getChapterDetail(chapterID);
+//  }
 
-    var mangaDetail = await adapter.getMangaDetail(chapterID);
-
-//    appState.manga = mangaDetail;
-  }
+//  Widget _getChapterItemImage(String imageUrl) {
+//    return Image.asset("chapter_placeholder.jpg");
+//  }
 }

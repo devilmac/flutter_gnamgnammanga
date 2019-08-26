@@ -1,4 +1,4 @@
-import 'package:flutter_app/src/domain/chapter.dart';
+import 'package:flutter_app/src/domain/chapter_image.dart';
 import 'package:flutter_app/src/domain/manga.dart' as domain;
 
 import '../manga_adapter.dart';
@@ -20,7 +20,7 @@ class MangaNetworkAdapter implements MangaAdapter {
   }
 
   @override
-  Future<Chapter> getChapterDetail(String chapterID) async {
+  Future<List<ChapterImage>> getChapterDetail(String chapterID) async {
     return _mangaService.getChapterDetail(chapterID);
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/domain/manga.dart';
-import 'package:flutter_app/src/helper/configuration.dart';
-import 'package:flutter_app/src/ui/custom/material_ripple.dart';
+
+import 'chapter_list_item_widget.dart';
 
 class DetailBodyWidget extends StatelessWidget {
   final String _title;
@@ -63,6 +63,26 @@ class DetailBodyWidget extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 8.0),
                   child: Text(_manga.description)),
               Padding(padding: const EdgeInsets.only(top: 8.0)),
+              Text(
+                "Chapters",
+                style: TextStyle(
+                    fontSize: 18.0,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: SizedBox(
+                  height: 150,
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: _manga.chapters.length,
+                      physics: ClampingScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return ChapterListItemWidget(_manga.chapters[index]);
+                      }),
+                ),
+              ),
               Row(children: <Widget>[
                 Text(
                   "Status:",
@@ -83,6 +103,7 @@ class DetailBodyWidget extends StatelessWidget {
       return Padding(
         padding: const EdgeInsets.only(right: 2.0),
         child: Chip(
+          deleteIcon: null,
           clipBehavior: Clip.antiAlias,
           backgroundColor: Colors.deepPurpleAccent,
           label: Text(

@@ -11,10 +11,10 @@ abstract class _AppState with Store {
   final _mangaAdapter = MangaNetworkAdapter(MangaedenService());
 
   @observable
-  List<Manga> mangaList;
+  Manga manga;
 
   @observable
-  Manga manga;
+  List<Manga> mangaList;
 
   @action
   Future getManga() async {

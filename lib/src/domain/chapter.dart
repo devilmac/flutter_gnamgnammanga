@@ -4,14 +4,14 @@ class Chapter {
   String number;
   double date;
   String title;
-  String id;
+  String chapterID;
   List<ChapterImage> images;
 
-  Chapter(this.number, this.date, this.title, this.id);
+  Chapter(this.number, this.date, this.title, this.chapterID);
 
   @override
   String toString() {
-    return 'Chapter{number: $number, date: $date, title: $title, id: $id}';
+    return 'Chapter{number: $number, date: $date, title: $title, id: $chapterID}';
   }
 
   @override
@@ -22,7 +22,7 @@ class Chapter {
           number == other.number &&
           date == other.date &&
           title == other.title &&
-          id == other.id &&
+          chapterID == other.chapterID &&
           images == other.images;
 
   @override
@@ -30,6 +30,6 @@ class Chapter {
       number.hashCode ^
       date.hashCode ^
       title.hashCode ^
-      id.hashCode ^
+      chapterID.hashCode ^
       images.hashCode;
 }

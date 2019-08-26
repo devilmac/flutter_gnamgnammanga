@@ -1,4 +1,4 @@
-import 'package:flutter_app/src/domain/chapter.dart' as domain;
+import 'package:flutter_app/src/domain/chapter_image.dart' as domain;
 import 'package:flutter_app/src/domain/manga.dart' as domain;
 
 abstract class MangaAdapter {
@@ -6,5 +6,5 @@ abstract class MangaAdapter {
 
   Future<domain.Manga> getMangaDetail(String mangaID);
 
-  Future<domain.Chapter> getChapterDetail(String chapterID);
+  Future<List<domain.ChapterImage>> getChapterDetail(String chapterID);
 }

@@ -50,11 +50,10 @@ domain.Manga manageGetMangaDetailResponse(String responseBody) {
   return result;
 }
 
-List<domain.ChapterImage> manageGetChapterDetailResponse(
-    http.Response response) {
+List<domain.ChapterImage> manageGetChapterDetailResponse(String responseBody) {
   List<domain.ChapterImage> result;
 
-  var body = json.decode(response.body);
+  var body = json.decode(responseBody);
 
   var chapter = network.Chapter.fromJson(body);
 
@@ -92,7 +91,7 @@ List<domain.Chapter> _mapChapters(List<List<dynamic>> chaptersFromNetwork) {
 
 List<domain.ChapterImage> _mapChapterDetail(List<List<dynamic>> chapterImages) {
   var images = chapterImages?.map((element) {
-    return domain.ChapterImage(element[0] as int, element[1] as String,
+    return domain.ChapterImage(element[0] as int, _mapImage(element[1]),
         element[2] as int, element[3] as int);
   })?.toList();
 
@@ -141,11 +140,11 @@ class MangaedenService extends MangaService {
   }
 
   @override
-  Future<dynamic> getChapterDetail(String chapterID) async {
+  Future<List<domain.ChapterImage>> getChapterDetail(String chapterID) async {
     var response = await http.get("$CHAPTER_DETAIL$chapterID");
 
     if (response.statusCode == 200) {
-      return compute(manageGetChapterDetailResponse, response);
+      return compute(manageGetChapterDetailResponse, response.body);
     }
 
     return null;

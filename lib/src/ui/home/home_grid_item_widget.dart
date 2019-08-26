@@ -65,10 +65,10 @@ class HomeGridItemWidget extends StatelessWidget {
 
     try {
       widgetImage = FadeInImage.assetNetwork(
-          placeholder: "placeholder.png",
+          placeholder: "assets/placeholder.png",
           image: imageUrl != null ? imageUrl : gridImagePlaceholder);
     } on Exception {
-      widgetImage = Image.asset("placeholder.png");
+      widgetImage = Image.asset("assets/placeholder.png");
     }
 
     return widgetImage;

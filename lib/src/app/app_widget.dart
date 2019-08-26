@@ -11,9 +11,8 @@ class AppWidget extends StatelessWidget {
     return MaterialApp(
       title: APP_NAME,
       theme: ThemeData(
-          accentColor: Colors.grey,
-          primaryColor: Colors.deepPurpleAccent,
-          primaryColorDark: Colors.deepPurple),
+          primaryColor: Colors.deepPurple,
+          accentColor: Colors.deepPurpleAccent),
       home: MangaHomePage(title: 'Manga'),
       routes: {DetailMangaWidget.routeName: (context) => DetailMangaWidget()},
       localizationsDelegates: [
