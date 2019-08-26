@@ -37,8 +37,10 @@ Manga _$MangaFromJson(Map<String, dynamic> json) {
     json['updatedKeywords'] as bool,
     (json['ld'] as num)?.toDouble(),
     json['t'] as String,
-  )..categories =
-      (json['categories'] as List)?.map((e) => e as String)?.toList();
+  )
+    ..categories =
+        (json['categories'] as List)?.map((e) => e as String)?.toList()
+    ..status = json['status'] as int;
 }
 
 Map<String, dynamic> _$MangaToJson(Manga instance) => <String, dynamic>{
@@ -66,7 +68,8 @@ Map<String, dynamic> _$MangaToJson(Manga instance) => <String, dynamic>{
       'random': instance.random,
       'released': instance.released,
       'startsWith': instance.startsWith,
-      's': instance.status,
+      's': instance.s,
+      'status': instance.status,
       't': instance.t,
       'title': instance.title,
       'title_kw': instance.titleKw,

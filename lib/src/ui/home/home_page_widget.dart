@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/resource/resource_string.dart';
+import 'package:flutter_app/src/state/app_state.dart';
 
 import 'grid_manga_widget.dart';
 import 'manga_search_delegate.dart';
@@ -28,6 +29,8 @@ class MangaHomePageState extends State<MangaHomePage>
   void initState() {
     super.initState();
     _mangaTabController = TabController(vsync: this, length: mangaTabs.length);
+
+    appState.getManga();
   }
 
   @override

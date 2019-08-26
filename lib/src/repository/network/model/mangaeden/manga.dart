@@ -54,7 +54,9 @@ class Manga {
   final String startsWith;
 
   @JsonKey(name: "s")
-  final int status;
+  final int s;
+
+  int status;
 
   @JsonKey(name: "t")
   final String t;
@@ -89,7 +91,7 @@ class Manga {
       this.random,
       this.released,
       this.startsWith,
-      this.status,
+      this.s,
       this.title,
       this.titleKw,
       this.type,
@@ -107,4 +109,77 @@ class Manga {
   String toString() {
     return 'Manga{mangaID: $mangaID, title: $title}';
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Manga &&
+          runtimeType == other.runtimeType &&
+          i == other.i &&
+          mangaID == other.mangaID &&
+          aka == other.aka &&
+          akaAlias == other.akaAlias &&
+          alias == other.alias &&
+          artist == other.artist &&
+          artistKw == other.artistKw &&
+          author == other.author &&
+          authorKw == other.authorKw &&
+          baka == other.baka &&
+          c == other.c &&
+          categories == other.categories &&
+          chapters == other.chapters &&
+          chaptersLen == other.chaptersLen &&
+          created == other.created &&
+          description == other.description &&
+          hits == other.hits &&
+          image == other.image &&
+          imageURL == other.imageURL &&
+          language == other.language &&
+          ld == other.ld &&
+          lastChapterDate == other.lastChapterDate &&
+          random == other.random &&
+          released == other.released &&
+          startsWith == other.startsWith &&
+          s == other.s &&
+          status == other.status &&
+          t == other.t &&
+          title == other.title &&
+          titleKw == other.titleKw &&
+          type == other.type &&
+          updatedKeywords == other.updatedKeywords;
+
+  @override
+  int get hashCode =>
+      i.hashCode ^
+      mangaID.hashCode ^
+      aka.hashCode ^
+      akaAlias.hashCode ^
+      alias.hashCode ^
+      artist.hashCode ^
+      artistKw.hashCode ^
+      author.hashCode ^
+      authorKw.hashCode ^
+      baka.hashCode ^
+      c.hashCode ^
+      categories.hashCode ^
+      chapters.hashCode ^
+      chaptersLen.hashCode ^
+      created.hashCode ^
+      description.hashCode ^
+      hits.hashCode ^
+      image.hashCode ^
+      imageURL.hashCode ^
+      language.hashCode ^
+      ld.hashCode ^
+      lastChapterDate.hashCode ^
+      random.hashCode ^
+      released.hashCode ^
+      startsWith.hashCode ^
+      s.hashCode ^
+      status.hashCode ^
+      t.hashCode ^
+      title.hashCode ^
+      titleKw.hashCode ^
+      type.hashCode ^
+      updatedKeywords.hashCode;
 }

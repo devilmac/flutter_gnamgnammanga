@@ -1,3 +1,4 @@
+import 'package:flutter_app/src/domain/chapter.dart';
 import 'package:flutter_app/src/domain/manga.dart' as domain;
 
 import '../manga_adapter.dart';
@@ -13,6 +14,11 @@ class MangaDbAdapter implements MangaAdapter {
 
   @override
   Future<domain.Manga> getMangaDetail(String mangaID) {
+    return null;
+  }
+
+  @override
+  Future<Chapter> getChapterDetail(String chapterID) {
     return null;
   }
 }

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/domain/manga.dart';
-import 'package:flutter_app/src/state/app_state.dart';
-
-import 'manga_chapter_swiper.dart';
+import 'package:flutter_app/src/helper/configuration.dart';
+import 'package:flutter_app/src/ui/custom/material_ripple.dart';
 
 class DetailBodyWidget extends StatelessWidget {
   final String _title;
@@ -13,73 +12,70 @@ class DetailBodyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              _title,
-              style: TextStyle(
-                  fontSize: 32.0,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-            ),
-            Row(
-              children: <Widget>[
-                Text(
-                  "Written:",
-                  style: TextStyle(
-                      fontSize: 14.0,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600),
-                ),
-                Text(_manga.author)
-              ],
-            ),
-            Row(
-              children: <Widget>[
-                Text(
-                  "Updated:",
-                  style: TextStyle(
-                      fontSize: 14.0,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600),
-                ),
-                Text(DateTime.fromMillisecondsSinceEpoch(
-                        _manga.lastChapterDate.toInt() * 1000)
-                    .toString())
-              ],
-            ),
-            Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child:
-                    Row(children: categorieChips(context, _manga.categories))),
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: Text(_manga.description),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: Text(
-                "Chapters",
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                _title,
                 style: TextStyle(
-                    fontSize: 18.0,
+                    fontSize: 32.0,
                     color: Colors.black,
-                    fontWeight: FontWeight.w600),
+                    fontWeight: FontWeight.bold),
               ),
-            ),
-            Row(
-              children: <Widget>[MangaChapterSwiper(_manga.chapters)],
-            )
-          ],
-        ),
-      ),
-    );
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+              ),
+              Row(
+                children: <Widget>[
+                  Text(
+                    "Written:",
+                    style: TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  Text(_manga.author)
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  Text(
+                    "Updated:",
+                    style: TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  Text(DateTime.fromMillisecondsSinceEpoch(
+                          _manga.lastChapterDate.toInt() * 1000)
+                      .toString())
+                ],
+              ),
+              Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Row(
+                      children: categorieChips(context, _manga.categories))),
+              Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Text(_manga.description)),
+              Padding(padding: const EdgeInsets.only(top: 8.0)),
+              Row(children: <Widget>[
+                Text(
+                  "Status:",
+                  style: TextStyle(
+                      fontSize: 14.0,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600),
+                ),
+                Text(_manga.status)
+              ])
+            ],
+          ),
+        ));
   }
 
   List<Widget> categorieChips(BuildContext context, List<String> categories) {

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_app/src/domain/manga.dart';
 import 'package:flutter_app/src/helper/configuration.dart';
 import 'package:flutter_app/src/state/app_state.dart';
+import 'package:flutter_app/src/ui/custom/material_ripple.dart';
 import 'package:flutter_app/src/ui/detail/detail_manga_widget.dart';
-import 'package:transparent_image/transparent_image.dart';
+import 'package:flutter_app/src/ui/detail/manga_detail_arguments.dart';
 
 class HomeGridItemWidget extends StatelessWidget {
   HomeGridItemWidget(this._manga);
@@ -24,13 +26,8 @@ class HomeGridItemWidget extends StatelessWidget {
                 children: <Widget>[
                   Center(
                       child: Hero(
-                    tag: _manga.mangaID,
-                    child: FadeInImage.memoryNetwork(
-                        placeholder: kTransparentImage,
-                        image: _manga.image != null
-                            ? _manga.image
-                            : gridImagePlaceholder),
-                  ))
+                          tag: _manga.mangaID,
+                          child: _getGridItemImage(_manga.image)))
                 ],
               ),
               Padding(
@@ -45,24 +42,35 @@ class HomeGridItemWidget extends StatelessWidget {
                   ))
             ],
           ),
-          Positioned.fill(
-              child: Material(
-            type: MaterialType.transparency,
-            child: InkWell(
-              onTap: () {
-                appState.manga = null;
-                _navigateToMangaDetailPage(context, _manga);
-              },
-            ),
+          Positioned.fill(child: MaterialRipple(
+            onPressed: () {
+              appState.manga = null;
+              appState.getMangaDetail(_manga.mangaID);
+              _navigateToMangaDetailPage(context);
+            },
           ))
         ],
       ),
     );
   }
 
-  _navigateToMangaDetailPage(BuildContext context, Manga manga) {
-    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
-      return DetailMangaWidget(manga);
-    }));
+  _navigateToMangaDetailPage(BuildContext context) {
+    Navigator.pushNamed(context, DetailMangaWidget.routeName,
+        arguments:
+            MangaDetailArguments(_manga.mangaID, _manga.title, _manga.image));
+  }
+
+  Widget _getGridItemImage(String imageUrl) {
+    var widgetImage;
+
+    try {
+      widgetImage = FadeInImage.assetNetwork(
+          placeholder: "placeholder.png",
+          image: imageUrl != null ? imageUrl : gridImagePlaceholder);
+    } on Exception {
+      widgetImage = Image.asset("placeholder.png");
+    }
+
+    return widgetImage;
   }
 }

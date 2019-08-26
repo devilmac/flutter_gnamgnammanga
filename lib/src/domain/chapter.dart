@@ -1,8 +1,11 @@
+import 'package:flutter_app/src/domain/chapter_image.dart';
+
 class Chapter {
   String number;
   double date;
   String title;
   String id;
+  List<ChapterImage> images;
 
   Chapter(this.number, this.date, this.title, this.id);
 
@@ -19,9 +22,14 @@ class Chapter {
           number == other.number &&
           date == other.date &&
           title == other.title &&
-          id == other.id;
+          id == other.id &&
+          images == other.images;
 
   @override
   int get hashCode =>
-      number.hashCode ^ date.hashCode ^ title.hashCode ^ id.hashCode;
+      number.hashCode ^
+      date.hashCode ^
+      title.hashCode ^
+      id.hashCode ^
+      images.hashCode;
 }
