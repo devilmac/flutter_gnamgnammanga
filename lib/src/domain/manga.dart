@@ -1,3 +1,5 @@
+import 'package:flutter_app/src/repository/local/mangaeden/sqlite_util.dart';
+
 import 'chapter.dart';
 
 class Manga {
@@ -30,6 +32,41 @@ class Manga {
     this.status,
     this.title,
   });
+
+  Map<String, dynamic> toMap() {
+    var map = <String, dynamic>{
+      MANGA_ID_COLUMN: aka,
+      AUTHOR_COLUMN: author,
+      CATEGORIES_COLUMN: categories.join("|"),
+      DESCRIPTION_COLUMN: description,
+      IMAGE_COLUMN: image,
+      LANGUAGE_COLUMN: language,
+      LAST_CHAPTER_DATE_COLUMN: lastChapterDate,
+      RELEASED_COLUMN: released,
+      STATUS_COLUMN: status,
+      TITLE_COLUMN: title
+    };
+
+    if (mangaID != null) {
+      map[MANGA_ID_COLUMN] = mangaID;
+    }
+
+    return map;
+  }
+
+  Manga.fromMap(Map<String, dynamic> map) {
+    mangaID = map[MANGA_ID_COLUMN];
+    aka = map[AKA_COLUMN];
+    author = map[AUTHOR_COLUMN];
+    categories = (map[AUTHOR_COLUMN] as String).split("|");
+    description = map[DESCRIPTION_COLUMN];
+    image = map[IMAGE_COLUMN];
+    language = map[LANGUAGE_COLUMN];
+    lastChapterDate = map[LAST_CHAPTER_DATE_COLUMN];
+    released = map[RELEASED_COLUMN];
+    status = map[STATUS_COLUMN];
+    title = map[TITLE_COLUMN];
+  }
 
   @override
   String toString() {
