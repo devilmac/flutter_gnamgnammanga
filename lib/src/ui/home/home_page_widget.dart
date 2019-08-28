@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/locale/app_localizations.dart';
 import 'package:flutter_app/src/resource/resource_string.dart';
 import 'package:flutter_app/src/state/app_state.dart';
 
@@ -18,50 +19,42 @@ class MangaHomePage extends StatefulWidget {
 
 class MangaHomePageState extends State<MangaHomePage>
     with SingleTickerProviderStateMixin {
-  final List<Tab> mangaTabs = <Tab>[
-    Tab(text: TAB_MANGA),
-    Tab(text: TAB_FAVORITES),
-  ];
-
-  TabController _mangaTabController;
-
   @override
   void initState() {
     super.initState();
-    _mangaTabController = TabController(vsync: this, length: mangaTabs.length);
 
     appState.getManga();
   }
 
   @override
-  void dispose() {
-    _mangaTabController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {
-              showSearch(context: context, delegate: MangaSearchDelegate());
-            },
-          )
-        ],
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: new Text((context.widget as MangaHomePage).title),
-        bottom: TabBar(
-          tabs: mangaTabs,
-          controller: _mangaTabController,
+    final List<Tab> mangaTabs = <Tab>[
+      Tab(text: AppLocalizations.of(context).tabAllManga),
+      Tab(text: AppLocalizations.of(context).tabFavoritesManga),
+    ];
+
+    return DefaultTabController(
+      length: mangaTabs.length,
+      child: Scaffold(
+        appBar: AppBar(
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                showSearch(context: context, delegate: MangaSearchDelegate());
+              },
+            )
+          ],
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: new Text((context.widget as MangaHomePage).title),
+          bottom: TabBar(
+            tabs: mangaTabs,
+          ),
         ),
-      ),
-      body: TabBarView(
-        controller: _mangaTabController,
-        children: [GridMangaWidget(), Center(child: Text(TAB_FAVORITES))],
+        body: TabBarView(
+          children: [GridMangaWidget(), Center(child: Text(TAB_FAVORITES))],
+        ),
       ),
     );
   }

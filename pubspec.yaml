@@ -14,6 +14,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  flutter_cupertino_localizations:
+
   flutter_staggered_grid_view:
   http: any
   json_annotation:
@@ -30,6 +32,7 @@ dependencies:
   intro_views_flutter:
   clippy_flutter:
   flutter_swiper:
+  shared_preferences:
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -44,6 +47,9 @@ dev_dependencies:
   test: any
 
   image_test_utils: any
+
+  intl: any
+  intl_translation: ^0.17.6
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec

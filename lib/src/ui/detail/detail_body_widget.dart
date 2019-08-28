@@ -57,8 +57,11 @@ class DetailBodyWidget extends StatelessWidget {
               ),
               Padding(
                   padding: const EdgeInsets.only(top: 8.0),
-                  child: Row(
-                      children: categorieChips(context, _manga.categories))),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                        children: categorieChips(context, _manga.categories)),
+                  )),
               Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: Text(_manga.description)),
@@ -105,7 +108,7 @@ class DetailBodyWidget extends StatelessWidget {
         child: Chip(
           deleteIcon: null,
           clipBehavior: Clip.antiAlias,
-          backgroundColor: Colors.deepPurpleAccent,
+          backgroundColor: Theme.of(context).accentColor,
           label: Text(
             element,
             style: TextStyle(color: Colors.white),

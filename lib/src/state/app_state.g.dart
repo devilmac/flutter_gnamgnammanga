@@ -9,6 +9,23 @@ part of 'app_state.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$AppState on _AppState, Store {
+  final _$mangaAtom = Atom(name: '_AppState.manga');
+
+  @override
+  Manga get manga {
+    _$mangaAtom.context.enforceReadPolicy(_$mangaAtom);
+    _$mangaAtom.reportObserved();
+    return super.manga;
+  }
+
+  @override
+  set manga(Manga value) {
+    _$mangaAtom.context.conditionallyRunInAction(() {
+      super.manga = value;
+      _$mangaAtom.reportChanged();
+    }, _$mangaAtom, name: '${_$mangaAtom.name}_set');
+  }
+
   final _$mangaListAtom = Atom(name: '_AppState.mangaList');
 
   @override
@@ -26,20 +43,45 @@ mixin _$AppState on _AppState, Store {
     }, _$mangaListAtom, name: '${_$mangaListAtom.name}_set');
   }
 
-  final _$mangaAtom = Atom(name: '_AppState.manga');
+  final _$currentReadingChapterAtom =
+      Atom(name: '_AppState.currentReadingChapter');
 
   @override
-  Manga get manga {
-    _$mangaAtom.context.enforceReadPolicy(_$mangaAtom);
-    _$mangaAtom.reportObserved();
-    return super.manga;
+  List<ChapterImage> get currentReadingChapter {
+    _$currentReadingChapterAtom.context
+        .enforceReadPolicy(_$currentReadingChapterAtom);
+    _$currentReadingChapterAtom.reportObserved();
+    return super.currentReadingChapter;
   }
 
   @override
-  set manga(Manga value) {
-    _$mangaAtom.context.conditionallyRunInAction(() {
-      super.manga = value;
-      _$mangaAtom.reportChanged();
-    }, _$mangaAtom, name: '${_$mangaAtom.name}_set');
+  set currentReadingChapter(List<ChapterImage> value) {
+    _$currentReadingChapterAtom.context.conditionallyRunInAction(() {
+      super.currentReadingChapter = value;
+      _$currentReadingChapterAtom.reportChanged();
+    }, _$currentReadingChapterAtom,
+        name: '${_$currentReadingChapterAtom.name}_set');
+  }
+
+  final _$getMangaAsyncAction = AsyncAction('getManga');
+
+  @override
+  Future<dynamic> getManga() {
+    return _$getMangaAsyncAction.run(() => super.getManga());
+  }
+
+  final _$getMangaDetailAsyncAction = AsyncAction('getMangaDetail');
+
+  @override
+  Future<dynamic> getMangaDetail(String mangaID) {
+    return _$getMangaDetailAsyncAction.run(() => super.getMangaDetail(mangaID));
+  }
+
+  final _$getChapterDetailAsyncAction = AsyncAction('getChapterDetail');
+
+  @override
+  Future<dynamic> getChapterDetail(String chapterID) {
+    return _$getChapterDetailAsyncAction
+        .run(() => super.getChapterDetail(chapterID));
   }
 }

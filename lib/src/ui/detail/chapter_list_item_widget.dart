@@ -24,8 +24,10 @@ class ChapterListItemWidget extends StatelessWidget {
                     Center(
                         child: Hero(
                             tag: _chapter.chapterID,
-                            child:
-                                Image.asset("assets/chapter_placeholder.png")))
+                            child: Image.asset(
+                              "assets/chapter_placeholder.png",
+                              fit: BoxFit.cover,
+                            )))
                   ],
                 ),
               ),
@@ -44,15 +46,6 @@ class ChapterListItemWidget extends StatelessWidget {
         ],
       ),
     ));
-//        } else {
-//          return Container(
-//            child: Padding(
-//              padding: const EdgeInsets.all(8.0),
-//              child: Center(child: CircularProgressIndicator()),
-//            ),
-//          );
-//        }
-//  );
   }
 
 //  Future<List<ChapterImage>> _fetchChapterDetail(String chapterID) {

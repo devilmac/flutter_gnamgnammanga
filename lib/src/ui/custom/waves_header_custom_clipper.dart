@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-class DetailHeaderCustomClipper extends CustomClipper<Path> {
+class WavesHeaderCustomClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     var path = Path();

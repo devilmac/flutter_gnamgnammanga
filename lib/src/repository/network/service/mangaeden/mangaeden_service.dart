@@ -12,9 +12,10 @@ import 'package:flutter_app/src/repository/network/model/mangaeden/chapter.dart'
     as network;
 import 'package:flutter_app/src/repository/network/service/manga_service.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_app/src/helper/configuration.dart' as configuration;
 
 const String BASE_URL = "https://www.mangaeden.com/api";
-const String MANGA_LIST = "$BASE_URL/list/1/";
+String mangaList = "$BASE_URL/list/${configuration.mangaLanguage}";
 const String MANGA_DETAIL = "$BASE_URL/manga/";
 const String CHAPTER_DETAIL = "$BASE_URL/chapter/";
 
@@ -119,7 +120,7 @@ String _mapImage(String image) {
 class MangaedenService extends MangaService {
   @override
   Future<List<domain.Manga>> getManga() async {
-    final response = await http.get(MANGA_LIST);
+    final response = await http.get(mangaList);
 
     if (response.statusCode == 200) {
       return compute(manageGetMangaListResponse, response.body);
