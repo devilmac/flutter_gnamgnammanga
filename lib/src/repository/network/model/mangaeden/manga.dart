@@ -103,6 +103,7 @@ class Manga {
   }
 
   factory Manga.fromJson(Map<String, dynamic> json) => _$MangaFromJson(json);
+
   Map<String, dynamic> toJson() => _$MangaToJson(this);
 
   @override

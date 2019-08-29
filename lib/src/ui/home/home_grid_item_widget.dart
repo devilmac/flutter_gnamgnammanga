@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_app/src/domain/manga.dart';
 import 'package:flutter_app/src/helper/configuration.dart';
 import 'package:flutter_app/src/state/app_state.dart';

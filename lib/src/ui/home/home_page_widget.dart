@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/src/locale/app_localizations.dart';
 import 'package:flutter_app/src/resource/resource_string.dart';
 import 'package:flutter_app/src/state/app_state.dart';
+import 'package:flutter_app/src/ui/home/grid_manga_favorites_widget.dart';
 
 import 'grid_manga_widget.dart';
 import 'manga_search_delegate.dart';
@@ -24,6 +25,7 @@ class MangaHomePageState extends State<MangaHomePage>
     super.initState();
 
     appState.getManga();
+    appState.getFavoriteManga();
   }
 
   @override
@@ -53,7 +55,7 @@ class MangaHomePageState extends State<MangaHomePage>
           ),
         ),
         body: TabBarView(
-          children: [GridMangaWidget(), Center(child: Text(TAB_FAVORITES))],
+          children: [GridMangaWidget(), GridMangaFavoritesWidget()],
         ),
       ),
     );

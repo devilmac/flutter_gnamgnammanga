@@ -35,37 +35,37 @@ class Manga {
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
-      MANGA_ID_COLUMN: aka,
-      AUTHOR_COLUMN: author,
-      CATEGORIES_COLUMN: categories.join("|"),
-      DESCRIPTION_COLUMN: description,
-      IMAGE_COLUMN: image,
-      LANGUAGE_COLUMN: language,
-      LAST_CHAPTER_DATE_COLUMN: lastChapterDate,
-      RELEASED_COLUMN: released,
-      STATUS_COLUMN: status,
-      TITLE_COLUMN: title
+      SqliteUtilMangaeden.MANGA_ID_COLUMN: aka,
+      SqliteUtilMangaeden.AUTHOR_COLUMN: author,
+      SqliteUtilMangaeden.CATEGORIES_COLUMN: categories.join("|"),
+      SqliteUtilMangaeden.DESCRIPTION_COLUMN: description,
+      SqliteUtilMangaeden.IMAGE_COLUMN: image,
+      SqliteUtilMangaeden.LANGUAGE_COLUMN: language,
+      SqliteUtilMangaeden.LAST_CHAPTER_DATE_COLUMN: lastChapterDate,
+      SqliteUtilMangaeden.RELEASED_COLUMN: released,
+      SqliteUtilMangaeden.STATUS_COLUMN: status,
+      SqliteUtilMangaeden.TITLE_COLUMN: title
     };
 
     if (mangaID != null) {
-      map[MANGA_ID_COLUMN] = mangaID;
+      map[SqliteUtilMangaeden.MANGA_ID_COLUMN] = mangaID;
     }
 
     return map;
   }
 
   Manga.fromMap(Map<String, dynamic> map) {
-    mangaID = map[MANGA_ID_COLUMN];
-    aka = map[AKA_COLUMN];
-    author = map[AUTHOR_COLUMN];
-    categories = (map[AUTHOR_COLUMN] as String).split("|");
-    description = map[DESCRIPTION_COLUMN];
-    image = map[IMAGE_COLUMN];
-    language = map[LANGUAGE_COLUMN];
-    lastChapterDate = map[LAST_CHAPTER_DATE_COLUMN];
-    released = map[RELEASED_COLUMN];
-    status = map[STATUS_COLUMN];
-    title = map[TITLE_COLUMN];
+    mangaID = map[SqliteUtilMangaeden.MANGA_ID_COLUMN];
+    aka = map[SqliteUtilMangaeden.AKA_COLUMN];
+    author = map[SqliteUtilMangaeden.AUTHOR_COLUMN];
+    categories = (map[SqliteUtilMangaeden.AUTHOR_COLUMN] as String).split("|");
+    description = map[SqliteUtilMangaeden.DESCRIPTION_COLUMN];
+    image = map[SqliteUtilMangaeden.IMAGE_COLUMN];
+    language = map[SqliteUtilMangaeden.LANGUAGE_COLUMN];
+    lastChapterDate = map[SqliteUtilMangaeden.LAST_CHAPTER_DATE_COLUMN];
+    released = map[SqliteUtilMangaeden.RELEASED_COLUMN];
+    status = map[SqliteUtilMangaeden.STATUS_COLUMN];
+    title = map[SqliteUtilMangaeden.TITLE_COLUMN];
   }
 
   @override

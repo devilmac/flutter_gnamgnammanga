@@ -63,25 +63,49 @@ mixin _$AppState on _AppState, Store {
         name: '${_$currentReadingChapterAtom.name}_set');
   }
 
+  final _$favoriteMangaListAtom = Atom(name: '_AppState.favoriteMangaList');
+
+  @override
+  List<Manga> get favoriteMangaList {
+    _$favoriteMangaListAtom.context.enforceReadPolicy(_$favoriteMangaListAtom);
+    _$favoriteMangaListAtom.reportObserved();
+    return super.favoriteMangaList;
+  }
+
+  @override
+  set favoriteMangaList(List<Manga> value) {
+    _$favoriteMangaListAtom.context.conditionallyRunInAction(() {
+      super.favoriteMangaList = value;
+      _$favoriteMangaListAtom.reportChanged();
+    }, _$favoriteMangaListAtom, name: '${_$favoriteMangaListAtom.name}_set');
+  }
+
   final _$getMangaAsyncAction = AsyncAction('getManga');
 
   @override
-  Future<dynamic> getManga() {
+  Future getManga() {
     return _$getMangaAsyncAction.run(() => super.getManga());
   }
 
   final _$getMangaDetailAsyncAction = AsyncAction('getMangaDetail');
 
   @override
-  Future<dynamic> getMangaDetail(String mangaID) {
+  Future getMangaDetail(String mangaID) {
     return _$getMangaDetailAsyncAction.run(() => super.getMangaDetail(mangaID));
   }
 
   final _$getChapterDetailAsyncAction = AsyncAction('getChapterDetail');
 
   @override
-  Future<dynamic> getChapterDetail(String chapterID) {
+  Future getChapterDetail(String chapterID) {
     return _$getChapterDetailAsyncAction
         .run(() => super.getChapterDetail(chapterID));
+  }
+
+  final _$getFavoriteMangaAsyncAction = AsyncAction('getFavoriteManga');
+
+  @override
+  Future getFavoriteManga() {
+    return _$getFavoriteMangaAsyncAction.run(() => super.getFavoriteManga());
   }
 }

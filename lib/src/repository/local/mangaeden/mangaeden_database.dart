@@ -1,5 +1,8 @@
+import 'package:flutter_app/src/domain/chapter.dart';
 import 'package:flutter_app/src/domain/manga.dart';
 import 'package:flutter_app/src/repository/local/manga_database.dart';
+import 'package:flutter_app/src/repository/local/mangaeden/sqlite_util.dart';
+import 'package:flutter_app/src/repository/local/sqlite_util.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -15,9 +18,10 @@ class MangaedenDatabase extends MangaDatabase {
 
   @override
   Future<List<Manga>> getFavorites() async {
-    _openDatabase();
+    await _openDatabase();
 
-    List<Map<String, dynamic>> query = await _db.query("manga", columns: null);
+    List<Map<String, dynamic>> query =
+        await _db.query(SqliteUtilMangaeden.MANGA_TABLE_NAME, columns: null);
 
     _db.close();
 
@@ -31,21 +35,68 @@ class MangaedenDatabase extends MangaDatabase {
   }
 
   @override
-  Future<Manga> addRemoveToFavorites(String mangaID) {
+  Future<Manga> addRemoveToFavorites(Manga manga) async {
+    await _openDatabase();
+
+    await _db.transaction((transaction) async {
+      //check if passed manga is already into database
+      List<Map<String, dynamic>> query = await transaction.query(
+          SqliteUtilMangaeden.MANGA_TABLE_NAME,
+          where: "${SqliteUtilMangaeden.MANGA_ID_COLUMN} = ?",
+          whereArgs: [manga.mangaID]);
+
+      //case yes
+      if (query.isNotEmpty && query.length == 1) {
+        await transaction.delete(SqliteUtilMangaeden.MANGA_TABLE_NAME,
+            where: "${SqliteUtilMangaeden.MANGA_ID_COLUMN} = ?",
+            whereArgs: [manga.mangaID]);
+      }
+
+      //case no
+      else {
+        await transaction.insert(
+            SqliteUtilMangaeden.MANGA_TABLE_NAME, manga.toMap());
+      }
+    });
+
     _db.close();
 
     return null;
   }
 
   @override
-  Future<List<dynamic>> getChapters(String mangaID) {
+  Future<List<dynamic>> getChapters(String mangaID) async {
+    await _openDatabase();
+
+    var query = await _db.query(SqliteUtilMangaeden.CHAPTER_TABLE_NAME,
+        columns: null,
+        where: "${SqliteUtilMangaeden.CHAPTER_MANGA_ID_COLUMN} = ?",
+        whereArgs: [mangaID]);
+
     _db.close();
+
+    if (query.isNotEmpty) {
+      return query.map((Map map) {
+        return Chapter.fromMap(map);
+      }).toList();
+    }
 
     return null;
   }
 
   @override
-  Future<dynamic> getChapterDetail(String chapterID) {
+  Future<dynamic> getChapterDetail(String chapterID) async {
+    await _openDatabase();
+
+    var query = await _db.query(SqliteUtilMangaeden.CHAPTER_TABLE_NAME,
+        columns: null,
+        where: "${SqliteUtilMangaeden.CHAPTER_ID_COLUMN} = ?",
+        whereArgs: [chapterID]);
+
+    if (query.isNotEmpty && query.length == 1) {
+      return Chapter.fromMap(query[0]);
+    }
+
     _db.close();
 
     return null;
@@ -53,42 +104,27 @@ class MangaedenDatabase extends MangaDatabase {
 
   Future<void> _openDatabase() async {
     _db = await openDatabase(join(await _getDatabasePath(), dbName),
-        version: dbVersion, onConfigure: _onConfigure);
+        version: dbVersion, onCreate: _onCreate, onConfigure: _onConfigure);
   }
 
   Future<String> _getDatabasePath() async {
     return await getDatabasesPath();
   }
 
-  _onConfigure(Database db) async {
-    // Add support for cascade delete
+  _onCreate(Database db, int version) async {
+    await db.transaction((transaction) async {
+      transaction.execute(SqliteUtilMangaeden.createMangaTable);
+      transaction.execute(SqliteUtilMangaeden.createChapterTable);
+      transaction.execute(SqliteUtilMangaeden.createChapterImageTable);
+    });
+  }
 
+  _onConfigure(Database db) async {
     await db.transaction((transaction) async {
       var batch = transaction.batch();
-      batch.execute("PRAGMA foreign_keys = ON");
-      batch.execute("CREATE TABLE manga (manga_id TEXT PRIMARY KEY, "
-          "aka TEXT, "
-          "author TEXT, "
-          "categories TEXT, "
-          "description TEXT, "
-          "image TEXT, "
-          "language TEXT, "
-          "last_chapter_date REAL, "
-          "released INTEGER, "
-          "status TEXT, "
-          "title TEXT)");
-      batch.execute("CREATE TABLE chapter(chapter_id TEXT PRIMARY KEY, "
-          "number TEXT, "
-          "date REAL, "
-          "title TEXT,"
-          "mangaID TEXT NOT NULL,"
-          "FOREIGN KEY(mangaID) REFERENCES manga(mangaID) ON DELETE CASCADE");
-      batch.execute("CREATE TABLE chapter_image(page_number INTEGER, "
-          "imageUrl TEXT, "
-          "width INTEGER, "
-          "height INTEGER, "
-          "chapter_id TEXT,"
-          "FOREIGN KEY(chapter_id) REFERENCES chapter(chapter_id) ON DELETE CASCADE");
+      // Add support for cascade delete
+      batch.execute(SqliteUtil.SQL_PRAGMA_FOREIGN_KEY);
+      batch.commit(noResult: true, continueOnError: false);
     });
   }
 }

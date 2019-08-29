@@ -6,13 +6,13 @@ import 'package:flutter_app/src/domain/chapter_image.dart' as domain;
 import 'package:flutter_app/src/domain/manga.dart' as domain;
 import 'package:flutter_app/src/domain/manga_language.dart';
 import 'package:flutter_app/src/domain/manga_status.dart';
-import 'package:flutter_app/src/repository/network/model/mangaeden/manga.dart'
-    as network;
+import 'package:flutter_app/src/helper/configuration.dart' as configuration;
 import 'package:flutter_app/src/repository/network/model/mangaeden/chapter.dart'
+    as network;
+import 'package:flutter_app/src/repository/network/model/mangaeden/manga.dart'
     as network;
 import 'package:flutter_app/src/repository/network/service/manga_service.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter_app/src/helper/configuration.dart' as configuration;
 
 const String BASE_URL = "https://www.mangaeden.com/api";
 String mangaList = "$BASE_URL/list/${configuration.mangaLanguage}";

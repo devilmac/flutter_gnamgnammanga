@@ -25,5 +25,7 @@ class MangaDbAdapter implements MangaAdapter {
   }
 
   @override
-  Future<List<ChapterImage>> getChapterDetail(String chapterID) {}
+  Future<List<ChapterImage>> getChapterDetail(String chapterID) {
+    return _database.getChapterDetail(chapterID);
+  }
 }

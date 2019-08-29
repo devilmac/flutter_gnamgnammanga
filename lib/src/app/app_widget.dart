@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_app/src/locale/app_localizations_delegate.dart';
 import 'package:flutter_app/src/resource/resource_string.dart';
 import 'package:flutter_app/src/ui/detail/detail_manga_widget.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_app/src/ui/home/home_page_widget.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 

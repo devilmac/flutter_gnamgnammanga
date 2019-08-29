@@ -1,11 +1,11 @@
-import 'package:flutter_app/src/domain/chapter_image.dart';
+import 'package:flutter_app/src/domain/manga.dart';
 
 abstract class MangaDatabase {
   var dbName = "";
   var dbVersion = 1;
 
   ///Add/remove the manga to/from database
-  Future<dynamic> addRemoveToFavorites(String mangaID);
+  Future<dynamic> addRemoveToFavorites(Manga manga);
 
   ///Get manga favorites list
   Future<List<dynamic>> getFavorites();
