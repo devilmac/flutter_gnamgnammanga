@@ -15,4 +15,6 @@ abstract class MangaDatabase {
 
   ///Get chapter pages for the specifi chapterID
   Future<dynamic> getChapterDetail(String chapterID);
+
+  Future<dynamic> isMangaFavorite(String mangaID);
 }

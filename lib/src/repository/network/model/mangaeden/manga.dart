@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'manga.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class Manga {
   @JsonKey(name: "i")
   final String i;
@@ -98,8 +98,13 @@ class Manga {
       this.updatedKeywords,
       this.ld,
       this.t) {
-    mangaID = i;
-    categories = c;
+    if (i != null) {
+      mangaID = i;
+    }
+
+    if (c != null) {
+      categories = c;
+    }
   }
 
   factory Manga.fromJson(Map<String, dynamic> json) => _$MangaFromJson(json);

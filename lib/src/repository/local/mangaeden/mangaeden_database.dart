@@ -1,4 +1,5 @@
 import 'package:flutter_app/src/domain/chapter.dart';
+import 'package:flutter_app/src/domain/chapter_image.dart';
 import 'package:flutter_app/src/domain/manga.dart';
 import 'package:flutter_app/src/repository/local/manga_database.dart';
 import 'package:flutter_app/src/repository/local/mangaeden/sqlite_util.dart';
@@ -65,7 +66,7 @@ class MangaedenDatabase extends MangaDatabase {
   }
 
   @override
-  Future<List<dynamic>> getChapters(String mangaID) async {
+  Future<List<Chapter>> getChapters(String mangaID) async {
     await _openDatabase();
 
     var query = await _db.query(SqliteUtilMangaeden.CHAPTER_TABLE_NAME,
@@ -85,21 +86,41 @@ class MangaedenDatabase extends MangaDatabase {
   }
 
   @override
-  Future<dynamic> getChapterDetail(String chapterID) async {
+  Future<ChapterImage> getChapterDetail(String chapterID) async {
     await _openDatabase();
 
-    var query = await _db.query(SqliteUtilMangaeden.CHAPTER_TABLE_NAME,
+    var query = await _db.query(SqliteUtilMangaeden.CHAPTER_IMAGE_TABLE_NAME,
         columns: null,
-        where: "${SqliteUtilMangaeden.CHAPTER_ID_COLUMN} = ?",
+        where: "${SqliteUtilMangaeden.CHAPTER_IMAGE_CHAPTER_ID_COLUMN} = ?",
         whereArgs: [chapterID]);
 
     if (query.isNotEmpty && query.length == 1) {
-      return Chapter.fromMap(query[0]);
+      return ChapterImage.fromMap(query[0]);
     }
 
     _db.close();
 
     return null;
+  }
+
+  @override
+  Future<bool> isMangaFavorite(String mangaID) async {
+    await _openDatabase();
+
+    var query = await _db.query(SqliteUtilMangaeden.MANGA_TABLE_NAME,
+        columns: [SqliteUtilMangaeden.MANGA_ID_COLUMN],
+        where: "${SqliteUtilMangaeden.MANGA_ID_COLUMN} = ?",
+        whereArgs: [mangaID]);
+
+    _db.close();
+
+    if (query.isNotEmpty && query.length == 1) {
+      var manga = Manga.fromMap(query[0]);
+
+      return manga != null;
+    }
+
+    return false;
   }
 
   Future<void> _openDatabase() async {

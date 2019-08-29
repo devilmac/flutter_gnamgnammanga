@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/config/configuration.dart';
 import 'package:flutter_app/src/domain/manga.dart';
-import 'package:flutter_app/src/helper/configuration.dart';
 import 'package:flutter_app/src/state/app_state.dart';
 import 'package:flutter_app/src/ui/custom/material_ripple.dart';
 import 'package:flutter_app/src/ui/detail/detail_manga_widget.dart';
 import 'package:flutter_app/src/ui/detail/manga_detail_arguments.dart';
+import 'package:flutter_app/src/ui/navigator/app_navigator.dart';
 
 class HomeGridItemWidget extends StatelessWidget {
-  HomeGridItemWidget(this._manga);
-
   final Manga _manga;
+  final AppNavigator _appNavigator;
+
+  HomeGridItemWidget(this._manga, this._appNavigator);
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +56,7 @@ class HomeGridItemWidget extends StatelessWidget {
   }
 
   _navigateToMangaDetailPage(BuildContext context) {
-    Navigator.pushNamed(context, DetailMangaWidget.routeName,
+    _appNavigator.goToMangaDetail(context, DetailMangaWidget.routeName,
         arguments:
             MangaDetailArguments(_manga.mangaID, _manga.title, _manga.image));
   }
@@ -64,10 +66,10 @@ class HomeGridItemWidget extends StatelessWidget {
 
     try {
       widgetImage = FadeInImage.assetNetwork(
-          placeholder: "assets/placeholder.png",
+          placeholder: IMAGE_PLACEHOLDER,
           image: imageUrl != null ? imageUrl : gridImagePlaceholder);
     } on Exception {
-      widgetImage = Image.asset("assets/placeholder.png");
+      widgetImage = Image.asset(IMAGE_PLACEHOLDER);
     }
 
     return widgetImage;

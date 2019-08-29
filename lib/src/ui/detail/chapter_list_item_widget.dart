@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/domain/chapter.dart';
 import 'package:flutter_app/src/ui/custom/material_ripple.dart';
+import 'package:flutter_app/src/ui/navigator/app_navigator.dart';
+import 'package:flutter_app/src/ui/reading/reading_chapter_widget.dart';
 
 class ChapterListItemWidget extends StatelessWidget {
   final Chapter _chapter;
+  final AppNavigator _appNavigator;
 
-  ChapterListItemWidget(this._chapter);
+  ChapterListItemWidget(this._chapter, this._appNavigator);
 
   @override
   Widget build(BuildContext context) {
@@ -39,22 +42,14 @@ class ChapterListItemWidget extends StatelessWidget {
               )
             ],
           ),
-          Positioned.fill(
-              child: MaterialRipple(
-            onPressed: () {},
+          Positioned.fill(child: MaterialRipple(
+            onPressed: () {
+              _appNavigator.goToReadingChapter(
+                  context, ReadingChapterWidget.routeName);
+            },
           ))
         ],
       ),
     ));
   }
-
-//  Future<List<ChapterImage>> _fetchChapterDetail(String chapterID) {
-//    MangaAdapter adapter = MangaNetworkAdapter(MangaedenService());
-//
-//    return adapter.getChapterDetail(chapterID);
-//  }
-
-//  Widget _getChapterItemImage(String imageUrl) {
-//    return Image.asset("chapter_placeholder.jpg");
-//  }
 }

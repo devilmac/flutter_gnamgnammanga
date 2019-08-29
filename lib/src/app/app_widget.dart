@@ -4,6 +4,7 @@ import 'package:flutter_app/src/locale/app_localizations_delegate.dart';
 import 'package:flutter_app/src/resource/resource_string.dart';
 import 'package:flutter_app/src/ui/detail/detail_manga_widget.dart';
 import 'package:flutter_app/src/ui/home/home_page_widget.dart';
+import 'package:flutter_app/src/ui/reading/reading_chapter_widget.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class AppWidget extends StatelessWidget {
@@ -19,7 +20,10 @@ class AppWidget extends StatelessWidget {
           primaryColor: Color.fromARGB(255, 97, 21, 238),
           accentColor: Color.fromARGB(255, 162, 238, 21)),
       home: MangaHomePage(title: 'Manga'),
-      routes: {DetailMangaWidget.routeName: (context) => DetailMangaWidget()},
+      routes: {
+        DetailMangaWidget.routeName: (context) => DetailMangaWidget(),
+        ReadingChapterWidget.routeName: (context) => ReadingChapterWidget()
+      },
       localizationsDelegates: [
         const AppLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,

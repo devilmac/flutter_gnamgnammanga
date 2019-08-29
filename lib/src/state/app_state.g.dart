@@ -80,6 +80,24 @@ mixin _$AppState on _AppState, Store {
     }, _$favoriteMangaListAtom, name: '${_$favoriteMangaListAtom.name}_set');
   }
 
+  final _$checkMangaFavoriteAtom = Atom(name: '_AppState.checkMangaFavorite');
+
+  @override
+  bool get checkMangaFavorite {
+    _$checkMangaFavoriteAtom.context
+        .enforceReadPolicy(_$checkMangaFavoriteAtom);
+    _$checkMangaFavoriteAtom.reportObserved();
+    return super.checkMangaFavorite;
+  }
+
+  @override
+  set checkMangaFavorite(bool value) {
+    _$checkMangaFavoriteAtom.context.conditionallyRunInAction(() {
+      super.checkMangaFavorite = value;
+      _$checkMangaFavoriteAtom.reportChanged();
+    }, _$checkMangaFavoriteAtom, name: '${_$checkMangaFavoriteAtom.name}_set');
+  }
+
   final _$getMangaAsyncAction = AsyncAction('getManga');
 
   @override
@@ -102,10 +120,19 @@ mixin _$AppState on _AppState, Store {
         .run(() => super.getChapterDetail(chapterID));
   }
 
-  final _$getFavoriteMangaAsyncAction = AsyncAction('getFavoriteManga');
+  final _$addRemoveMangaFavoriteAsyncAction =
+      AsyncAction('addRemoveMangaFavorite');
 
   @override
-  Future getFavoriteManga() {
-    return _$getFavoriteMangaAsyncAction.run(() => super.getFavoriteManga());
+  Future addRemoveMangaFavorite(Manga manga) {
+    return _$addRemoveMangaFavoriteAsyncAction
+        .run(() => super.addRemoveMangaFavorite(manga));
+  }
+
+  final _$getFavoritesAsyncAction = AsyncAction('getFavorites');
+
+  @override
+  Future getFavorites() {
+    return _$getFavoritesAsyncAction.run(() => super.getFavorites());
   }
 }

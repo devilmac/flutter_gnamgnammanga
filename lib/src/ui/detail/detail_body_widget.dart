@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/domain/manga.dart';
+import 'package:flutter_app/src/ui/navigator/app_navigator_impl.dart';
 
 import 'chapter_list_item_widget.dart';
 
@@ -82,7 +83,8 @@ class DetailBodyWidget extends StatelessWidget {
                       itemCount: _manga.chapters.length,
                       physics: ClampingScrollPhysics(),
                       itemBuilder: (context, index) {
-                        return ChapterListItemWidget(_manga.chapters[index]);
+                        return ChapterListItemWidget(
+                            _manga.chapters[index], AppNavigatorImpl());
                       }),
                 ),
               ),

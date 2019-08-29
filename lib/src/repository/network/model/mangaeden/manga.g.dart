@@ -43,39 +43,48 @@ Manga _$MangaFromJson(Map<String, dynamic> json) {
     ..status = json['status'] as int;
 }
 
-Map<String, dynamic> _$MangaToJson(Manga instance) => <String, dynamic>{
-      'i': instance.i,
-      'aka': instance.aka,
-      'aka-alias': instance.akaAlias,
-      'alias': instance.alias,
-      'artist': instance.artist,
-      'artist_kw': instance.artistKw,
-      'author': instance.author,
-      'author_kw': instance.authorKw,
-      'baka': instance.baka,
-      'c': instance.c,
-      'categories': instance.categories,
-      'chapters': instance.chapters,
-      'chapters_len': instance.chaptersLen,
-      'created': instance.created,
-      'description': instance.description,
-      'hits': instance.hits,
-      'im': instance.image,
-      'imageURL': instance.imageURL,
-      'language': instance.language,
-      'ld': instance.ld,
-      'last_chapter_date': instance.lastChapterDate,
-      'random': instance.random,
-      'released': instance.released,
-      'startsWith': instance.startsWith,
-      's': instance.s,
-      'status': instance.status,
-      't': instance.t,
-      'title': instance.title,
-      'title_kw': instance.titleKw,
-      'type': instance.type,
-      'updatedKeywords': instance.updatedKeywords,
-    };
+Map<String, dynamic> _$MangaToJson(Manga instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('i', instance.i);
+  writeNotNull('aka', instance.aka);
+  writeNotNull('aka-alias', instance.akaAlias);
+  writeNotNull('alias', instance.alias);
+  writeNotNull('artist', instance.artist);
+  writeNotNull('artist_kw', instance.artistKw);
+  writeNotNull('author', instance.author);
+  writeNotNull('author_kw', instance.authorKw);
+  writeNotNull('baka', instance.baka);
+  writeNotNull('c', instance.c);
+  writeNotNull('categories', instance.categories);
+  writeNotNull('chapters', instance.chapters);
+  writeNotNull('chapters_len', instance.chaptersLen);
+  writeNotNull('created', instance.created);
+  writeNotNull('description', instance.description);
+  writeNotNull('hits', instance.hits);
+  writeNotNull('im', instance.image);
+  writeNotNull('imageURL', instance.imageURL);
+  writeNotNull('language', instance.language);
+  writeNotNull('ld', instance.ld);
+  writeNotNull('last_chapter_date', instance.lastChapterDate);
+  writeNotNull('random', instance.random);
+  writeNotNull('released', instance.released);
+  writeNotNull('startsWith', instance.startsWith);
+  writeNotNull('s', instance.s);
+  writeNotNull('status', instance.status);
+  writeNotNull('t', instance.t);
+  writeNotNull('title', instance.title);
+  writeNotNull('title_kw', instance.titleKw);
+  writeNotNull('type', instance.type);
+  writeNotNull('updatedKeywords', instance.updatedKeywords);
+  return val;
+}
 
 // **************************************************************************
 // StoreGenerator

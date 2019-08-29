@@ -12,9 +12,18 @@ Chapter _$ChapterFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$ChapterToJson(Chapter instance) => <String, dynamic>{
-      'images': instance.images,
-    };
+Map<String, dynamic> _$ChapterToJson(Chapter instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('images', instance.images);
+  return val;
+}
 
 // **************************************************************************
 // StoreGenerator

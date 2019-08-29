@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter_app/src/config/configuration.dart' as configuration;
 import 'package:flutter_app/src/domain/chapter.dart' as domain;
 import 'package:flutter_app/src/domain/chapter_image.dart' as domain;
 import 'package:flutter_app/src/domain/manga.dart' as domain;
 import 'package:flutter_app/src/domain/manga_language.dart';
 import 'package:flutter_app/src/domain/manga_status.dart';
-import 'package:flutter_app/src/helper/configuration.dart' as configuration;
 import 'package:flutter_app/src/repository/network/model/mangaeden/chapter.dart'
     as network;
 import 'package:flutter_app/src/repository/network/model/mangaeden/manga.dart'

@@ -7,3 +7,5 @@ const String IN_PROGRESS = "In corso";
 
 const String ITALIAN = "Italiano";
 const String ENGLISH = "Inglese";
+
+const String MANGA_DETAIL_FAB_TOOLTIP = "Set this manga as favorite";

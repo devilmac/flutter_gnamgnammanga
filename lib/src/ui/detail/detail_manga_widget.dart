@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_app/src/config/configuration.dart';
 import 'package:flutter_app/src/domain/manga.dart';
+import 'package:flutter_app/src/resource/resource_string.dart';
 import 'package:flutter_app/src/state/app_state.dart';
 import 'package:flutter_app/src/ui/custom/circle_appbar_leading_clipper.dart';
 import 'package:flutter_app/src/ui/detail/detail_body_widget.dart';
@@ -7,10 +10,35 @@ import 'package:flutter_app/src/ui/detail/manga_detail_arguments.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class DetailMangaWidget extends StatelessWidget {
+class DetailMangaWidget extends StatefulWidget {
   static const routeName = '/manga_detail';
 
+  @override
+  _DetailMangaWidgetState createState() => _DetailMangaWidgetState();
+}
+
+class _DetailMangaWidgetState extends State<DetailMangaWidget> {
   final sliverAppBarHeight = 232.0;
+
+  double translateFab = 0.0;
+
+  final ScrollController _controller = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.addListener(_onScroll);
+  }
+
+  _onScroll() {
+    translateFab = _controller.offset;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.removeListener(_onScroll);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,15 +51,30 @@ class DetailMangaWidget extends StatelessWidget {
 
   Widget getBodyWithCustomScrollView(
       BuildContext context, MangaDetailArguments args) {
+    var fabIcon =
+        appState.checkMangaFavorite ? Icons.favorite : Icons.favorite_border;
+
     return Scaffold(
       backgroundColor: Colors.white,
       extendBody: true,
-      floatingActionButton: FloatingActionButton(
-          tooltip: "Set this manga as favorite",
-          onPressed: () {},
-          elevation: 8.0,
-          child: Icon(Icons.favorite_border)),
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+      floatingActionButton: AnimatedBuilder(
+        child: FittedBox(
+          child: FloatingActionButton(
+              tooltip: MANGA_DETAIL_FAB_TOOLTIP,
+              onPressed: () {},
+              child: Icon(fabIcon)),
+        ),
+        builder: (BuildContext context, Widget child) {
+          return Transform.translate(
+            offset: Offset(0.0, translateFab),
+            child: child,
+          );
+        },
+        animation: _controller,
+      ),
       body: CustomScrollView(
+        controller: _controller,
         physics: ClampingScrollPhysics(),
         slivers: <Widget>[
           SliverAppBar(
@@ -61,7 +104,9 @@ class DetailMangaWidget extends StatelessWidget {
                           child: FadeInImage.assetNetwork(
                               placeholder: kTransparentImage.toString(),
                               fit: BoxFit.cover,
-                              image: args.imageUrl),
+                              image: args.imageUrl != null
+                                  ? args.imageUrl
+                                  : gridImagePlaceholder),
                           tag: args.mangaID,
                         ))
                       ],

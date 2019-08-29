@@ -28,4 +28,12 @@ class MangaDbAdapter implements MangaAdapter {
   Future<List<ChapterImage>> getChapterDetail(String chapterID) {
     return _database.getChapterDetail(chapterID);
   }
+
+  Future<void> addRemoveMangaFavorite(domain.Manga manga) {
+    return _database.addRemoveToFavorites(manga);
+  }
+
+  Future<bool> isMangaFavorite(String mangaID) {
+    return _database.isMangaFavorite(mangaID);
+  }
 }

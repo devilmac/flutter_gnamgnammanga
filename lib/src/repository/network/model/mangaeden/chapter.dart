@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'chapter.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class Chapter {
   final List<List<dynamic>> images;
 

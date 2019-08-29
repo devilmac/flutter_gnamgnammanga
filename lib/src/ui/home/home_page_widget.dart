@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/locale/app_localizations.dart';
-import 'package:flutter_app/src/resource/resource_string.dart';
 import 'package:flutter_app/src/state/app_state.dart';
 import 'package:flutter_app/src/ui/home/grid_manga_favorites_widget.dart';
 
@@ -25,7 +24,7 @@ class MangaHomePageState extends State<MangaHomePage>
     super.initState();
 
     appState.getManga();
-    appState.getFavoriteManga();
+    appState.getFavorites();
   }
 
   @override
@@ -44,6 +43,12 @@ class MangaHomePageState extends State<MangaHomePage>
               icon: Icon(Icons.search),
               onPressed: () {
                 showSearch(context: context, delegate: MangaSearchDelegate());
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.settings),
+              onPressed: () {
+                //TODO open settings page
               },
             )
           ],
