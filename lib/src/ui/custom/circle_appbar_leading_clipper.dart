@@ -5,8 +5,8 @@ class CircleAppBarLeadingClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
     var path = Path();
 
-    path.lineTo(0.0, 32);
-    path.lineTo(24, 32);
+    path.lineTo(0.0, 30);
+    path.lineTo(24, 30);
 //    path.addArc(Rect.fromCircle(center: Offset(48, 48), radius: 28), 0, 90);
 //    path.lineTo(48, 74);
     path.arcToPoint(Offset(24, 74), radius: Radius.circular(21));

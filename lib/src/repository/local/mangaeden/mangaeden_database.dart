@@ -36,6 +36,23 @@ class MangaedenDatabase extends MangaDatabase {
   }
 
   @override
+  Future<Manga> getFavorite(String mangaID) async {
+    await _openDatabase();
+
+    var query = await _db.query(SqliteUtilMangaeden.MANGA_TABLE_NAME,
+        where: "${SqliteUtilMangaeden.MANGA_ID_COLUMN} = ?",
+        whereArgs: [mangaID]);
+
+    _db.close();
+
+    if (query.isNotEmpty && query.length == 1) {
+      return Manga.fromMap(query[0]);
+    }
+
+    return null;
+  }
+
+  @override
   Future<Manga> addRemoveToFavorites(Manga manga) async {
     await _openDatabase();
 
@@ -114,13 +131,7 @@ class MangaedenDatabase extends MangaDatabase {
 
     _db.close();
 
-    if (query.isNotEmpty && query.length == 1) {
-      var manga = Manga.fromMap(query[0]);
-
-      return manga != null;
-    }
-
-    return false;
+    return query.isNotEmpty && query.length == 1;
   }
 
   Future<void> _openDatabase() async {

@@ -46,6 +46,7 @@ class HomeGridItemWidget extends StatelessWidget {
           Positioned.fill(child: MaterialRipple(
             onPressed: () {
               appState.manga = null;
+              appState.isMangaFavorite(_manga.mangaID);
               appState.getMangaDetail(_manga.mangaID);
               _navigateToMangaDetailPage(context);
             },

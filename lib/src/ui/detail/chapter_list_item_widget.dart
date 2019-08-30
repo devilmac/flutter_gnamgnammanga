@@ -14,7 +14,7 @@ class ChapterListItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
         child: Card(
-      elevation: 4,
+      elevation: 2,
       clipBehavior: Clip.antiAlias,
       child: Stack(
         children: <Widget>[

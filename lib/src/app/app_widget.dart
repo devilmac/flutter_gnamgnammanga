@@ -16,9 +16,14 @@ class AppWidget extends StatelessWidget {
       title: APP_NAME,
       debugShowMaterialGrid: false,
       theme: ThemeData(
-          fontFamily: 'Montserrat',
-          primaryColor: Color.fromARGB(255, 97, 21, 238),
-          accentColor: Color.fromARGB(255, 162, 238, 21)),
+          textTheme: Typography.blackMountainView.apply(
+              displayColor: Color(0xFF212121), bodyColor: Color(0xFF757575)),
+          iconTheme: IconThemeData(),
+          dividerColor: Color(0xFFBDBDBD),
+          primaryColorLight: Color(0xFFD1C4E9),
+          primaryColor: Color(0xFF673AB7),
+          primaryColorDark: Color(0xFF512DA8),
+          accentColor: Color(0xFFFFC107)),
       home: MangaHomePage(title: 'Manga'),
       routes: {
         DetailMangaWidget.routeName: (context) => DetailMangaWidget(),

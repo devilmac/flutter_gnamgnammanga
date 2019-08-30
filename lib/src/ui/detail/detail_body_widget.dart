@@ -33,7 +33,7 @@ class DetailBodyWidget extends StatelessWidget {
               Row(
                 children: <Widget>[
                   Text(
-                    "Written:",
+                    "Written: ",
                     style: TextStyle(
                         fontSize: 14.0,
                         color: Colors.black,
@@ -45,7 +45,7 @@ class DetailBodyWidget extends StatelessWidget {
               Row(
                 children: <Widget>[
                   Text(
-                    "Updated:",
+                    "Updated: ",
                     style: TextStyle(
                         fontSize: 14.0,
                         color: Colors.black,
@@ -67,6 +67,17 @@ class DetailBodyWidget extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 8.0),
                   child: Text(_manga.description)),
               Padding(padding: const EdgeInsets.only(top: 8.0)),
+              Row(children: <Widget>[
+                Text(
+                  "Status: ",
+                  style: TextStyle(
+                      fontSize: 14.0,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600),
+                ),
+                Text(_manga.status != null ? _manga.status : "Unknown")
+              ]),
+              Padding(padding: const EdgeInsets.only(top: 8.0)),
               Text(
                 "Chapters",
                 style: TextStyle(
@@ -80,24 +91,18 @@ class DetailBodyWidget extends StatelessWidget {
                   height: 150,
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: _manga.chapters.length,
+                      itemCount:
+                          _manga.chapters != null ? _manga.chapters.length : [],
                       physics: ClampingScrollPhysics(),
                       itemBuilder: (context, index) {
                         return ChapterListItemWidget(
-                            _manga.chapters[index], AppNavigatorImpl());
+                            _manga.chapters != null
+                                ? _manga.chapters[index]
+                                : [],
+                            AppNavigatorImpl());
                       }),
                 ),
               ),
-              Row(children: <Widget>[
-                Text(
-                  "Status:",
-                  style: TextStyle(
-                      fontSize: 14.0,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600),
-                ),
-                Text(_manga.status)
-              ])
             ],
           ),
         ));
@@ -113,7 +118,7 @@ class DetailBodyWidget extends StatelessWidget {
           backgroundColor: Theme.of(context).accentColor,
           label: Text(
             element,
-            style: TextStyle(color: Colors.white),
+//            style: TextStyle(color: Colors.white),
           ),
         ),
       );

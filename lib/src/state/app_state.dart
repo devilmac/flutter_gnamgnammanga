@@ -51,6 +51,8 @@ abstract class _AppState with Store {
     await _repository.addRemoveFavoriteManga(manga);
 
     checkMangaFavorite = await _repository.isMangaFavorite(manga.mangaID);
+
+    getFavorites();
   }
 
   @action
@@ -58,6 +60,13 @@ abstract class _AppState with Store {
     var _response = await _repository.getFavorites();
 
     this.favoriteMangaList = _response;
+  }
+
+  @action
+  Future isMangaFavorite(String mangaID) async {
+    var _response = await _repository.isMangaFavorite(mangaID);
+
+    checkMangaFavorite = _response;
   }
 }
 

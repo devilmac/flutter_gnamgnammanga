@@ -21,7 +21,7 @@ class MangaDbAdapter implements MangaAdapter {
 
   @override
   Future<domain.Manga> getMangaDetail(String mangaID) {
-    throw UnsupportedError("Unneeded operation");
+    return _database.getFavorite(mangaID);
   }
 
   @override

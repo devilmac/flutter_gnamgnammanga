@@ -120,7 +120,7 @@ class _DetailMangaWidgetState extends State<DetailMangaWidget> {
           SliverList(
             delegate: SliverChildListDelegate([
               Column(
-                children: <Widget>[getDetailBody(args.title, appState.manga)],
+                children: <Widget>[getDetailBody(args, appState.manga)],
               )
             ]),
           )
@@ -129,9 +129,12 @@ class _DetailMangaWidgetState extends State<DetailMangaWidget> {
     );
   }
 
-  Widget getDetailBody(String title, Manga manga) {
+  Widget getDetailBody(MangaDetailArguments args, Manga manga) {
     if (manga != null) {
-      return DetailBodyWidget(manga, title);
+      manga.mangaID = args.mangaID;
+      manga.image = args.imageUrl;
+
+      return DetailBodyWidget(manga, args.title);
     } else {
       return Container(
         color: Colors.white,
