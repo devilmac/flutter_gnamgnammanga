@@ -1,9 +1,5 @@
 import 'package:flutter_app/src/domain/chapter_image.dart';
 import 'package:flutter_app/src/domain/manga.dart';
-import 'package:flutter_app/src/repository/local/manga_db_adapter.dart';
-import 'package:flutter_app/src/repository/local/mangaeden/mangaeden_db_factory.dart';
-import 'package:flutter_app/src/repository/network/manga_network_adapter.dart';
-import 'package:flutter_app/src/repository/network/service/mangaeden/mangaeden_service.dart';
 import 'package:flutter_app/src/repository/repository.dart';
 import 'package:mobx/mobx.dart';
 
@@ -53,6 +49,8 @@ abstract class _AppState with Store {
   @action
   Future addRemoveMangaFavorite(Manga manga) async {
     await _repository.addRemoveFavoriteManga(manga);
+
+    checkMangaFavorite = await _repository.isMangaFavorite(manga.mangaID);
   }
 
   @action

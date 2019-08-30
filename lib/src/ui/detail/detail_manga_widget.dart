@@ -62,7 +62,9 @@ class _DetailMangaWidgetState extends State<DetailMangaWidget> {
         child: FittedBox(
           child: FloatingActionButton(
               tooltip: MANGA_DETAIL_FAB_TOOLTIP,
-              onPressed: () {},
+              onPressed: () {
+                appState.addRemoveMangaFavorite(appState.manga);
+              },
               child: Icon(fabIcon)),
         ),
         builder: (BuildContext context, Widget child) {

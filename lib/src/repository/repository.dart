@@ -41,4 +41,7 @@ class Repository {
   Future<void> addRemoveFavoriteManga(Manga manga) async {
     await _mangaDbAdapter.addRemoveMangaFavorite(manga);
   }
+
+  Future<bool> isMangaFavorite(String mangaID) async =>
+      await _mangaDbAdapter.isMangaFavorite(mangaID);
 }

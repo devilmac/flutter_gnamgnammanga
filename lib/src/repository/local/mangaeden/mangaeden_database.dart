@@ -40,7 +40,7 @@ class MangaedenDatabase extends MangaDatabase {
     await _openDatabase();
 
     await _db.transaction((transaction) async {
-      //check if passed manga is already into database
+      //check if manga parameter is already into database
       List<Map<String, dynamic>> query = await transaction.query(
           SqliteUtilMangaeden.MANGA_TABLE_NAME,
           where: "${SqliteUtilMangaeden.MANGA_ID_COLUMN} = ?",
