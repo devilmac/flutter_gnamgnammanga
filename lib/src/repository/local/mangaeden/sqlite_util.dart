@@ -7,6 +7,9 @@ class SqliteUtilMangaeden extends SqliteUtil {
   ///Chapter table name
   static const CHAPTER_TABLE_NAME = "chapter";
 
+  ///Chapters' images table name
+  static const CHAPTER_IMAGE_TABLE_NAME = "chapter_image";
+
   //Manga table columns
   static const MANGA_ID_COLUMN = "manga_id";
   static const AKA_COLUMN = "aka";
@@ -34,7 +37,7 @@ class SqliteUtilMangaeden extends SqliteUtil {
   static const CHAPTER_HEIGHT_COLUMN = "height";
   static const CHAPTER_IMAGE_CHAPTER_ID_COLUMN = "chapter_id";
 
-  static const String createMangaTable =
+  static const createMangaTable =
       "CREATE TABLE $MANGA_TABLE_NAME ($MANGA_ID_COLUMN TEXT PRIMARY KEY, "
       "$AKA_COLUMN TEXT, "
       "$AUTHOR_COLUMN TEXT, "
@@ -47,15 +50,19 @@ class SqliteUtilMangaeden extends SqliteUtil {
       "$STATUS_COLUMN TEXT, "
       "$TITLE_COLUMN TEXT)";
 
-  static const String createChapterTable =
+  static const createChapterTable =
       "CREATE TABLE $CHAPTER_TABLE_NAME($CHAPTER_ID_COLUMN TEXT PRIMARY KEY, "
       "$CHAPTER_NUMBER_COLUMN TEXT, "
       "$CHAPTER_DATE_COLUMN REAL, "
       "$CHAPTER_TITLE_COLUMN TEXT,"
       "$CHAPTER_MANGA_ID_COLUMN TEXT NOT NULL,"
-      "$CHAPTER_PAGE_NUMBER_COLUMN INTEGER, "
-      "$CHAPTER_IMAGE_URL_COLUMN TEXT, "
-      "$CHAPTER_WIDTH_COLUMN INTEGER, "
-      "$CHAPTER_HEIGHT_COLUMN INTEGER, "
       "FOREIGN KEY($CHAPTER_MANGA_ID_COLUMN) REFERENCES $MANGA_TABLE_NAME($MANGA_ID_COLUMN) ON DELETE CASCADE)";
+
+  static const createChapterImageTable =
+      "CREATE TABLE $CHAPTER_IMAGE_TABLE_NAME($CHAPTER_IMAGE_URL_COLUMN TEXT,"
+      "$CHAPTER_PAGE_NUMBER_COLUMN INTEGER,"
+      "$CHAPTER_WIDTH_COLUMN INTEGER,"
+      "$CHAPTER_HEIGHT_COLUMN INTEGER,"
+      "$CHAPTER_IMAGE_CHAPTER_ID_COLUMN TEXT,"
+      "FOREIGN KEY($CHAPTER_IMAGE_CHAPTER_ID_COLUMN) REFERENCES $CHAPTER_TABLE_NAME($CHAPTER_ID_COLUMN) ON DELETE CASCADE)";
 }

@@ -32,7 +32,7 @@ class Repository {
     //before check if chapter is already saved into the database
     var chapterPages = await _mangaDbAdapter.getChapterDetail(chapterID);
 
-    if (chapterPages.isNotEmpty && chapterPages.length == 1) {
+    if (chapterPages != null && chapterPages.isNotEmpty) {
       return chapterPages;
     } else {
       return await _mangaNetworkAdapter.getChapterDetail(chapterID);

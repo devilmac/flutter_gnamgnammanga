@@ -128,16 +128,21 @@ class MangaedenDatabase extends MangaDatabase {
   }
 
   @override
-  Future<ChapterImage> getChapterDetail(String chapterID) async {
+  Future<List<ChapterImage>> getChapterDetail(String chapterID) async {
     await _openDatabase();
 
-    var query = await _db.query(SqliteUtilMangaeden.CHAPTER_TABLE_NAME,
+    var query = await _db.query(SqliteUtilMangaeden.CHAPTER_IMAGE_TABLE_NAME,
         columns: null,
-        where: "${SqliteUtilMangaeden.CHAPTER_ID_COLUMN} = ?",
+        where:
+            "${SqliteUtilMangaeden.CHAPTER_IMAGE_CHAPTER_ID_COLUMN} = ? ORDER BY ${SqliteUtilMangaeden.CHAPTER_PAGE_NUMBER_COLUMN} ASC",
         whereArgs: [chapterID]);
 
     if (query.isNotEmpty && query.length == 1) {
-      return ChapterImage.fromMap(query[0]);
+      var pages = query.map((map) {
+        return ChapterImage.fromMap(map);
+      }).toList();
+
+      return pages;
     }
 
     _db.close();
@@ -172,6 +177,7 @@ class MangaedenDatabase extends MangaDatabase {
     await db.transaction((transaction) async {
       transaction.execute(SqliteUtilMangaeden.createMangaTable);
       transaction.execute(SqliteUtilMangaeden.createChapterTable);
+      transaction.execute(SqliteUtilMangaeden.createChapterImageTable);
     });
   }
 

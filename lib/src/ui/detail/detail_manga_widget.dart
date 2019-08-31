@@ -4,7 +4,7 @@ import 'package:flutter_app/src/config/configuration.dart';
 import 'package:flutter_app/src/domain/manga.dart';
 import 'package:flutter_app/src/resource/resource_string.dart';
 import 'package:flutter_app/src/state/app_state.dart';
-import 'package:flutter_app/src/ui/custom/circle_appbar_leading_clipper.dart';
+import 'package:flutter_app/src/ui/custom/waves_header_custom_clipper.dart';
 import 'package:flutter_app/src/ui/detail/detail_body_widget.dart';
 import 'package:flutter_app/src/ui/detail/manga_detail_arguments.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -89,23 +89,26 @@ class _DetailMangaWidgetState extends State<DetailMangaWidget> {
         physics: ClampingScrollPhysics(),
         slivers: <Widget>[
           SliverAppBar(
-            forceElevated: true,
+            elevation: 0.0,
+            backgroundColor: Colors.white,
+//            forceElevated: true,
             expandedHeight: sliverAppBarHeight,
             floating: true,
             pinned: true,
-            snap: true,
+            snap: false,
             leading: IconButton(
               icon: Icon(
                 Icons.arrow_back,
+                color: Theme.of(context).primaryColor,
               ),
               onPressed: () {
                 Navigator.pop(context, null);
               },
             ),
             flexibleSpace: FlexibleSpaceBar(
-              collapseMode: CollapseMode.parallax,
+              collapseMode: CollapseMode.none,
               background: ClipPath(
-                  clipper: CircleAppBarLeadingClipper(),
+                  clipper: WavesHeaderCustomClipper(),
                   child: Container(
                     height: sliverAppBarHeight,
                     child: Flex(

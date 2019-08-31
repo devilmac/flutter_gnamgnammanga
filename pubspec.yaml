@@ -33,6 +33,8 @@ dependencies:
   clippy_flutter:
   flutter_swiper:
   shared_preferences:
+
+  photo_view:
 dev_dependencies:
   flutter_test:
     sdk: flutter

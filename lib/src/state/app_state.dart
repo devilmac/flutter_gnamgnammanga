@@ -42,6 +42,8 @@ abstract class _AppState with Store {
 
   @action
   Future getChapterDetail(String chapterID) async {
+    this.currentReadingChapter = null;
+
     var _response = await _repository.getChapterDetail(chapterID);
 
     this.currentReadingChapter = _response;

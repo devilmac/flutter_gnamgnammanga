@@ -31,7 +31,7 @@ class MangaDbAdapter implements MangaAdapter {
   }
 
   Future<void> addRemoveMangaFavorite(Manga manga) {
-    _database.addRemoveToFavorites(manga);
+    return _database.addRemoveToFavorites(manga);
   }
 
   Future<bool> isMangaFavorite(String mangaID) {

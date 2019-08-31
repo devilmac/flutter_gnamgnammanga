@@ -105,7 +105,7 @@ List<domain.ChapterImage> _mapChapterDetail(List<List<dynamic>> chapterImages) {
         element[2] as int, element[3] as int);
   })?.toList();
 
-  return images;
+  return List.from(images.reversed);
 }
 
 String _mapStatus(int status) {
