@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/domain/manga.dart';
 import 'package:flutter_app/src/state/app_state.dart';
-import 'package:flutter_app/src/ui/navigator/app_navigator_impl.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -44,5 +43,5 @@ class GridMangaFavoritesWidget extends StatelessWidget {
   }
 
   Widget _getItemList(List<Manga> manga, int index) =>
-      HomeGridItemWidget(manga[index], AppNavigatorImpl());
+      HomeGridItemWidget(manga[index]);
 }

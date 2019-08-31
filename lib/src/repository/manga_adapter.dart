@@ -1,10 +1,11 @@
-import 'package:flutter_app/src/domain/chapter_image.dart' as domain;
-import 'package:flutter_app/src/domain/manga.dart' as domain;
+import 'package:flutter_app/src/domain/chapter_image.dart';
+import 'package:flutter_app/src/domain/manga.dart';
+import 'package:flutter_app/src/domain/manga_detail.dart';
 
 abstract class MangaAdapter {
-  Future<List<domain.Manga>> getMangaList();
+  Future<List<Manga>> getMangaList();
 
-  Future<domain.Manga> getMangaDetail(String mangaID);
+  Future<MangaDetail> getMangaDetail(String mangaID);
 
-  Future<List<domain.ChapterImage>> getChapterDetail(String chapterID);
+  Future<List<ChapterImage>> getChapterDetail(String chapterID);
 }

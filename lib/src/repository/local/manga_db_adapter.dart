@@ -1,5 +1,6 @@
 import 'package:flutter_app/src/domain/chapter_image.dart';
-import 'package:flutter_app/src/domain/manga.dart' as domain;
+import 'package:flutter_app/src/domain/manga.dart';
+import 'package:flutter_app/src/domain/manga_detail.dart';
 import 'package:flutter_app/src/repository/local/manga_db_factory.dart';
 
 import '../manga_adapter.dart';
@@ -15,12 +16,12 @@ class MangaDbAdapter implements MangaAdapter {
   }
 
   @override
-  Future<List<domain.Manga>> getMangaList() {
+  Future<List<Manga>> getMangaList() {
     return _database.getFavorites();
   }
 
   @override
-  Future<domain.Manga> getMangaDetail(String mangaID) {
+  Future<MangaDetail> getMangaDetail(String mangaID) {
     return _database.getFavorite(mangaID);
   }
 
@@ -29,7 +30,7 @@ class MangaDbAdapter implements MangaAdapter {
     return _database.getChapterDetail(chapterID);
   }
 
-  Future<void> addRemoveMangaFavorite(domain.Manga manga) {
+  Future<void> addRemoveMangaFavorite(Manga manga) {
     return _database.addRemoveToFavorites(manga);
   }
 

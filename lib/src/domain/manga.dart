@@ -1,50 +1,35 @@
+import 'package:flutter_app/src/domain/manga_detail.dart';
 import 'package:flutter_app/src/repository/local/mangaeden/sqlite_util.dart';
-
-import 'chapter.dart';
 
 class Manga {
   String mangaID;
-  List<String> aka;
-  String author;
   List<String> categories;
-  String description;
-  List<Chapter> chapters;
-  int chaptersLen;
   String image;
-  String language;
-  double lastChapterDate;
-  int released;
-  String status;
+  num lastChapterDate;
   String title;
 
-  Manga({
-    this.mangaID,
-    this.aka,
-    this.author,
-    this.categories,
-    this.chapters,
-    this.chaptersLen,
-    this.description,
-    this.image,
-    this.language,
-    this.lastChapterDate,
-    this.released,
-    this.status,
-    this.title,
-  });
+  MangaDetail mangaDetail;
+
+  Manga(
+      {this.mangaID,
+      this.categories,
+      this.image,
+      this.lastChapterDate,
+      this.title,
+      this.mangaDetail});
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
-      SqliteUtilMangaeden.MANGA_ID_COLUMN: aka,
-      SqliteUtilMangaeden.AUTHOR_COLUMN: author,
+      SqliteUtilMangaeden.AKA_COLUMN: mangaDetail.aka.join("|"),
+      SqliteUtilMangaeden.AUTHOR_COLUMN: mangaDetail.author,
       SqliteUtilMangaeden.CATEGORIES_COLUMN: categories.join("|"),
-      SqliteUtilMangaeden.DESCRIPTION_COLUMN: description,
+      SqliteUtilMangaeden.DESCRIPTION_COLUMN: mangaDetail.description,
       SqliteUtilMangaeden.IMAGE_COLUMN: image,
-      SqliteUtilMangaeden.LANGUAGE_COLUMN: language,
+      SqliteUtilMangaeden.LANGUAGE_COLUMN: mangaDetail.language,
       SqliteUtilMangaeden.LAST_CHAPTER_DATE_COLUMN: lastChapterDate,
-      SqliteUtilMangaeden.RELEASED_COLUMN: released,
-      SqliteUtilMangaeden.STATUS_COLUMN: status,
-      SqliteUtilMangaeden.TITLE_COLUMN: title
+      SqliteUtilMangaeden.RELEASED_COLUMN: mangaDetail.released,
+      SqliteUtilMangaeden.STATUS_COLUMN: mangaDetail.status,
+      SqliteUtilMangaeden.TITLE_COLUMN: title,
     };
 
     if (mangaID != null) {
@@ -56,21 +41,29 @@ class Manga {
 
   Manga.fromMap(Map<String, dynamic> map) {
     mangaID = map[SqliteUtilMangaeden.MANGA_ID_COLUMN];
-    aka = map[SqliteUtilMangaeden.AKA_COLUMN];
-    author = map[SqliteUtilMangaeden.AUTHOR_COLUMN];
-    categories = (map[SqliteUtilMangaeden.AUTHOR_COLUMN] as String).split("|");
-    description = map[SqliteUtilMangaeden.DESCRIPTION_COLUMN];
+    categories =
+        (map[SqliteUtilMangaeden.CATEGORIES_COLUMN] as String).split("|");
     image = map[SqliteUtilMangaeden.IMAGE_COLUMN];
-    language = map[SqliteUtilMangaeden.LANGUAGE_COLUMN];
     lastChapterDate = map[SqliteUtilMangaeden.LAST_CHAPTER_DATE_COLUMN];
-    released = map[SqliteUtilMangaeden.RELEASED_COLUMN];
-    status = map[SqliteUtilMangaeden.STATUS_COLUMN];
     title = map[SqliteUtilMangaeden.TITLE_COLUMN];
+
+    mangaDetail = MangaDetail();
+    mangaDetail.aka =
+        (map[SqliteUtilMangaeden.AKA_COLUMN] as String).split("|");
+    mangaDetail.description = map[SqliteUtilMangaeden.DESCRIPTION_COLUMN];
+    mangaDetail.language = map[SqliteUtilMangaeden.LANGUAGE_COLUMN];
+    mangaDetail.released = map[SqliteUtilMangaeden.RELEASED_COLUMN];
+    mangaDetail.status = map[SqliteUtilMangaeden.STATUS_COLUMN];
+    mangaDetail.author = map[SqliteUtilMangaeden.AUTHOR_COLUMN];
+    mangaDetail.lastChapterDate =
+        map[SqliteUtilMangaeden.LAST_CHAPTER_DATE_COLUMN];
+    mangaDetail.categories =
+        (map[SqliteUtilMangaeden.CATEGORIES_COLUMN] as String).split("|");
   }
 
   @override
   String toString() {
-    return 'Manga{mangaID: $mangaID, author: $author, title: $title}';
+    return 'Manga{mangaID: $mangaID, categories: $categories, image: $image, lastChapterDate: $lastChapterDate, title: $title, mangaDetail: $mangaDetail}';
   }
 
   @override
@@ -79,32 +72,18 @@ class Manga {
       other is Manga &&
           runtimeType == other.runtimeType &&
           mangaID == other.mangaID &&
-          aka == other.aka &&
-          author == other.author &&
           categories == other.categories &&
-          description == other.description &&
-          chapters == other.chapters &&
-          chaptersLen == other.chaptersLen &&
           image == other.image &&
-          language == other.language &&
           lastChapterDate == other.lastChapterDate &&
-          released == other.released &&
-          status == other.status &&
-          title == other.title;
+          title == other.title &&
+          mangaDetail == other.mangaDetail;
 
   @override
   int get hashCode =>
       mangaID.hashCode ^
-      aka.hashCode ^
-      author.hashCode ^
       categories.hashCode ^
-      description.hashCode ^
-      chapters.hashCode ^
-      chaptersLen.hashCode ^
       image.hashCode ^
-      language.hashCode ^
       lastChapterDate.hashCode ^
-      released.hashCode ^
-      status.hashCode ^
-      title.hashCode;
+      title.hashCode ^
+      mangaDetail.hashCode;
 }

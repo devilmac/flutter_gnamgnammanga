@@ -5,13 +5,11 @@ import 'package:flutter_app/src/state/app_state.dart';
 import 'package:flutter_app/src/ui/custom/material_ripple.dart';
 import 'package:flutter_app/src/ui/detail/detail_manga_widget.dart';
 import 'package:flutter_app/src/ui/detail/manga_detail_arguments.dart';
-import 'package:flutter_app/src/ui/navigator/app_navigator.dart';
 
 class HomeGridItemWidget extends StatelessWidget {
   final Manga _manga;
-  final AppNavigator _appNavigator;
 
-  HomeGridItemWidget(this._manga, this._appNavigator);
+  HomeGridItemWidget(this._manga);
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +43,7 @@ class HomeGridItemWidget extends StatelessWidget {
           ),
           Positioned.fill(child: MaterialRipple(
             onPressed: () {
-              appState.manga = null;
+              appState.mangaDetail = null;
               appState.isMangaFavorite(_manga.mangaID);
               appState.getMangaDetail(_manga.mangaID);
               _navigateToMangaDetailPage(context);
@@ -57,9 +55,8 @@ class HomeGridItemWidget extends StatelessWidget {
   }
 
   _navigateToMangaDetailPage(BuildContext context) {
-    _appNavigator.goToMangaDetail(context, DetailMangaWidget.routeName,
-        arguments:
-            MangaDetailArguments(_manga.mangaID, _manga.title, _manga.image));
+    Navigator.pushNamed(context, DetailMangaWidget.routeName,
+        arguments: MangaDetailArguments(_manga));
   }
 
   Widget _getGridItemImage(String imageUrl) {

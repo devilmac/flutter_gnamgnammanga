@@ -5,33 +5,25 @@ class ChapterImage {
   String imageUrl;
   int height;
   int width;
-  String chapterID;
 
   ChapterImage(this.page, this.imageUrl, this.height, this.width);
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
-      SqliteUtilMangaeden.CHAPTER_IMAGE_PAGE_NUMBER_COLUMN: page,
+      SqliteUtilMangaeden.CHAPTER_PAGE_NUMBER_COLUMN: page,
       SqliteUtilMangaeden.CHAPTER_IMAGE_URL_COLUMN: imageUrl,
-      SqliteUtilMangaeden.CHAPTER_IMAGE_HEIGHT_COLUMN: height,
-      SqliteUtilMangaeden.CHAPTER_IMAGE_WIDTH_COLUMN: width,
+      SqliteUtilMangaeden.CHAPTER_HEIGHT_COLUMN: height,
+      SqliteUtilMangaeden.CHAPTER_WIDTH_COLUMN: width,
     };
-
-    if (chapterID != null) {
-      map[SqliteUtilMangaeden.CHAPTER_IMAGE_CHAPTER_ID_COLUMN] = chapterID;
-    } else {
-      throw ArgumentError("chapterID field must be not null");
-    }
 
     return map;
   }
 
   ChapterImage.fromMap(Map<String, dynamic> map) {
-    chapterID = map[SqliteUtilMangaeden.CHAPTER_IMAGE_CHAPTER_ID_COLUMN];
-    page = map[SqliteUtilMangaeden.CHAPTER_IMAGE_PAGE_NUMBER_COLUMN];
-    width = map[SqliteUtilMangaeden.CHAPTER_IMAGE_WIDTH_COLUMN];
-    height = map[SqliteUtilMangaeden.CHAPTER_IMAGE_HEIGHT_COLUMN];
-    chapterID = map[SqliteUtilMangaeden.CHAPTER_IMAGE_CHAPTER_ID_COLUMN];
+    page = map[SqliteUtilMangaeden.CHAPTER_PAGE_NUMBER_COLUMN];
+    width = map[SqliteUtilMangaeden.CHAPTER_WIDTH_COLUMN];
+    height = map[SqliteUtilMangaeden.CHAPTER_HEIGHT_COLUMN];
+    imageUrl = map[SqliteUtilMangaeden.CHAPTER_IMAGE_URL_COLUMN];
   }
 
   @override
@@ -47,14 +39,9 @@ class ChapterImage {
           page == other.page &&
           imageUrl == other.imageUrl &&
           height == other.height &&
-          width == other.width &&
-          chapterID == other.chapterID;
+          width == other.width;
 
   @override
   int get hashCode =>
-      page.hashCode ^
-      imageUrl.hashCode ^
-      height.hashCode ^
-      width.hashCode ^
-      chapterID.hashCode;
+      page.hashCode ^ imageUrl.hashCode ^ height.hashCode ^ width.hashCode;
 }

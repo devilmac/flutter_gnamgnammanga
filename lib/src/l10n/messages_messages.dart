@@ -21,8 +21,5 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
 
-  static _notInlinedMessages(_) => <String, Function>{
-        "tabAllManga": MessageLookupByLibrary.simpleMessage("All manga"),
-        "tabFavoritesManga": MessageLookupByLibrary.simpleMessage("Favorites")
-      };
+  static _notInlinedMessages(_) => <String, Function>{};
 }

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/domain/manga.dart';
-import 'package:flutter_app/src/ui/navigator/app_navigator_impl.dart';
+import 'package:flutter_app/src/domain/manga_detail.dart';
+import 'package:flutter_app/src/locale/app_localizations.dart';
 
 import 'chapter_list_item_widget.dart';
 
 class DetailBodyWidget extends StatelessWidget {
   final String _title;
-  final Manga _manga;
+  final MangaDetail _mangaDetail;
 
-  DetailBodyWidget(this._manga, this._title);
+  DetailBodyWidget(this._title, this._mangaDetail);
 
   @override
   Widget build(BuildContext context) {
@@ -33,26 +33,26 @@ class DetailBodyWidget extends StatelessWidget {
               Row(
                 children: <Widget>[
                   Text(
-                    "Written: ",
+                    AppLocalizations.of(context).detailAuthor + " ",
                     style: TextStyle(
                         fontSize: 14.0,
                         color: Colors.black,
                         fontWeight: FontWeight.w600),
                   ),
-                  Text(_manga.author)
+                  Text(_mangaDetail.author)
                 ],
               ),
               Row(
                 children: <Widget>[
                   Text(
-                    "Updated: ",
+                    AppLocalizations.of(context).detailUpdated + " ",
                     style: TextStyle(
                         fontSize: 14.0,
                         color: Colors.black,
                         fontWeight: FontWeight.w600),
                   ),
                   Text(DateTime.fromMillisecondsSinceEpoch(
-                          _manga.lastChapterDate.toInt() * 1000)
+                          _mangaDetail.lastChapterDate.toInt() * 1000)
                       .toString())
                 ],
               ),
@@ -61,25 +61,26 @@ class DetailBodyWidget extends StatelessWidget {
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
-                        children: categorieChips(context, _manga.categories)),
+                        children:
+                            categoryChips(context, _mangaDetail.categories)),
                   )),
               Padding(
                   padding: const EdgeInsets.only(top: 8.0),
-                  child: Text(_manga.description)),
+                  child: Text(_mangaDetail.description)),
               Padding(padding: const EdgeInsets.only(top: 8.0)),
               Row(children: <Widget>[
                 Text(
-                  "Status: ",
+                  AppLocalizations.of(context).detailStatus + " ",
                   style: TextStyle(
                       fontSize: 14.0,
                       color: Colors.black,
                       fontWeight: FontWeight.w600),
                 ),
-                Text(_manga.status != null ? _manga.status : "Unknown")
+                Text(_mangaDetail.status)
               ]),
               Padding(padding: const EdgeInsets.only(top: 8.0)),
               Text(
-                "Chapters",
+                AppLocalizations.of(context).detailChapters,
                 style: TextStyle(
                     fontSize: 18.0,
                     color: Colors.black,
@@ -91,15 +92,11 @@ class DetailBodyWidget extends StatelessWidget {
                   height: 150,
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount:
-                          _manga.chapters != null ? _manga.chapters.length : [],
+                      itemCount: _mangaDetail.chapters.length,
                       physics: ClampingScrollPhysics(),
                       itemBuilder: (context, index) {
                         return ChapterListItemWidget(
-                            _manga.chapters != null
-                                ? _manga.chapters[index]
-                                : [],
-                            AppNavigatorImpl());
+                            _mangaDetail.chapters[index]);
                       }),
                 ),
               ),
@@ -108,7 +105,7 @@ class DetailBodyWidget extends StatelessWidget {
         ));
   }
 
-  List<Widget> categorieChips(BuildContext context, List<String> categories) {
+  List<Widget> categoryChips(BuildContext context, List<String> categories) {
     return categories.map((element) {
       return Padding(
         padding: const EdgeInsets.only(right: 2.0),
@@ -118,7 +115,6 @@ class DetailBodyWidget extends StatelessWidget {
           backgroundColor: Theme.of(context).accentColor,
           label: Text(
             element,
-//            style: TextStyle(color: Colors.white),
           ),
         ),
       );

@@ -11,5 +11,11 @@
     "description": "Etichetta del tab per la lista dei manga preferiti nella pagina iniziale",
     "type": "text",
     "placeholders": {}
+  },
+  "detailStatus": "Stato",
+  "@detailStatus":{
+    "description":"Etichetta dello stato nella pagina di dettaglio",
+    "type": "text",
+    "placeholder":{}
   }
 }

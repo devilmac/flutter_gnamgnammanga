@@ -3,7 +3,7 @@ import 'package:flutter_app/src/repository/local/mangaeden/sqlite_util.dart';
 
 class Chapter {
   String number;
-  double date;
+  num date;
   String title;
   String chapterID;
   String mangaID;
@@ -14,7 +14,7 @@ class Chapter {
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
       SqliteUtilMangaeden.CHAPTER_NUMBER_COLUMN: number,
-      SqliteUtilMangaeden.CHATER_DATE_COLUMN: date,
+      SqliteUtilMangaeden.CHAPTER_DATE_COLUMN: date,
       SqliteUtilMangaeden.CHAPTER_TITLE_COLUMN: title,
     };
 
@@ -35,8 +35,13 @@ class Chapter {
     mangaID = map[SqliteUtilMangaeden.CHAPTER_MANGA_ID_COLUMN];
     number = map[SqliteUtilMangaeden.CHAPTER_NUMBER_COLUMN];
     title = map[SqliteUtilMangaeden.CHAPTER_TITLE_COLUMN];
-    date = map[SqliteUtilMangaeden.CHATER_DATE_COLUMN];
+    date = map[SqliteUtilMangaeden.CHAPTER_DATE_COLUMN];
     chapterID = map[SqliteUtilMangaeden.CHAPTER_ID_COLUMN];
+  }
+
+  Chapter setMangaID(String mangaID) {
+    this.mangaID = mangaID;
+    return this;
   }
 
   @override
