@@ -1,0 +1,11 @@
+.packages
+build/
+
+.flutter-plugins
+
+*.iml
+.gradle
+.idea/
+.dart_tool
+/codealike.json
+/keystore/

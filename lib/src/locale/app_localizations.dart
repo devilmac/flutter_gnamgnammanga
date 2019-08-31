@@ -1,0 +1,60 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_app/src/l10n/messages_all.dart';
+import 'package:intl/intl.dart';
+
+class AppLocalizations {
+  static Future<AppLocalizations> load(Locale locale) {
+    final String name =
+        locale.countryCode.isEmpty ? locale.languageCode : locale.toString();
+    final String localeName = Intl.canonicalizedLocale(name);
+    return initializeMessages(localeName).then((bool _) {
+      Intl.defaultLocale = localeName;
+      return AppLocalizations();
+    });
+  }
+
+  static AppLocalizations of(BuildContext context) =>
+      Localizations.of<AppLocalizations>(context, AppLocalizations);
+
+  String get tabAllManga {
+    return Intl.message("All manga",
+        name: "tabAllManga",
+        desc: "Label of all manga's TabView on the home page");
+  }
+
+  String get tabFavoritesManga {
+    return Intl.message("Favorites",
+        name: "tabFavoritesManga",
+        desc: "Label of favorite manga's TabView on the home page");
+  }
+
+  String get detailAuthor {
+    return Intl.message("Author",
+        name: "detailAuthor", desc: "Author label on detail page");
+  }
+
+  String get detailUpdated {
+    return Intl.message("Updated",
+        name: "detailUpdated", desc: "Updated label on detail page");
+  }
+
+  String get detailStatus {
+    return Intl.message("Status",
+        name: "detailStatus", desc: "Status label on detail page");
+  }
+
+  String get statusCompleted {
+    return Intl.message("Completed",
+        name: "statusCompleted", desc: "Value for label status");
+  }
+
+  String get statusInProgress {
+    return Intl.message("In progress",
+        name: "statusInProgress", desc: "Value for label status");
+  }
+
+  String get detailChapters {
+    return Intl.message("Chapters",
+        name: "detailChapters", desc: "Chapter label on detail page");
+  }
+}
