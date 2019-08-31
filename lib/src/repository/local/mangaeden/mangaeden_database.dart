@@ -151,7 +151,6 @@ class MangaedenDatabase extends MangaDatabase {
     await db.transaction((transaction) async {
       transaction.execute(SqliteUtilMangaeden.createMangaTable);
       transaction.execute(SqliteUtilMangaeden.createChapterTable);
-      transaction.execute(SqliteUtilMangaeden.createChapterImageTable);
     });
   }
 

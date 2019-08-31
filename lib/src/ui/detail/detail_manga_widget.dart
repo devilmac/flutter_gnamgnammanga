@@ -56,6 +56,11 @@ class _DetailMangaWidgetState extends State<DetailMangaWidget> {
 
     if (appState.mangaDetail != null) {
       args.manga.mangaDetail = appState.mangaDetail;
+
+      args.manga.mangaDetail.chapters =
+          appState.mangaDetail.chapters.map((element) {
+        return element.setMangaID(args.manga.mangaID);
+      }).toList();
     }
 
     return Scaffold(
