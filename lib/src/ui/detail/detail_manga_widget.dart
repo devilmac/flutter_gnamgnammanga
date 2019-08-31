@@ -54,6 +54,10 @@ class _DetailMangaWidgetState extends State<DetailMangaWidget> {
     var fabIcon =
         appState.checkMangaFavorite ? Icons.favorite : Icons.favorite_border;
 
+    if (appState.mangaDetail != null) {
+      args.manga.mangaDetail = appState.mangaDetail;
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       extendBody: true,
@@ -63,7 +67,7 @@ class _DetailMangaWidgetState extends State<DetailMangaWidget> {
           child: FloatingActionButton(
               tooltip: MANGA_DETAIL_FAB_TOOLTIP,
               onPressed: () {
-                appState.addRemoveMangaFavorite(appState.manga);
+                appState.addRemoveMangaFavorite(args.manga);
               },
               child: Icon(fabIcon)),
         ),
@@ -106,10 +110,10 @@ class _DetailMangaWidgetState extends State<DetailMangaWidget> {
                           child: FadeInImage.assetNetwork(
                               placeholder: kTransparentImage.toString(),
                               fit: BoxFit.cover,
-                              image: args.imageUrl != null
-                                  ? args.imageUrl
+                              image: args.manga.image != null
+                                  ? args.manga.image
                                   : gridImagePlaceholder),
-                          tag: args.mangaID,
+                          tag: args.manga.mangaID,
                         ))
                       ],
                       direction: Axis.horizontal,
@@ -120,7 +124,7 @@ class _DetailMangaWidgetState extends State<DetailMangaWidget> {
           SliverList(
             delegate: SliverChildListDelegate([
               Column(
-                children: <Widget>[getDetailBody(args, appState.manga)],
+                children: <Widget>[getDetailBody(args.manga)],
               )
             ]),
           )
@@ -129,12 +133,9 @@ class _DetailMangaWidgetState extends State<DetailMangaWidget> {
     );
   }
 
-  Widget getDetailBody(MangaDetailArguments args, Manga manga) {
-    if (manga != null) {
-      manga.mangaID = args.mangaID;
-      manga.image = args.imageUrl;
-
-      return DetailBodyWidget(manga, args.title);
+  Widget getDetailBody(Manga manga) {
+    if (manga != null && appState.mangaDetail != null) {
+      return DetailBodyWidget(manga.title, appState.mangaDetail);
     } else {
       return Container(
         color: Colors.white,

@@ -11,5 +11,11 @@
     "description": "Label of favorite manga's TabView on the home page",
     "type": "text",
     "placeholders": {}
+  },
+  "detailStatus": "Status",
+  "@detailStatus":{
+    "description":"Status label on detail page",
+    "type": "text",
+    "placeholder":{}
   }
 }

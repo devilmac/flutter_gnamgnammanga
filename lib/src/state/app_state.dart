@@ -1,5 +1,6 @@
 import 'package:flutter_app/src/domain/chapter_image.dart';
 import 'package:flutter_app/src/domain/manga.dart';
+import 'package:flutter_app/src/domain/manga_detail.dart';
 import 'package:flutter_app/src/repository/repository.dart';
 import 'package:mobx/mobx.dart';
 
@@ -11,7 +12,7 @@ abstract class _AppState with Store {
   final Repository _repository = Repository();
 
   @observable
-  Manga manga;
+  MangaDetail mangaDetail;
 
   @observable
   List<Manga> mangaList;
@@ -36,7 +37,7 @@ abstract class _AppState with Store {
   Future getMangaDetail(String mangaID) async {
     var _response = await _repository.getMangaDetail(mangaID);
 
-    this.manga = _response;
+    this.mangaDetail = _response;
   }
 
   @action

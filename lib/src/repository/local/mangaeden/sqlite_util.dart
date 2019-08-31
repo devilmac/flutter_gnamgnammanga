@@ -20,7 +20,7 @@ class SqliteUtilMangaeden extends SqliteUtil {
   static const LANGUAGE_COLUMN = "language";
   static const LAST_CHAPTER_DATE_COLUMN = "last_chapter_date";
   static const RELEASED_COLUMN = "released";
-  static const STATUS_COLUMN = " status";
+  static const STATUS_COLUMN = "status";
   static const TITLE_COLUMN = "title";
 
   //Chapter table columns
@@ -36,6 +36,21 @@ class SqliteUtilMangaeden extends SqliteUtil {
   static const CHAPTER_IMAGE_WIDTH_COLUMN = "width";
   static const CHAPTER_IMAGE_HEIGHT_COLUMN = "height";
   static const CHAPTER_IMAGE_CHAPTER_ID_COLUMN = "chapter_id";
+
+  /// String mangaID;
+  //  List<String> categories;
+  //  String image;
+  //  num lastChapterDate;
+  //  String title;
+  ///List<String> aka;
+  //  String author;
+  //  String description;
+  //  List<Chapter> chapters;
+  //  String language;
+  //  num released;
+  //  String status;
+  //  num lastChapterDate;
+  //  List<String> categories;
 
   static const String createMangaTable =
       "CREATE TABLE $MANGA_TABLE_NAME ($MANGA_ID_COLUMN TEXT PRIMARY KEY, "

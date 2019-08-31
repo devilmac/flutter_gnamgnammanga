@@ -1,7 +1,9 @@
-class MangaDetailArguments {
-  final String mangaID;
-  final String title;
-  final String imageUrl;
+import 'package:flutter_app/src/domain/manga.dart';
 
-  MangaDetailArguments(this.mangaID, this.title, this.imageUrl);
+class MangaDetailArguments {
+  final Manga _manga;
+
+  MangaDetailArguments(this._manga);
+
+  Manga get manga => _manga;
 }

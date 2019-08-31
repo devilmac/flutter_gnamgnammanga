@@ -45,7 +45,7 @@ class HomeGridItemWidget extends StatelessWidget {
           ),
           Positioned.fill(child: MaterialRipple(
             onPressed: () {
-              appState.manga = null;
+              appState.mangaDetail = null;
               appState.isMangaFavorite(_manga.mangaID);
               appState.getMangaDetail(_manga.mangaID);
               _navigateToMangaDetailPage(context);
@@ -58,8 +58,7 @@ class HomeGridItemWidget extends StatelessWidget {
 
   _navigateToMangaDetailPage(BuildContext context) {
     _appNavigator.goToMangaDetail(context, DetailMangaWidget.routeName,
-        arguments:
-            MangaDetailArguments(_manga.mangaID, _manga.title, _manga.image));
+        arguments: MangaDetailArguments(_manga));
   }
 
   Widget _getGridItemImage(String imageUrl) {

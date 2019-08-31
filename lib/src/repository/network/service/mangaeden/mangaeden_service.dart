@@ -5,11 +5,14 @@ import 'package:flutter_app/src/config/configuration.dart' as configuration;
 import 'package:flutter_app/src/domain/chapter.dart' as domain;
 import 'package:flutter_app/src/domain/chapter_image.dart' as domain;
 import 'package:flutter_app/src/domain/manga.dart' as domain;
+import 'package:flutter_app/src/domain/manga_detail.dart' as domain;
 import 'package:flutter_app/src/domain/manga_language.dart';
 import 'package:flutter_app/src/domain/manga_status.dart';
 import 'package:flutter_app/src/repository/network/model/mangaeden/chapter.dart'
     as network;
 import 'package:flutter_app/src/repository/network/model/mangaeden/manga.dart'
+    as network;
+import 'package:flutter_app/src/repository/network/model/mangaeden/manga_detail.dart'
     as network;
 import 'package:flutter_app/src/repository/network/service/manga_service.dart';
 import 'package:http/http.dart' as http;
@@ -39,14 +42,14 @@ List<domain.Manga> manageGetMangaListResponse(String responseBody) {
   return result;
 }
 
-domain.Manga manageGetMangaDetailResponse(String responseBody) {
-  domain.Manga result;
+domain.MangaDetail manageGetMangaDetailResponse(String responseBody) {
+  domain.MangaDetail result;
 
   var body = json.decode(responseBody);
 
-  var manga = network.Manga.fromJson(body);
+  var mangaDetail = network.MangaDetail.fromJson(body);
 
-  result = _mapManga(manga);
+  result = _mapMangaDetail(mangaDetail);
 
   return result;
 }
@@ -65,19 +68,25 @@ List<domain.ChapterImage> manageGetChapterDetailResponse(String responseBody) {
 
 domain.Manga _mapManga(network.Manga manga) {
   domain.Manga result = domain.Manga(
-      mangaID: manga.mangaID,
-      aka: manga.aka,
-      author: manga.author,
-      categories: manga.c != null ? manga.c : manga.categories,
-      chapters: _mapChapters(manga.chapters),
-      chaptersLen: manga.chaptersLen,
-      description: manga.description,
-      image: _mapImage(manga.image),
-      language: _mapLanguage(manga.language),
-      lastChapterDate: manga.ld != null ? manga.ld : manga.lastChapterDate,
-      released: manga.released,
-      status: _mapStatus(manga.status),
-      title: manga.t != null ? manga.t : manga.title);
+      mangaID: manga.i,
+      categories: manga.c,
+      image: _mapImage(manga.im),
+      lastChapterDate: manga.ld,
+      title: manga.t);
+  return result;
+}
+
+domain.MangaDetail _mapMangaDetail(network.MangaDetail mangaDetail) {
+  domain.MangaDetail result = domain.MangaDetail(
+      lastChapterDate: mangaDetail.lastChapterDate,
+      categories: mangaDetail.categories,
+      aka: mangaDetail.aka,
+      author: mangaDetail.author,
+      description: mangaDetail.description,
+      chapters: _mapChapters(mangaDetail.chapters),
+      language: _mapLanguage(mangaDetail.language),
+      released: mangaDetail.released,
+      status: _mapStatus(mangaDetail.status));
   return result;
 }
 
@@ -130,7 +139,7 @@ class MangaedenService extends MangaService {
   }
 
   @override
-  Future<domain.Manga> getMangaDetail(String mangaID) async {
+  Future<domain.MangaDetail> getMangaDetail(String mangaID) async {
     final response = await http.get("$MANGA_DETAIL$mangaID");
 
     if (response.statusCode == 200) {

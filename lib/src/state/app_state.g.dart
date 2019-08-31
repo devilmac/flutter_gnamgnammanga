@@ -9,21 +9,21 @@ part of 'app_state.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$AppState on _AppState, Store {
-  final _$mangaAtom = Atom(name: '_AppState.manga');
+  final _$mangaDetailAtom = Atom(name: '_AppState.mangaDetail');
 
   @override
-  Manga get manga {
-    _$mangaAtom.context.enforceReadPolicy(_$mangaAtom);
-    _$mangaAtom.reportObserved();
-    return super.manga;
+  MangaDetail get mangaDetail {
+    _$mangaDetailAtom.context.enforceReadPolicy(_$mangaDetailAtom);
+    _$mangaDetailAtom.reportObserved();
+    return super.mangaDetail;
   }
 
   @override
-  set manga(Manga value) {
-    _$mangaAtom.context.conditionallyRunInAction(() {
-      super.manga = value;
-      _$mangaAtom.reportChanged();
-    }, _$mangaAtom, name: '${_$mangaAtom.name}_set');
+  set mangaDetail(MangaDetail value) {
+    _$mangaDetailAtom.context.conditionallyRunInAction(() {
+      super.mangaDetail = value;
+      _$mangaDetailAtom.reportChanged();
+    }, _$mangaDetailAtom, name: '${_$mangaDetailAtom.name}_set');
   }
 
   final _$mangaListAtom = Atom(name: '_AppState.mangaList');
@@ -134,5 +134,13 @@ mixin _$AppState on _AppState, Store {
   @override
   Future getFavorites() {
     return _$getFavoritesAsyncAction.run(() => super.getFavorites());
+  }
+
+  final _$isMangaFavoriteAsyncAction = AsyncAction('isMangaFavorite');
+
+  @override
+  Future isMangaFavorite(String mangaID) {
+    return _$isMangaFavoriteAsyncAction
+        .run(() => super.isMangaFavorite(mangaID));
   }
 }

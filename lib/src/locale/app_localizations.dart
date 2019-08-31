@@ -27,4 +27,34 @@ class AppLocalizations {
         name: "tabFavoritesManga",
         desc: "Label of favorite manga's TabView on the home page");
   }
+
+  String get detailAuthor {
+    return Intl.message("Author",
+        name: "detailAuthor", desc: "Author label on detail page");
+  }
+
+  String get detailUpdated {
+    return Intl.message("Updated",
+        name: "detailUpdated", desc: "Updated label on detail page");
+  }
+
+  String get detailStatus {
+    return Intl.message("Status",
+        name: "detailStatus", desc: "Status label on detail page");
+  }
+
+  String get statusCompleted {
+    return Intl.message("Completed",
+        name: "statusCompleted", desc: "Value for label status");
+  }
+
+  String get statusInProgress {
+    return Intl.message("In progress",
+        name: "statusInProgress", desc: "Value for label status");
+  }
+
+  String get detailChapters {
+    return Intl.message("Chapters",
+        name: "detailChapters", desc: "Chapter label on detail page");
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter_app/src/domain/chapter_image.dart';
 import 'package:flutter_app/src/domain/manga.dart';
+import 'package:flutter_app/src/domain/manga_detail.dart';
 import 'package:flutter_app/src/repository/local/manga_db_adapter.dart';
 import 'package:flutter_app/src/repository/local/mangaeden/mangaeden_db_factory.dart';
 import 'package:flutter_app/src/repository/network/manga_network_adapter.dart';
@@ -16,7 +17,7 @@ class Repository {
   Future<List<Manga>> getFavorites() async =>
       await _mangaDbAdapter.getMangaList();
 
-  Future<Manga> getMangaDetail(String mangaID) async {
+  Future<MangaDetail> getMangaDetail(String mangaID) async {
     //before check if manga is saved into the database
     var isMangaFavorite = await _mangaDbAdapter.isMangaFavorite(mangaID);
 

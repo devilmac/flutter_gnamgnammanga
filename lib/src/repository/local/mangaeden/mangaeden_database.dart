@@ -1,6 +1,7 @@
 import 'package:flutter_app/src/domain/chapter.dart';
 import 'package:flutter_app/src/domain/chapter_image.dart';
 import 'package:flutter_app/src/domain/manga.dart';
+import 'package:flutter_app/src/domain/manga_detail.dart';
 import 'package:flutter_app/src/repository/local/manga_database.dart';
 import 'package:flutter_app/src/repository/local/mangaeden/sqlite_util.dart';
 import 'package:flutter_app/src/repository/local/sqlite_util.dart';
@@ -36,7 +37,7 @@ class MangaedenDatabase extends MangaDatabase {
   }
 
   @override
-  Future<Manga> getFavorite(String mangaID) async {
+  Future<MangaDetail> getFavorite(String mangaID) async {
     await _openDatabase();
 
     var query = await _db.query(SqliteUtilMangaeden.MANGA_TABLE_NAME,
@@ -46,7 +47,9 @@ class MangaedenDatabase extends MangaDatabase {
     _db.close();
 
     if (query.isNotEmpty && query.length == 1) {
-      return Manga.fromMap(query[0]);
+      var manga = Manga.fromMap(query[0]);
+
+      return manga.mangaDetail;
     }
 
     return null;
@@ -74,6 +77,7 @@ class MangaedenDatabase extends MangaDatabase {
       else {
         await transaction.insert(
             SqliteUtilMangaeden.MANGA_TABLE_NAME, manga.toMap());
+        //TODO save chapters to chapter table
       }
     });
 
