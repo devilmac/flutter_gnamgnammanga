@@ -7,9 +7,6 @@ class SqliteUtilMangaeden extends SqliteUtil {
   ///Chapter table name
   static const CHAPTER_TABLE_NAME = "chapter";
 
-  ///Chapter image table name
-  static const CHAPTER_IMAGE_TABLE_NAME = "chapter_image";
-
   //Manga table columns
   static const MANGA_ID_COLUMN = "manga_id";
   static const AKA_COLUMN = "aka";
@@ -26,7 +23,7 @@ class SqliteUtilMangaeden extends SqliteUtil {
   //Chapter table columns
   static const CHAPTER_ID_COLUMN = "chapter_id";
   static const CHAPTER_NUMBER_COLUMN = "number";
-  static const CHATER_DATE_COLUMN = "date";
+  static const CHAPTER_DATE_COLUMN = "date";
   static const CHAPTER_TITLE_COLUMN = "title";
   static const CHAPTER_MANGA_ID_COLUMN = "manga_id";
 
@@ -36,21 +33,6 @@ class SqliteUtilMangaeden extends SqliteUtil {
   static const CHAPTER_WIDTH_COLUMN = "width";
   static const CHAPTER_HEIGHT_COLUMN = "height";
   static const CHAPTER_IMAGE_CHAPTER_ID_COLUMN = "chapter_id";
-
-  /// String mangaID;
-  //  List<String> categories;
-  //  String image;
-  //  num lastChapterDate;
-  //  String title;
-  ///List<String> aka;
-  //  String author;
-  //  String description;
-  //  List<Chapter> chapters;
-  //  String language;
-  //  num released;
-  //  String status;
-  //  num lastChapterDate;
-  //  List<String> categories;
 
   static const String createMangaTable =
       "CREATE TABLE $MANGA_TABLE_NAME ($MANGA_ID_COLUMN TEXT PRIMARY KEY, "
@@ -68,7 +50,7 @@ class SqliteUtilMangaeden extends SqliteUtil {
   static const String createChapterTable =
       "CREATE TABLE $CHAPTER_TABLE_NAME($CHAPTER_ID_COLUMN TEXT PRIMARY KEY, "
       "$CHAPTER_NUMBER_COLUMN TEXT, "
-      "$CHATER_DATE_COLUMN REAL, "
+      "$CHAPTER_DATE_COLUMN REAL, "
       "$CHAPTER_TITLE_COLUMN TEXT,"
       "$CHAPTER_MANGA_ID_COLUMN TEXT NOT NULL,"
       "$CHAPTER_PAGE_NUMBER_COLUMN INTEGER, "

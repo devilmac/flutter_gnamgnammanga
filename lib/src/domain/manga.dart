@@ -41,7 +41,8 @@ class Manga {
 
   Manga.fromMap(Map<String, dynamic> map) {
     mangaID = map[SqliteUtilMangaeden.MANGA_ID_COLUMN];
-    categories = (map[SqliteUtilMangaeden.AUTHOR_COLUMN] as String).split("|");
+    categories =
+        (map[SqliteUtilMangaeden.CATEGORIES_COLUMN] as String).split("|");
     image = map[SqliteUtilMangaeden.IMAGE_COLUMN];
     lastChapterDate = map[SqliteUtilMangaeden.LAST_CHAPTER_DATE_COLUMN];
     title = map[SqliteUtilMangaeden.TITLE_COLUMN];
@@ -57,7 +58,7 @@ class Manga {
     mangaDetail.lastChapterDate =
         map[SqliteUtilMangaeden.LAST_CHAPTER_DATE_COLUMN];
     mangaDetail.categories =
-        (map[SqliteUtilMangaeden.AUTHOR_COLUMN] as String).split("|");
+        (map[SqliteUtilMangaeden.CATEGORIES_COLUMN] as String).split("|");
   }
 
   @override
