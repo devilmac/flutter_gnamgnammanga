@@ -9,7 +9,7 @@ class Chapter {
   String mangaID;
   List<ChapterImage> images;
 
-  Chapter(this.number, this.date, this.title, this.chapterID);
+  Chapter({this.number, this.date, this.title, this.chapterID});
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{

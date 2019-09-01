@@ -6,7 +6,7 @@ class ChapterImage {
   int height;
   int width;
 
-  ChapterImage(this.page, this.imageUrl, this.height, this.width);
+  ChapterImage({this.page, this.imageUrl, this.height, this.width});
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{

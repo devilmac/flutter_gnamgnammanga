@@ -27,17 +27,25 @@ String baseImageUrl = "https://cdn.mangaeden.com/mangasimg/";
 List<domain.Manga> manageGetMangaListResponse(String responseBody) {
   List<domain.Manga> result;
 
-  var body = json.decode(responseBody);
+  try {
+    var body = json.decode(responseBody);
 
-  var mangaList = body["manga"] as List;
+    var mangaList = body["manga"] as List;
 
-  var mappedList =
-      mangaList.map((json) => network.Manga.fromJson(json)).toList();
+    var mappedList =
+        mangaList.map((json) => network.Manga.fromJson(json)).toList();
 
-  result = mappedList
-      .map((networkManga) => _mapManga(networkManga))
-      .toSet()
-      .toList();
+    result = mappedList
+        .map((networkManga) => _mapManga(networkManga))
+        .toSet()
+        .toList();
+  } on JsonUnsupportedObjectError {
+    throw JsonUnsupportedObjectError(responseBody);
+  } on Exception catch (e) {
+    print("Network error: $e");
+  } catch (e) {
+    print("Unknown error: $e");
+  }
 
   return result;
 }
@@ -45,11 +53,19 @@ List<domain.Manga> manageGetMangaListResponse(String responseBody) {
 domain.MangaDetail manageGetMangaDetailResponse(String responseBody) {
   domain.MangaDetail result;
 
-  var body = json.decode(responseBody);
+  try {
+    var body = json.decode(responseBody);
 
-  var mangaDetail = network.MangaDetail.fromJson(body);
+    var mangaDetail = network.MangaDetail.fromJson(body);
 
-  result = _mapMangaDetail(mangaDetail);
+    result = _mapMangaDetail(mangaDetail);
+  } on JsonUnsupportedObjectError {
+    throw JsonUnsupportedObjectError(responseBody);
+  } on Exception catch (e) {
+    print("Network error: $e");
+  } catch (e) {
+    print("Unknown error: $e");
+  }
 
   return result;
 }
@@ -57,12 +73,19 @@ domain.MangaDetail manageGetMangaDetailResponse(String responseBody) {
 List<domain.ChapterImage> manageGetChapterDetailResponse(String responseBody) {
   List<domain.ChapterImage> result;
 
-  var body = json.decode(responseBody);
+  try {
+    var body = json.decode(responseBody);
 
-  var chapter = network.Chapter.fromJson(body);
+    var chapter = network.Chapter.fromJson(body);
 
-  result = _mapChapterDetail(chapter.images);
-
+    result = _mapChapterDetail(chapter.images);
+  } on JsonUnsupportedObjectError {
+    throw JsonUnsupportedObjectError(responseBody);
+  } on Exception catch (e) {
+    print("Network error: $e");
+  } catch (e) {
+    print("Unknown error: $e");
+  }
   return result;
 }
 
@@ -92,8 +115,11 @@ domain.MangaDetail _mapMangaDetail(network.MangaDetail mangaDetail) {
 
 List<domain.Chapter> _mapChapters(List<List<dynamic>> chaptersFromNetwork) {
   var chapters = chaptersFromNetwork?.map((List<dynamic> chapter) {
-    return domain.Chapter(chapter[0].toString(), chapter[1] as double,
-        chapter[2] as String, chapter[3] as String);
+    return domain.Chapter(
+        number: chapter[0].toString(),
+        date: chapter[1] as double,
+        title: chapter[2] as String,
+        chapterID: chapter[3] as String);
   })?.toList();
 
   return chapters;
@@ -101,8 +127,11 @@ List<domain.Chapter> _mapChapters(List<List<dynamic>> chaptersFromNetwork) {
 
 List<domain.ChapterImage> _mapChapterDetail(List<List<dynamic>> chapterImages) {
   var images = chapterImages?.map((element) {
-    return domain.ChapterImage(element[0] as int, _mapImage(element[1]),
-        element[2] as int, element[3] as int);
+    return domain.ChapterImage(
+        page: element[0] as int,
+        imageUrl: _mapImage(element[1]),
+        height: element[2] as int,
+        width: element[3] as int);
   })?.toList();
 
   return List.from(images.reversed);
