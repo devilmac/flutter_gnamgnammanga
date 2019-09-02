@@ -5,7 +5,7 @@ import 'package:flutter_app/src/domain/manga.dart';
 import 'package:flutter_app/src/resource/resource_string.dart';
 import 'package:flutter_app/src/state/app_state.dart';
 import 'package:flutter_app/src/ui/detail/detail_body_widget.dart';
-import 'package:flutter_app/src/ui/detail/manga_detail_arguments.dart';
+import 'package:flutter_app/src/ui/detail/detail_manga_arguments.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -41,7 +41,7 @@ class _DetailMangaWidgetState extends State<DetailMangaWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final MangaDetailArguments args = ModalRoute.of(context).settings.arguments;
+    final DetailMangaArguments args = ModalRoute.of(context).settings.arguments;
 
     return Observer(builder: (_) {
       return getBodyWithCustomScrollView(context, args);
@@ -49,9 +49,10 @@ class _DetailMangaWidgetState extends State<DetailMangaWidget> {
   }
 
   Widget getBodyWithCustomScrollView(
-      BuildContext context, MangaDetailArguments args) {
-    var fabIcon =
-        appState.checkMangaFavorite ? Icons.favorite : Icons.favorite_border;
+      BuildContext context, DetailMangaArguments args) {
+    var fabIcon = appState.checkMangaFavorite
+        ? Icon(Icons.favorite)
+        : Icon(Icons.favorite_border);
 
     if (appState.mangaDetail != null) {
       args.manga.mangaDetail = appState.mangaDetail;
@@ -66,22 +67,13 @@ class _DetailMangaWidgetState extends State<DetailMangaWidget> {
       backgroundColor: Colors.white,
       extendBody: true,
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
-      floatingActionButton: AnimatedBuilder(
-        child: FittedBox(
-          child: FloatingActionButton(
-              tooltip: MANGA_DETAIL_FAB_TOOLTIP,
-              onPressed: () {
-                appState.addRemoveMangaFavorite(args.manga);
-              },
-              child: Icon(fabIcon)),
-        ),
-        builder: (BuildContext context, Widget child) {
-          return Transform.translate(
-            offset: Offset(0.0, translateFab),
-            child: child,
-          );
-        },
-        animation: _controller,
+      floatingActionButton: FittedBox(
+        child: FloatingActionButton(
+            tooltip: MANGA_DETAIL_FAB_TOOLTIP,
+            onPressed: () {
+              appState.addRemoveMangaFavorite(args.manga);
+            },
+            child: fabIcon),
       ),
       body: CustomScrollView(
         controller: _controller,

@@ -39,12 +39,8 @@ List<domain.Manga> manageGetMangaListResponse(String responseBody) {
         .map((networkManga) => _mapManga(networkManga))
         .toSet()
         .toList();
-  } on JsonUnsupportedObjectError {
-    throw JsonUnsupportedObjectError(responseBody);
-  } on Exception catch (e) {
-    print("Network error: $e");
   } catch (e) {
-    print("Unknown error: $e");
+    print("Unexpected error: $e");
   }
 
   return result;
@@ -59,12 +55,8 @@ domain.MangaDetail manageGetMangaDetailResponse(String responseBody) {
     var mangaDetail = network.MangaDetail.fromJson(body);
 
     result = _mapMangaDetail(mangaDetail);
-  } on JsonUnsupportedObjectError {
-    throw JsonUnsupportedObjectError(responseBody);
-  } on Exception catch (e) {
-    print("Network error: $e");
   } catch (e) {
-    print("Unknown error: $e");
+    print("Unexpected error: $e");
   }
 
   return result;
@@ -79,13 +71,10 @@ List<domain.ChapterImage> manageGetChapterDetailResponse(String responseBody) {
     var chapter = network.Chapter.fromJson(body);
 
     result = _mapChapterDetail(chapter.images);
-  } on JsonUnsupportedObjectError {
-    throw JsonUnsupportedObjectError(responseBody);
-  } on Exception catch (e) {
-    print("Network error: $e");
   } catch (e) {
-    print("Unknown error: $e");
+    print("Unexpected error: $e");
   }
+
   return result;
 }
 
@@ -156,9 +145,13 @@ String _mapImage(String image) {
 }
 
 class MangaedenService extends MangaService {
+  final http.Client _client;
+
+  MangaedenService(this._client);
+
   @override
   Future<List<domain.Manga>> getManga() async {
-    final response = await http.get(mangaList);
+    final response = await _client.get(mangaList);
 
     if (response.statusCode == 200) {
       return compute(manageGetMangaListResponse, response.body);
@@ -169,7 +162,7 @@ class MangaedenService extends MangaService {
 
   @override
   Future<domain.MangaDetail> getMangaDetail(String mangaID) async {
-    final response = await http.get("$MANGA_DETAIL$mangaID");
+    final response = await _client.get("$MANGA_DETAIL$mangaID");
 
     if (response.statusCode == 200) {
       return compute(manageGetMangaDetailResponse, response.body);
@@ -180,7 +173,7 @@ class MangaedenService extends MangaService {
 
   @override
   Future<List<domain.ChapterImage>> getChapterDetail(String chapterID) async {
-    var response = await http.get("$CHAPTER_DETAIL$chapterID");
+    var response = await _client.get("$CHAPTER_DETAIL$chapterID");
 
     if (response.statusCode == 200) {
       return compute(manageGetChapterDetailResponse, response.body);

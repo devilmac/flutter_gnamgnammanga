@@ -16,6 +16,8 @@ dependencies:
 
   flutter_cupertino_localizations:
 
+  # 3th-party libraries
+  get_it:
   flutter_staggered_grid_view:
   http: any
   json_annotation:
@@ -24,16 +26,13 @@ dependencies:
   smooth_star_rating:
   equatable:
   path:
-
   mobx:
   flutter_mobx:
-
   transparent_image:
   intro_views_flutter:
   clippy_flutter:
   flutter_swiper:
   shared_preferences:
-
   photo_view:
 dev_dependencies:
   flutter_test:

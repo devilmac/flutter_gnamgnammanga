@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/locale/app_localizations.dart';
 import 'package:flutter_app/src/state/app_state.dart';
-import 'package:flutter_app/src/ui/home/grid_manga_favorites_widget.dart';
+import 'package:flutter_app/src/ui/home/home_grid_manga_favorites_widget.dart';
 
-import 'grid_manga_widget.dart';
-import 'manga_search_delegate.dart';
+import 'home_grid_manga_widget.dart';
+import 'home_manga_search_delegate.dart';
 
 class MangaHomePage extends StatefulWidget {
   final String title;

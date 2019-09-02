@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/domain/chapter.dart';
 import 'package:flutter_app/src/state/app_state.dart';
-import 'package:flutter_app/src/ui/custom/material_ripple.dart';
+import 'package:flutter_app/src/ui/custom/custom_material_ripple.dart';
 import 'package:flutter_app/src/ui/reading/reading_chapter_arguments.dart';
 import 'package:flutter_app/src/ui/reading/reading_chapter_widget.dart';
 

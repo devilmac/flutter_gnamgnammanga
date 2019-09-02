@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/src/domain/manga_detail.dart';
 import 'package:flutter_app/src/locale/app_localizations.dart';
 
-import 'chapter_list_item_widget.dart';
+import 'detail_chapter_list_item_widget.dart';
 
 class DetailBodyWidget extends StatelessWidget {
   final String _title;

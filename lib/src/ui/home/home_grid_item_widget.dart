@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/src/config/configuration.dart';
 import 'package:flutter_app/src/domain/manga.dart';
 import 'package:flutter_app/src/state/app_state.dart';
-import 'package:flutter_app/src/ui/custom/material_ripple.dart';
+import 'package:flutter_app/src/ui/custom/custom_material_ripple.dart';
 import 'package:flutter_app/src/ui/detail/detail_manga_widget.dart';
-import 'package:flutter_app/src/ui/detail/manga_detail_arguments.dart';
+import 'package:flutter_app/src/ui/detail/detail_manga_arguments.dart';
 
 class HomeGridItemWidget extends StatelessWidget {
   final Manga _manga;
@@ -56,7 +56,7 @@ class HomeGridItemWidget extends StatelessWidget {
 
   _navigateToMangaDetailPage(BuildContext context) {
     Navigator.pushNamed(context, DetailMangaWidget.routeName,
-        arguments: MangaDetailArguments(_manga));
+        arguments: DetailMangaArguments(_manga));
   }
 
   Widget _getGridItemImage(String imageUrl) {
