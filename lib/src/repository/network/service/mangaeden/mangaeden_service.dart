@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter_app/src/config/configuration.dart' as configuration;
 import 'package:flutter_app/src/domain/chapter.dart' as domain;
 import 'package:flutter_app/src/domain/chapter_image.dart' as domain;
@@ -24,59 +23,59 @@ const String CHAPTER_DETAIL = "$BASE_URL/chapter/";
 
 String baseImageUrl = "https://cdn.mangaeden.com/mangasimg/";
 
-List<domain.Manga> manageGetMangaListResponse(String responseBody) {
-  List<domain.Manga> result;
+//List<domain.Manga> manageGetMangaListResponse(String responseBody) {
+//  List<domain.Manga> result;
+//
+//  try {
+//    var body = json.decode(responseBody);
+//
+//    var mangaList = body["manga"] as List;
+//
+//    var mappedList =
+//        mangaList.map((json) => network.Manga.fromJson(json)).toList();
+//
+//    result = mappedList
+//        .map((networkManga) => _mapManga(networkManga))
+//        .toSet()
+//        .toList();
+//  } catch (e) {
+//    print(e.toString());
+//  }
+//
+//  return result;
+//}
 
-  try {
-    var body = json.decode(responseBody);
+//domain.MangaDetail manageGetMangaDetailResponse(String responseBody) {
+//  domain.MangaDetail result;
+//
+//  try {
+//    var body = json.decode(responseBody);
+//
+//    var mangaDetail = network.MangaDetail.fromJson(body);
+//
+//    result = _mapMangaDetail(mangaDetail);
+//  } catch (e) {
+//    print(e.toString());
+//  }
+//
+//  return result;
+//}
 
-    var mangaList = body["manga"] as List;
-
-    var mappedList =
-        mangaList.map((json) => network.Manga.fromJson(json)).toList();
-
-    result = mappedList
-        .map((networkManga) => _mapManga(networkManga))
-        .toSet()
-        .toList();
-  } catch (e) {
-    print("Unexpected error: $e");
-  }
-
-  return result;
-}
-
-domain.MangaDetail manageGetMangaDetailResponse(String responseBody) {
-  domain.MangaDetail result;
-
-  try {
-    var body = json.decode(responseBody);
-
-    var mangaDetail = network.MangaDetail.fromJson(body);
-
-    result = _mapMangaDetail(mangaDetail);
-  } catch (e) {
-    print("Unexpected error: $e");
-  }
-
-  return result;
-}
-
-List<domain.ChapterImage> manageGetChapterDetailResponse(String responseBody) {
-  List<domain.ChapterImage> result;
-
-  try {
-    var body = json.decode(responseBody);
-
-    var chapter = network.Chapter.fromJson(body);
-
-    result = _mapChapterDetail(chapter.images);
-  } catch (e) {
-    print("Unexpected error: $e");
-  }
-
-  return result;
-}
+//List<domain.ChapterImage> manageGetChapterDetailResponse(String responseBody) {
+//  List<domain.ChapterImage> result;
+//
+//  try {
+//    var body = json.decode(responseBody);
+//
+//    var chapter = network.Chapter.fromJson(body);
+//
+//    result = _mapChapterDetail(chapter.images);
+//  } catch (e) {
+//    print(e.toString());
+//  }
+//
+//  return result;
+//}
 
 domain.Manga _mapManga(network.Manga manga) {
   domain.Manga result = domain.Manga(
@@ -154,7 +153,26 @@ class MangaedenService extends MangaService {
     final response = await _client.get(mangaList);
 
     if (response.statusCode == 200) {
-      return compute(manageGetMangaListResponse, response.body);
+      List<domain.Manga> result;
+
+      try {
+        var body = json.decode(response.body);
+
+        var mangaList = body["manga"] as List;
+
+        var mappedList =
+            mangaList.map((json) => network.Manga.fromJson(json)).toList();
+
+        result = mappedList
+            .map((networkManga) => _mapManga(networkManga))
+            .toSet()
+            .toList();
+      } catch (e) {
+        print(e.toString());
+      }
+
+      return result;
+//      return compute(manageGetMangaListResponse, response.body);
     }
 
     return null;
@@ -165,7 +183,20 @@ class MangaedenService extends MangaService {
     final response = await _client.get("$MANGA_DETAIL$mangaID");
 
     if (response.statusCode == 200) {
-      return compute(manageGetMangaDetailResponse, response.body);
+      domain.MangaDetail result;
+
+      try {
+        var body = json.decode(response.body);
+
+        var mangaDetail = network.MangaDetail.fromJson(body);
+
+        result = _mapMangaDetail(mangaDetail);
+      } catch (e) {
+        print(e.toString());
+      }
+
+      return result;
+//      return compute(manageGetMangaDetailResponse, response.body);
     }
 
     return null;
@@ -176,7 +207,20 @@ class MangaedenService extends MangaService {
     var response = await _client.get("$CHAPTER_DETAIL$chapterID");
 
     if (response.statusCode == 200) {
-      return compute(manageGetChapterDetailResponse, response.body);
+      List<domain.ChapterImage> result;
+
+      try {
+        var body = json.decode(response.body);
+
+        var chapter = network.Chapter.fromJson(body);
+
+        result = _mapChapterDetail(chapter.images);
+      } catch (e) {
+        print(e.toString());
+      }
+
+      return result;
+//      return compute(manageGetChapterDetailResponse, response.body);
     }
 
     return null;
