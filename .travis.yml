@@ -3,6 +3,7 @@ dart:
   - stable
 dart_task:
   - test: --platform vm
+  - dartfmt: true
 script:
   - pub get --packages-dir
   - pub run test

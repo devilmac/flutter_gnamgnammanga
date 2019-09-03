@@ -43,9 +43,9 @@ dev_dependencies:
   json_serializable:
 
   mockito: any
-  flutter_driver:
-    sdk: flutter
-  test: any
+#  flutter_driver:
+#    sdk: flutter
+#  test: any
 
   image_test_utils: any
 
