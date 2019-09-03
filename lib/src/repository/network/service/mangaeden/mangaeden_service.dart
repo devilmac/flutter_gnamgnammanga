@@ -149,14 +149,14 @@ class MangaedenService extends MangaService {
   MangaedenService(this._client);
 
   @override
-  Future<List<domain.Manga>> getManga() async {
+  Future<List<domain.Manga>> getMangaList() async {
     final response = await _client.get(mangaList);
 
     if (response.statusCode == 200) {
       List<domain.Manga> result;
 
       try {
-        var body = json.decode(response.body);
+        var body = jsonDecode(response.body);
 
         var mangaList = body["manga"] as List;
 
@@ -167,8 +167,8 @@ class MangaedenService extends MangaService {
             .map((networkManga) => _mapManga(networkManga))
             .toSet()
             .toList();
-      } catch (e) {
-        print(e.toString());
+      } on FormatException {
+        throw JsonUnsupportedObjectError(response.body);
       }
 
       return result;
@@ -186,13 +186,13 @@ class MangaedenService extends MangaService {
       domain.MangaDetail result;
 
       try {
-        var body = json.decode(response.body);
+        var body = jsonDecode(response.body);
 
         var mangaDetail = network.MangaDetail.fromJson(body);
 
         result = _mapMangaDetail(mangaDetail);
-      } catch (e) {
-        print(e.toString());
+      } on FormatException {
+        throw JsonUnsupportedObjectError(response.body);
       }
 
       return result;
@@ -210,13 +210,13 @@ class MangaedenService extends MangaService {
       List<domain.ChapterImage> result;
 
       try {
-        var body = json.decode(response.body);
+        var body = jsonDecode(response.body);
 
         var chapter = network.Chapter.fromJson(body);
 
         result = _mapChapterDetail(chapter.images);
-      } catch (e) {
-        print(e.toString());
+      } on FormatException {
+        throw JsonUnsupportedObjectError(response.body);
       }
 
       return result;

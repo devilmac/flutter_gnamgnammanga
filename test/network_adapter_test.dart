@@ -22,7 +22,7 @@ main() {
 
   group("Get all manga", () {
     test("Return manga list", () async {
-      when(service.getManga()).thenAnswer((_) async => Future.value(<Manga>[
+      when(service.getMangaList()).thenAnswer((_) async => Future.value(<Manga>[
             Manga(
                 mangaID: "",
                 categories: [],
@@ -51,7 +51,7 @@ main() {
     });
 
     test("Return null if some error occurs", () async {
-      when(service.getManga()).thenAnswer((_) async => null);
+      when(service.getMangaList()).thenAnswer((_) async => null);
 
       var networkAdapter =
           MangaNetworkAdapter(ServiceLocator().serviceLocator<MangaService>());

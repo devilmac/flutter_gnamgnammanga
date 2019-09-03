@@ -1,9 +1,18 @@
-language: dart
-dart:
-  - stable
-dart_task:
-  - test: --platform vm
-  - dartfmt: true
+os:
+  - linux
+sudo: false
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - libstdc++6
+      - fonts-droid-fallback
+before_script:
+  - git clone https://github.com/flutter/flutter.git -b stable
+  - ./flutter/bin/flutter doctor
 script:
-  - pub get --packages-dir
-  - pub run test
+  - ./flutter/bin/flutter test
+cache:
+  directories:
+    - $HOME/.pub-cache

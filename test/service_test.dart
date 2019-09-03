@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_app/src/config/service_locator.dart';
 import 'package:flutter_app/src/domain/chapter_image.dart';
 import 'package:flutter_app/src/domain/manga.dart';
@@ -29,10 +31,10 @@ void main() {
 
       var service = MangaedenService(ServiceLocator().serviceLocator<Client>());
 
-      await service.getManga();
+      await service.getMangaList();
 
       verify(await client.get(any));
-      expect(await service.getManga(), TypeMatcher<List<Manga>>());
+      expect(await service.getMangaList(), TypeMatcher<List<Manga>>());
     });
 
     test("Return null from service", () async {
@@ -40,10 +42,11 @@ void main() {
 
       var service = MangaedenService(ServiceLocator().serviceLocator<Client>());
 
-      await service.getManga();
+      await service.getMangaList();
 
       verify(await client.get(any));
-      expect(await service.getManga(), isNull);
+      expect(service.getMangaList(),
+          throwsA(TypeMatcher<JsonUnsupportedObjectError>()));
     });
   });
 
@@ -67,7 +70,8 @@ void main() {
       await service.getMangaDetail("");
 
       verify(await client.get(any));
-      expect(await service.getMangaDetail(""), isNull);
+      expect(await service.getMangaDetail(""),
+          throwsA(TypeMatcher<JsonUnsupportedObjectError>()));
     });
   });
 
@@ -94,7 +98,8 @@ void main() {
       await service.getChapterDetail("");
 
       verify(await client.get(any));
-      expect(await service.getChapterDetail(""), isNull);
+      expect(await service.getChapterDetail(""),
+          throwsA(TypeMatcher<JsonUnsupportedObjectError>()));
     });
   });
 }

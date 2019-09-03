@@ -12,7 +12,7 @@ class MangaNetworkAdapter implements MangaAdapter {
 
   @override
   Future<List<domain.Manga>> getMangaList() async {
-    return _mangaService.getManga();
+    return _mangaService.getMangaList();
   }
 
   @override
