@@ -167,9 +167,7 @@ class MangaedenService extends MangaService {
             .map((networkManga) => _mapManga(networkManga))
             .toSet()
             .toList();
-      } on Exception {
-        return null;
-      }
+      } on FormatException {}
 
       return result;
 //      return compute(manageGetMangaListResponse, response.body);
@@ -191,9 +189,7 @@ class MangaedenService extends MangaService {
         var mangaDetail = network.MangaDetail.fromJson(body);
 
         result = _mapMangaDetail(mangaDetail);
-      } on Exception {
-        return null;
-      }
+      } on FormatException {}
 
       return result;
 //      return compute(manageGetMangaDetailResponse, response.body);
@@ -215,9 +211,7 @@ class MangaedenService extends MangaService {
         var chapter = network.Chapter.fromJson(body);
 
         result = _mapChapterDetail(chapter.images);
-      } on Exception {
-        return null;
-      }
+      } on FormatException {}
 
       return result;
 //      return compute(manageGetChapterDetailResponse, response.body);

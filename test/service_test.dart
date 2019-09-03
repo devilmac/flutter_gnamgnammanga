@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter_app/src/config/service_locator.dart';
 import 'package:flutter_app/src/domain/chapter_image.dart';
 import 'package:flutter_app/src/domain/manga.dart';
@@ -38,15 +36,16 @@ void main() {
     });
 
     test("Return null from service", () async {
-      when(client.get(any)).thenAnswer((_) async => Response("", 200));
+      when(client.get(any)).thenAnswer((_) async => Response(
+          "{\"manga\": [{\"a\": \"joshiraku\",\"c\": [\"Comedy\",\"Shounen\",\"Slice of Life\"],\"h\": 0,\"i\": \"5bfdd0ff719a162b3c196677\",\"im\": \"4e/4e55aeda6ba2044eb2762124688b61e74f24880515e71827f1f1e2c4.png\",\"ld\": 1543389646.0,\"s\": 2,\"t\": \"Joshiraku\"}}",
+          200));
 
       var service = MangaedenService(ServiceLocator().serviceLocator<Client>());
 
       await service.getMangaList();
 
       verify(await client.get(any));
-      expect(service.getMangaList(),
-          throwsA(TypeMatcher<JsonUnsupportedObjectError>()));
+      expect(await service.getMangaList(), isNull);
     });
   });
 
@@ -70,8 +69,7 @@ void main() {
       await service.getMangaDetail("");
 
       verify(await client.get(any));
-      expect(await service.getMangaDetail(""),
-          throwsA(TypeMatcher<JsonUnsupportedObjectError>()));
+      expect(await service.getMangaDetail(""), isNull);
     });
   });
 
@@ -98,8 +96,7 @@ void main() {
       await service.getChapterDetail("");
 
       verify(await client.get(any));
-      expect(await service.getChapterDetail(""),
-          throwsA(TypeMatcher<JsonUnsupportedObjectError>()));
+      expect(await service.getChapterDetail(""), isNull);
     });
   });
 }
