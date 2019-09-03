@@ -25,7 +25,7 @@ class MangaDetail {
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
-      SqliteUtilMangaeden.AKA_COLUMN: aka,
+      SqliteUtilMangaeden.AKA_COLUMN: aka.join("|"),
       SqliteUtilMangaeden.AUTHOR_COLUMN: author,
       SqliteUtilMangaeden.DESCRIPTION_COLUMN: description,
       SqliteUtilMangaeden.LANGUAGE_COLUMN: language,
@@ -39,7 +39,7 @@ class MangaDetail {
   }
 
   MangaDetail.fromMap(Map<String, dynamic> map) {
-    aka = map[SqliteUtilMangaeden.AKA_COLUMN];
+    aka = (map[SqliteUtilMangaeden.AKA_COLUMN] as String).split("|");
     description = map[SqliteUtilMangaeden.DESCRIPTION_COLUMN];
     language = map[SqliteUtilMangaeden.LANGUAGE_COLUMN];
     released = map[SqliteUtilMangaeden.RELEASED_COLUMN];

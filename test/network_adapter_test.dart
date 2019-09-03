@@ -1,3 +1,4 @@
+import 'package:flutter_app/src/domain/chapter.dart';
 import 'package:flutter_app/src/domain/chapter_image.dart';
 import 'package:flutter_app/src/domain/manga.dart';
 import 'package:flutter_app/src/domain/manga_detail.dart';
@@ -58,17 +59,20 @@ main() {
 
   group("Get manga detail", () {
     test("Return manga detail", () async {
-      when(service.getMangaDetail(any)).thenAnswer((_) async => Future.value(
-          MangaDetail(
-              aka: [],
-              categories: [],
-              lastChapterDate: 4535,
-              status: "",
-              released: 45353,
-              language: "",
-              chapters: [],
-              description: "",
-              author: "")));
+      when(service.getMangaDetail(any)).thenAnswer(
+        (_) async => Future.value(MangaDetail(
+            aka: [],
+            categories: [],
+            lastChapterDate: 4535,
+            status: "",
+            released: 45353,
+            language: "",
+            chapters: [
+              Chapter(title: "", chapterID: "", date: 5443523, number: ""),
+            ],
+            description: "",
+            author: "")),
+      );
 
       var networkAdapter = MangaNetworkAdapter(service);
 
