@@ -90,13 +90,9 @@ String _mapImage(String image) {
 }
 
 class MangaedenService extends MangaService {
-  final http.Client _client;
-
-  MangaedenService(this._client);
-
   @override
   Future<List<domain.Manga>> getMangaList() async {
-    final response = await _client.get(mangaList);
+    final response = await http.get(mangaList);
 
     if (response.statusCode == 200) {
       List<domain.Manga> result;
@@ -123,7 +119,7 @@ class MangaedenService extends MangaService {
 
   @override
   Future<domain.MangaDetail> getMangaDetail(String mangaID) async {
-    final response = await _client.get("$MANGA_DETAIL$mangaID");
+    final response = await http.get("$MANGA_DETAIL$mangaID");
 
     if (response.statusCode == 200) {
       domain.MangaDetail result;
@@ -144,7 +140,7 @@ class MangaedenService extends MangaService {
 
   @override
   Future<List<domain.ChapterImage>> getChapterDetail(String chapterID) async {
-    var response = await _client.get("$CHAPTER_DETAIL$chapterID");
+    var response = await http.get("$CHAPTER_DETAIL$chapterID");
 
     if (response.statusCode == 200) {
       List<domain.ChapterImage> result;

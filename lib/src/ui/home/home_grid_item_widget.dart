@@ -13,44 +13,47 @@ class HomeGridItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      clipBehavior: Clip.antiAlias,
-      child: Stack(
-        children: <Widget>[
-          Column(
-            children: <Widget>[
-              Stack(
-                textDirection: TextDirection.ltr,
-                children: <Widget>[
-                  Center(
-                      child: Hero(
-                          tag: _manga.mangaID,
-                          child: _getGridItemImage(_manga.image)))
-                ],
-              ),
-              Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: Directionality(
-                    textDirection: TextDirection.ltr,
-                    child: Text(
-                      _manga.title,
-                      key: Key(_manga.title),
-                      textDirection: TextDirection.ltr,
-                    ),
-                  ))
-            ],
+    return SizedBox(
+      width: double.infinity,
+      child: Card(
+          elevation: 4,
+          clipBehavior: Clip.hardEdge,
+          child:
+//      Stack(
+//        overflow: Overflow.clip,
+//        children: <Widget>[
+//          Positioned.fill(
+//              child:
+              Center(
+                  child: Hero(
+                      tag: _manga.mangaID,
+                      child: _getGridItemImage(_manga.image)))
+//          ),
+//          Positioned.directional(
+//              textDirection: TextDirection.ltr,
+//              bottom: 0.0,
+//              height: 48.0,
+//              child: Padding(
+//                  padding: const EdgeInsets.all(4.0),
+//                  child: Directionality(
+//                    textDirection: TextDirection.ltr,
+//                    child: Text(
+//                      _manga.title,
+//                      key: Key(_manga.title),
+//                      textDirection: TextDirection.ltr,
+//                    ),
+//                  ))),
+//          Positioned.fill(child: MaterialRipple(
+//            onPressed: () {
+//              appState.mangaDetail = null;
+//              appState.isMangaFavorite(_manga.mangaID);
+//              appState.getMangaDetail(_manga.mangaID);
+//              _navigateToMangaDetailPage(context);
+//            },
+//          ))
+//        ],
+//      ),
           ),
-          Positioned.fill(child: MaterialRipple(
-            onPressed: () {
-              appState.mangaDetail = null;
-              appState.isMangaFavorite(_manga.mangaID);
-              appState.getMangaDetail(_manga.mangaID);
-              _navigateToMangaDetailPage(context);
-            },
-          ))
-        ],
-      ),
     );
   }
 

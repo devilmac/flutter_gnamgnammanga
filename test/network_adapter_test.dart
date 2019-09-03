@@ -1,4 +1,3 @@
-import 'package:flutter_app/src/config/service_locator.dart';
 import 'package:flutter_app/src/domain/chapter_image.dart';
 import 'package:flutter_app/src/domain/manga.dart';
 import 'package:flutter_app/src/domain/manga_detail.dart';
@@ -13,11 +12,7 @@ main() {
   MangaService service;
 
   setUpAll(() {
-    ServiceLocator().initServices();
-    ServiceLocator().serviceLocator.allowReassignment = true;
     service = MockMangaService();
-
-    ServiceLocator().serviceLocator.registerSingleton<MangaService>(service);
   });
 
   group("Get all manga", () {
@@ -41,8 +36,7 @@ main() {
                     categories: []))
           ]));
 
-      var networkAdapter =
-          MangaNetworkAdapter(ServiceLocator().serviceLocator<MangaService>());
+      var networkAdapter = MangaNetworkAdapter(service);
 
       await networkAdapter.getMangaList();
 
@@ -53,8 +47,7 @@ main() {
     test("Return null if some error occurs", () async {
       when(service.getMangaList()).thenAnswer((_) async => null);
 
-      var networkAdapter =
-          MangaNetworkAdapter(ServiceLocator().serviceLocator<MangaService>());
+      var networkAdapter = MangaNetworkAdapter(service);
 
       await networkAdapter.getMangaList();
 
@@ -77,8 +70,7 @@ main() {
               description: "",
               author: "")));
 
-      var networkAdapter =
-          MangaNetworkAdapter(ServiceLocator().serviceLocator<MangaService>());
+      var networkAdapter = MangaNetworkAdapter(service);
 
       await networkAdapter.getMangaDetail(any);
 
@@ -90,8 +82,7 @@ main() {
     test("Return null if some error occurs", () async {
       when(service.getMangaDetail(any)).thenAnswer((_) async => null);
 
-      var networkAdapter =
-          MangaNetworkAdapter(ServiceLocator().serviceLocator<MangaService>());
+      var networkAdapter = MangaNetworkAdapter(service);
 
       await networkAdapter.getMangaDetail(any);
 
@@ -105,8 +96,7 @@ main() {
       when(service.getChapterDetail(any)).thenAnswer(
           (_) async => [ChapterImage(), ChapterImage(), ChapterImage()]);
 
-      var networkAdapter =
-          MangaNetworkAdapter(ServiceLocator().serviceLocator<MangaService>());
+      var networkAdapter = MangaNetworkAdapter(service);
 
       await networkAdapter.getChapterDetail(any);
 
@@ -118,8 +108,7 @@ main() {
     test("Return null if some error occurs", () async {
       when(service.getChapterDetail(any)).thenAnswer((_) async => null);
 
-      var networkAdapter =
-          MangaNetworkAdapter(ServiceLocator().serviceLocator<MangaService>());
+      var networkAdapter = MangaNetworkAdapter(service);
 
       await networkAdapter.getChapterDetail(any);
 

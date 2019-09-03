@@ -1,17 +1,17 @@
-import 'package:flutter_app/src/config/service_locator.dart';
 import 'package:flutter_app/src/domain/chapter_image.dart';
 import 'package:flutter_app/src/domain/manga.dart';
 import 'package:flutter_app/src/domain/manga_detail.dart';
 import 'package:flutter_app/src/repository/local/manga_db_adapter.dart';
+import 'package:flutter_app/src/repository/local/mangaeden/mangaeden_db_factory.dart';
 import 'package:flutter_app/src/repository/network/manga_network_adapter.dart';
+import 'package:flutter_app/src/repository/network/service/mangaeden/mangaeden_service.dart';
 
 import 'manga_adapter.dart';
 
 class Repository {
   final MangaAdapter _mangaNetworkAdapter =
-      ServiceLocator().serviceLocator<MangaNetworkAdapter>();
-  final MangaDbAdapter _mangaDbAdapter =
-      ServiceLocator().serviceLocator<MangaDbAdapter>();
+      MangaNetworkAdapter(MangaedenService());
+  final MangaDbAdapter _mangaDbAdapter = MangaDbAdapter(MangaEdenDbFactory());
 
   Future<List<Manga>> getAllManga() async =>
       await _mangaNetworkAdapter.getMangaList();
