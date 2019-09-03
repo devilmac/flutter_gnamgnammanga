@@ -1,4 +1,4 @@
-# flutter_app
+# Flutter_GnamGnamManga
 
 [![Build Status](https://travis-ci.org/devilmac/flutter_gnamgnammanga.svg?branch=develop)](https://travis-ci.org/devilmac/flutter_gnamgnammanga)
 
