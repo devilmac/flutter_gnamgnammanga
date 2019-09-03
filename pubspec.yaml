@@ -35,8 +35,10 @@ dependencies:
   shared_preferences:
   photo_view:
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
+#  flutter_test:
+#    sdk: flutter
+
+  test:
 
   build_runner:
   mobx_codegen:
