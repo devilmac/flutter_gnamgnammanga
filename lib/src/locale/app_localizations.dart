@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/l10n/messages_all.dart';
+import 'package:flutter_app/src/locale/l10n/messages_all.dart';
 import 'package:intl/intl.dart';
 
 class AppLocalizations {

@@ -1,0 +1,51 @@
+{
+  "@@last_modified": "2019-09-03T15:23:53.634521",
+  "tabAllManga": "All manga",
+  "@tabAllManga": {
+    "description": "Label of all manga's TabView on the home page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "tabFavoritesManga": "Favorites",
+  "@tabFavoritesManga": {
+    "description": "Label of favorite manga's TabView on the home page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "detailAuthor": "Author",
+  "@detailAuthor": {
+    "description": "Author label on detail page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "detailUpdated": "Updated",
+  "@detailUpdated": {
+    "description": "Updated label on detail page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "detailStatus": "Status",
+  "@detailStatus": {
+    "description": "Status label on detail page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "statusCompleted": "Completed",
+  "@statusCompleted": {
+    "description": "Value for label status",
+    "type": "text",
+    "placeholders": {}
+  },
+  "statusInProgress": "In progress",
+  "@statusInProgress": {
+    "description": "Value for label status",
+    "type": "text",
+    "placeholders": {}
+  },
+  "detailChapters": "Chapters",
+  "@detailChapters": {
+    "description": "Chapter label on detail page",
+    "type": "text",
+    "placeholders": {}
+  }
+}

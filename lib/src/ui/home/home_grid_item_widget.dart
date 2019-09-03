@@ -3,8 +3,8 @@ import 'package:flutter_app/src/config/configuration.dart';
 import 'package:flutter_app/src/domain/manga.dart';
 import 'package:flutter_app/src/state/app_state.dart';
 import 'package:flutter_app/src/ui/custom/custom_material_ripple.dart';
-import 'package:flutter_app/src/ui/detail/detail_manga_widget.dart';
 import 'package:flutter_app/src/ui/detail/detail_manga_arguments.dart';
+import 'package:flutter_app/src/ui/detail/detail_manga_widget.dart';
 
 class HomeGridItemWidget extends StatelessWidget {
   final Manga _manga;

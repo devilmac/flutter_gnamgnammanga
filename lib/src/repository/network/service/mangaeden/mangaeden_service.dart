@@ -23,60 +23,6 @@ const String CHAPTER_DETAIL = "$BASE_URL/chapter/";
 
 String baseImageUrl = "https://cdn.mangaeden.com/mangasimg/";
 
-//List<domain.Manga> manageGetMangaListResponse(String responseBody) {
-//  List<domain.Manga> result;
-//
-//  try {
-//    var body = json.decode(responseBody);
-//
-//    var mangaList = body["manga"] as List;
-//
-//    var mappedList =
-//        mangaList.map((json) => network.Manga.fromJson(json)).toList();
-//
-//    result = mappedList
-//        .map((networkManga) => _mapManga(networkManga))
-//        .toSet()
-//        .toList();
-//  } catch (e) {
-//    print(e.toString());
-//  }
-//
-//  return result;
-//}
-
-//domain.MangaDetail manageGetMangaDetailResponse(String responseBody) {
-//  domain.MangaDetail result;
-//
-//  try {
-//    var body = json.decode(responseBody);
-//
-//    var mangaDetail = network.MangaDetail.fromJson(body);
-//
-//    result = _mapMangaDetail(mangaDetail);
-//  } catch (e) {
-//    print(e.toString());
-//  }
-//
-//  return result;
-//}
-
-//List<domain.ChapterImage> manageGetChapterDetailResponse(String responseBody) {
-//  List<domain.ChapterImage> result;
-//
-//  try {
-//    var body = json.decode(responseBody);
-//
-//    var chapter = network.Chapter.fromJson(body);
-//
-//    result = _mapChapterDetail(chapter.images);
-//  } catch (e) {
-//    print(e.toString());
-//  }
-//
-//  return result;
-//}
-
 domain.Manga _mapManga(network.Manga manga) {
   domain.Manga result = domain.Manga(
       mangaID: manga.i,
@@ -170,7 +116,6 @@ class MangaedenService extends MangaService {
       } on FormatException {}
 
       return result;
-//      return compute(manageGetMangaListResponse, response.body);
     }
 
     return null;
@@ -192,7 +137,6 @@ class MangaedenService extends MangaService {
       } on FormatException {}
 
       return result;
-//      return compute(manageGetMangaDetailResponse, response.body);
     }
 
     return null;
@@ -214,7 +158,6 @@ class MangaedenService extends MangaService {
       } on FormatException {}
 
       return result;
-//      return compute(manageGetChapterDetailResponse, response.body);
     }
 
     return null;
