@@ -22,7 +22,18 @@ class MangaDetail extends Equatable {
       this.released,
       this.status,
       this.lastChapterDate,
-      this.categories});
+      this.categories})
+      : super([
+          aka,
+          author,
+          description,
+          chapters,
+          lastChapterDate,
+          language,
+          released,
+          status,
+          categories
+        ]);
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{

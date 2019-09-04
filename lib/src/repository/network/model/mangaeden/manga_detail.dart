@@ -81,7 +81,33 @@ class MangaDetail extends Equatable {
     this.updatedKeywords,
     this.categories,
     this.status,
-  );
+  ) : super([
+          aka,
+          akaAlias,
+          artist,
+          artistKw,
+          author,
+          authorKw,
+          baka,
+          chapters,
+          chaptersLen,
+          created,
+          description,
+          hits,
+          image,
+          imageURL,
+          language,
+          lastChapterDate,
+          random,
+          released,
+          startsWith,
+          title,
+          titleKw,
+          type,
+          updatedKeywords,
+          categories,
+          status
+        ]);
 
   factory MangaDetail.fromJson(Map<String, dynamic> json) =>
       _$MangaDetailFromJson(json);

@@ -7,7 +7,7 @@ part 'chapter.g.dart';
 class Chapter extends Equatable {
   final List<List<dynamic>> images;
 
-  Chapter({this.images});
+  Chapter({this.images}) : super([images]);
 
   factory Chapter.fromJson(Map<String, dynamic> json) =>
       _$ChapterFromJson(json);

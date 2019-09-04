@@ -17,7 +17,9 @@ class Manga extends Equatable {
       this.image,
       this.lastChapterDate,
       this.title,
-      this.mangaDetail});
+      this.mangaDetail})
+      : super(
+            [mangaID, categories, image, lastChapterDate, title, mangaDetail]);
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{

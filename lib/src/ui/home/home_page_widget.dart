@@ -1,13 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/locale/app_localizations.dart';
 import 'package:flutter_app/src/state/app_state.dart';
 import 'package:flutter_app/src/ui/home/home_grid_manga_favorites_widget.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'home_grid_manga_widget.dart';
 import 'home_manga_search_delegate.dart';
 
 class MangaHomePage extends StatefulWidget {
   final String title;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   MangaHomePage({Key key, this.title}) : super(key: key);
 
@@ -37,18 +41,29 @@ class MangaHomePageState extends State<MangaHomePage>
     return DefaultTabController(
       length: mangaTabs.length,
       child: Scaffold(
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                ),
+                child: Container(),
+              ),
+              RaisedButton(
+                onPressed: () {},
+                child: Text("Accedi con Google"),
+              )
+            ],
+          ),
+        ),
         appBar: AppBar(
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.search),
               onPressed: () {
                 showSearch(context: context, delegate: MangaSearchDelegate());
-              },
-            ),
-            IconButton(
-              icon: Icon(Icons.settings),
-              onPressed: () {
-                //TODO open settings page
               },
             )
           ],

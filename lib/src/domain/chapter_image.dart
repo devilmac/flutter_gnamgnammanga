@@ -7,7 +7,8 @@ class ChapterImage extends Equatable {
   int height;
   int width;
 
-  ChapterImage({this.page, this.imageUrl, this.height, this.width});
+  ChapterImage({this.page, this.imageUrl, this.height, this.width})
+      : super([page, imageUrl, height, width]);
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{

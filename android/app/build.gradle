@@ -33,7 +33,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.colantoni.federico.gnamgnammanga"
+        applicationId "app.flutter.gnamgnammanga"
         minSdkVersion 17
         targetSdkVersion 29
         versionCode 1
@@ -67,3 +67,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
+
+apply plugin: 'com.google.gms.google-services'

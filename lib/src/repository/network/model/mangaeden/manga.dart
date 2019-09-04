@@ -29,7 +29,8 @@ class Manga extends Equatable {
   @JsonKey(name: "t")
   final String t;
 
-  Manga(this.i, this.c, this.im, this.s, this.ld, this.t, this.h, this.a);
+  Manga(this.i, this.c, this.im, this.s, this.ld, this.t, this.h, this.a)
+      : super([i, c, h, a, im, ld, s, t]);
 
   factory Manga.fromJson(Map<String, dynamic> json) => _$MangaFromJson(json);
 

@@ -10,7 +10,8 @@ class Chapter extends Equatable {
   String mangaID;
   List<ChapterImage> images;
 
-  Chapter({this.number, this.date, this.title, this.chapterID});
+  Chapter({this.number, this.date, this.title, this.chapterID})
+      : super([number, date, title, chapterID]);
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
