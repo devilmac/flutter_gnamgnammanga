@@ -1,7 +1,8 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_app/src/domain/chapter_image.dart';
 import 'package:flutter_app/src/repository/local/mangaeden/sqlite_util.dart';
 
-class Chapter {
+class Chapter extends Equatable {
   String number;
   num date;
   String title;
@@ -48,25 +49,4 @@ class Chapter {
   String toString() {
     return 'Chapter{number: $number, date: $date, title: $title, id: $chapterID}';
   }
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is Chapter &&
-          runtimeType == other.runtimeType &&
-          number == other.number &&
-          date == other.date &&
-          title == other.title &&
-          chapterID == other.chapterID &&
-          mangaID == other.mangaID &&
-          images == other.images;
-
-  @override
-  int get hashCode =>
-      number.hashCode ^
-      date.hashCode ^
-      title.hashCode ^
-      chapterID.hashCode ^
-      mangaID.hashCode ^
-      images.hashCode;
 }

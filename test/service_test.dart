@@ -26,7 +26,7 @@ void main() {
       await service.getMangaList();
 
       verify(await client.get(any));
-      expect(await service.getMangaList(), TypeMatcher<List<Manga>>());
+      expect(await service.getMangaList(), isA<List<Manga>>());
     });
 
     test("Return null from service", () async {
@@ -40,6 +40,21 @@ void main() {
 
       verify(await client.get(any));
       expect(await service.getMangaList(), isNull);
+    });
+
+    test("Return exception from service", () async {
+      when(client.get(any)).thenAnswer((_) async => http.Response(
+          "{\"manga\": [{\"a\": \"joshiraku\",\"c\": [\"Comedy\",\"Shounen\",\"Slice of Life\"],\"h\": 0,\"i\": \"5bfdd0ff719a162b3c196677\",\"im\": \"4e/4e55aeda6ba2044eb2762124688b61e74f24880515e71827f1f1e2c4.png\",\"ld\": 1543389646.0,\"s\": 2,\"t\": \"Joshiraku\"}}",
+          200));
+
+      var service = MangaedenService(client);
+
+      try {
+        verify(await client.get(any));
+        await service.getMangaList();
+      } on FormatException catch (e) {
+        expect(e, isFormatException);
+      }
     });
   });
 
@@ -57,7 +72,7 @@ void main() {
       await service.getMangaDetail("");
 
       verify(await client.get(any));
-      expect(await service.getMangaDetail(""), TypeMatcher<MangaDetail>());
+      expect(await service.getMangaDetail(""), isA<MangaDetail>());
     });
 
     test("Return null from service", () async {
@@ -69,6 +84,19 @@ void main() {
 
       verify(await client.get(any));
       expect(await service.getMangaDetail(""), isNull);
+    });
+
+    test("Return exception from service", () async {
+      when(client.get(any)).thenAnswer((_) async => http.Response("", 200));
+
+      var service = MangaedenService(client);
+
+      try {
+        verify(await client.get(any));
+        await service.getMangaDetail("");
+      } on FormatException catch (e) {
+        expect(e, isFormatException);
+      }
     });
   });
 
@@ -83,8 +111,7 @@ void main() {
       await service.getChapterDetail("");
 
       verify(await client.get(any));
-      expect(await service.getChapterDetail(""),
-          TypeMatcher<List<ChapterImage>>());
+      expect(await service.getChapterDetail(""), isA<List<ChapterImage>>());
     });
 
     test("Return null from service", () async {
@@ -96,6 +123,19 @@ void main() {
 
       verify(await client.get(any));
       expect(await service.getChapterDetail(""), isNull);
+    });
+
+    test("Return exception from service", () async {
+      when(client.get(any)).thenAnswer((_) async => http.Response("", 200));
+
+      var service = MangaedenService(client);
+
+      try {
+        verify(await client.get(any));
+        await service.getChapterDetail("");
+      } on FormatException catch (e) {
+        expect(e, isFormatException);
+      }
     });
   });
 }

@@ -41,7 +41,7 @@ main() {
 
       await networkAdapter.getMangaList();
 
-      expect(await networkAdapter.getMangaList(), TypeMatcher<List<Manga>>());
+      expect(await networkAdapter.getMangaList(), isA<List<Manga>>());
       verify(networkAdapter.getMangaList());
     });
 
@@ -78,8 +78,7 @@ main() {
 
       await networkAdapter.getMangaDetail(any);
 
-      expect(
-          await networkAdapter.getMangaDetail(any), TypeMatcher<MangaDetail>());
+      expect(await networkAdapter.getMangaDetail(any), isA<MangaDetail>());
       verify(networkAdapter.getMangaDetail(any));
     });
 
@@ -105,7 +104,7 @@ main() {
       await networkAdapter.getChapterDetail(any);
 
       expect(await networkAdapter.getChapterDetail(any),
-          TypeMatcher<List<ChapterImage>>());
+          isA<List<ChapterImage>>());
       verify(networkAdapter.getChapterDetail(any));
     });
 

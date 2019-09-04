@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_app/src/repository/local/mangaeden/sqlite_util.dart';
 
-class ChapterImage {
+class ChapterImage extends Equatable {
   int page;
   String imageUrl;
   int height;
@@ -30,18 +31,4 @@ class ChapterImage {
   String toString() {
     return 'ChapterImage{page: $page, imageUrl: $imageUrl, height: $height, width: $width}';
   }
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is ChapterImage &&
-          runtimeType == other.runtimeType &&
-          page == other.page &&
-          imageUrl == other.imageUrl &&
-          height == other.height &&
-          width == other.width;
-
-  @override
-  int get hashCode =>
-      page.hashCode ^ imageUrl.hashCode ^ height.hashCode ^ width.hashCode;
 }

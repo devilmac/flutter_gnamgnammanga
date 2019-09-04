@@ -7,13 +7,11 @@ import 'package:test/test.dart';
 
 main() {
   group("Manga class of domain package", () {
-    Manga manga;
+    Manga manga = Manga();
+    MangaDetail mangaDetail = MangaDetail();
     Map<String, dynamic> map = Map();
 
     setUp(() {
-      manga = Manga();
-
-      MangaDetail mangaDetail = MangaDetail();
       mangaDetail.lastChapterDate = 34214;
       mangaDetail.categories = ["", "", ""];
       mangaDetail.chapters = [Chapter()];
@@ -47,22 +45,21 @@ main() {
     test("Convert a Manga to a map of its properties", () {
       var map = manga.toMap();
 
-      expect(map, TypeMatcher<Map<String, dynamic>>());
+      expect(map, isA<Map<String, dynamic>>());
     });
 
     test("Convert map to Manga", () {
       var manga = Manga.fromMap(map);
 
-      expect(manga, TypeMatcher<Manga>());
+      expect(manga, isA<Manga>());
     });
   });
 
   group("MangaDetail class of domain package", () {
-    MangaDetail mangaDetail;
+    MangaDetail mangaDetail = MangaDetail();
     Map<String, dynamic> map = Map();
 
     setUp(() {
-      mangaDetail = MangaDetail();
       mangaDetail.lastChapterDate = 34214;
       mangaDetail.categories = ["", "", ""];
       mangaDetail.chapters = [Chapter()];
@@ -85,22 +82,21 @@ main() {
     test("Convert manga detail to map", () {
       var map = mangaDetail.toMap();
 
-      expect(map, TypeMatcher<Map<String, dynamic>>());
+      expect(map, isA<Map<String, dynamic>>());
     });
 
     test("Convert a map to manga detail", () {
       var mangaDetail = MangaDetail.fromMap(map);
 
-      expect(mangaDetail, TypeMatcher<MangaDetail>());
+      expect(mangaDetail, isA<MangaDetail>());
     });
   });
 
   group("Chapter class of domain package", () {
-    Chapter chapter;
+    Chapter chapter = Chapter();
     Map<String, dynamic> map = Map();
 
     setUp(() {
-      chapter = Chapter();
       chapter.title = "";
       chapter.mangaID = "";
       chapter.chapterID = "";
@@ -120,13 +116,60 @@ main() {
     test("Convert a chapter to map", () {
       var map = chapter.toMap();
 
-      expect(map, TypeMatcher<Map<String, dynamic>>());
+      expect(map, isA<Map<String, dynamic>>());
+    });
+
+    test("Convert a chapter to map when chapter has mangaID null", () {
+      chapter.mangaID = null;
+
+      try {
+        chapter.toMap();
+      } on ArgumentError catch (e) {
+        expect(e, isArgumentError);
+      }
+    });
+
+    test("Set mangaID to chapter", () {
+      chapter.mangaID = null;
+
+      chapter.setMangaID("rfgsfh");
+
+      expect(chapter.mangaID, isNotNull);
     });
 
     test("Convert a map to chapter", () {
       var chapter = Chapter.fromMap(map);
 
-      expect(chapter, TypeMatcher<Chapter>());
+      expect(chapter, isA<Chapter>());
+    });
+  });
+
+  group("ChapterImage class of domain package", () {
+    ChapterImage chapterImage = ChapterImage();
+    Map<String, dynamic> map = Map();
+
+    setUp(() {
+      chapterImage.imageUrl = "";
+      chapterImage.width = 354;
+      chapterImage.height = 342;
+      chapterImage.page = 345;
+
+      map[SqliteUtilMangaeden.CHAPTER_PAGE_NUMBER_COLUMN] = 432;
+      map[SqliteUtilMangaeden.CHAPTER_WIDTH_COLUMN] = 5345;
+      map[SqliteUtilMangaeden.CHAPTER_HEIGHT_COLUMN] = 534;
+      map[SqliteUtilMangaeden.CHAPTER_IMAGE_URL_COLUMN] = "rjfbsdf";
+    });
+
+    test("Convert chapter image to map", () {
+      var map = chapterImage.toMap();
+
+      expect(map, isA<Map<String, dynamic>>());
+    });
+
+    test("Convert map to chapter image", () {
+      var chapterImage = ChapterImage.fromMap(map);
+
+      expect(chapterImage, isA<ChapterImage>());
     });
   });
 }
