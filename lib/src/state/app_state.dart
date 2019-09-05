@@ -32,8 +32,8 @@ abstract class _AppState with Store {
   FirebaseUser firebaseUser;
 
   @action
-  Future getManga() async {
-    var _response = await _repository.getAllManga();
+  Future getManga(num selectedLanguage) async {
+    var _response = await _repository.getAllManga(selectedLanguage);
 
     this.mangaList = _response;
   }

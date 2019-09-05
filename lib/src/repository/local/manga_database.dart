@@ -11,7 +11,7 @@ abstract class MangaDatabase {
   Future<void> addRemoveToFavorites(Manga manga);
 
   ///Get manga favorites list
-  Future<List<Manga>> getFavorites();
+  Future<List<Manga>> getFavorites(num selectedLanguage);
 
   Future<MangaDetail> getFavorite(String mangaID);
 

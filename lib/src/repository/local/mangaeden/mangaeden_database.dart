@@ -19,7 +19,7 @@ class MangaedenDatabase extends MangaDatabase {
   Database _db;
 
   @override
-  Future<List<Manga>> getFavorites() async {
+  Future<List<Manga>> getFavorites(num selectedLanguage) async {
     await _openDatabase();
 
     List<Map<String, dynamic>> query =

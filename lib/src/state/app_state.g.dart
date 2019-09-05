@@ -118,8 +118,8 @@ mixin _$AppState on _AppState, Store {
   final _$getMangaAsyncAction = AsyncAction('getManga');
 
   @override
-  Future getManga() {
-    return _$getMangaAsyncAction.run(() => super.getManga());
+  Future getManga(num selectedLanguage) {
+    return _$getMangaAsyncAction.run(() => super.getManga(selectedLanguage));
   }
 
   final _$getMangaDetailAsyncAction = AsyncAction('getMangaDetail');

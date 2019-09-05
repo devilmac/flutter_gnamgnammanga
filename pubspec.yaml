@@ -32,8 +32,9 @@ dependencies:
   intro_views_flutter:
   clippy_flutter:
   flutter_swiper:
-  shared_preferences:
   photo_view:
+  scroll_to_index: any
+  streaming_shared_preferences:
 
   # Firebase plugins
   firebase_core:

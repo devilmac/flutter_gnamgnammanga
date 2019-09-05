@@ -1,5 +1,6 @@
 {
   "@@last_modified": "2019-08-27T14:50:29.053910",
+  "@@locale": "it",
   "tabAllManga": "Tutti i manga",
   "@tabAllManga": {
     "description": "Etichetta del tab per la lista completa dei manga nella pagina iniziale",
@@ -47,5 +48,15 @@
       "description": "Chapter label on detail page",
       "type": "text",
       "placeholders": {}
-    }
+    },
+    "itLang": "Italiano",
+      "@itLang": {
+        "type": "text",
+        "placeholders": {}
+      },
+      "enLang": "Inglese",
+      "@enLang": {
+        "type": "text",
+        "placeholders": {}
+      }
 }

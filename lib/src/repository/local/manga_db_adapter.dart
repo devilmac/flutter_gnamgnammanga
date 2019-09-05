@@ -16,8 +16,8 @@ class MangaDbAdapter implements MangaAdapter {
   }
 
   @override
-  Future<List<Manga>> getMangaList() {
-    return _database.getFavorites();
+  Future<List<Manga>> getMangaList(num selectedLanguage) {
+    return _database.getFavorites(selectedLanguage);
   }
 
   @override

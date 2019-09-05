@@ -18,42 +18,43 @@ main() {
 
   group("Get all manga", () {
     test("Return manga list", () async {
-      when(service.getMangaList()).thenAnswer((_) async => Future.value(<Manga>[
-            Manga(
-                mangaID: "",
-                categories: [],
-                image: "",
-                title: "",
-                lastChapterDate: 3453343,
-                mangaDetail: MangaDetail(
-                    aka: [],
-                    author: "",
-                    description: "",
-                    chapters: [],
-                    language: "",
-                    released: 34542,
-                    status: "",
-                    lastChapterDate: 542352,
-                    categories: []))
-          ]));
+      when(service.getMangaList(any))
+          .thenAnswer((_) async => Future.value(<Manga>[
+                Manga(
+                    mangaID: "",
+                    categories: [],
+                    image: "",
+                    title: "",
+                    lastChapterDate: 3453343,
+                    mangaDetail: MangaDetail(
+                        aka: [],
+                        author: "",
+                        description: "",
+                        chapters: [],
+                        language: "",
+                        released: 34542,
+                        status: "",
+                        lastChapterDate: 542352,
+                        categories: []))
+              ]));
 
       var networkAdapter = MangaNetworkAdapter(service);
 
-      await networkAdapter.getMangaList();
+      await networkAdapter.getMangaList(any);
 
-      expect(await networkAdapter.getMangaList(), isA<List<Manga>>());
-      verify(networkAdapter.getMangaList());
+      expect(await networkAdapter.getMangaList(any), isA<List<Manga>>());
+      verify(networkAdapter.getMangaList(any));
     });
 
     test("Return null if some error occurs", () async {
-      when(service.getMangaList()).thenAnswer((_) async => null);
+      when(service.getMangaList(any)).thenAnswer((_) async => null);
 
       var networkAdapter = MangaNetworkAdapter(service);
 
-      await networkAdapter.getMangaList();
+      await networkAdapter.getMangaList(any);
 
-      expect(await networkAdapter.getMangaList(), isNull);
-      verify(networkAdapter.getMangaList());
+      expect(await networkAdapter.getMangaList(any), isNull);
+      verify(networkAdapter.getMangaList(any));
     });
   });
 
