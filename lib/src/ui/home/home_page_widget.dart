@@ -34,7 +34,7 @@ class MangaHomePageState extends State<MangaHomePage>
 
     mangaedenState.getSharedPreferences();
     appState.getManga(mangaedenState.selectedLanguage);
-    appState.getFavorites();
+    appState.getFavorites(mangaedenState.selectedLanguage);
   }
 
   @override

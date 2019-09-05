@@ -149,8 +149,9 @@ mixin _$AppState on _AppState, Store {
   final _$getFavoritesAsyncAction = AsyncAction('getFavorites');
 
   @override
-  Future getFavorites() {
-    return _$getFavoritesAsyncAction.run(() => super.getFavorites());
+  Future getFavorites(num selectedLanguage) {
+    return _$getFavoritesAsyncAction
+        .run(() => super.getFavorites(selectedLanguage));
   }
 
   final _$isMangaFavoriteAsyncAction = AsyncAction('isMangaFavorite');
