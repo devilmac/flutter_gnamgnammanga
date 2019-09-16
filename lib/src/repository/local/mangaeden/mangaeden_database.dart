@@ -19,7 +19,7 @@ class MangaedenDatabase extends MangaDatabase {
   Database _db;
 
   @override
-  Future<List<Manga>> getFavorites() async {
+  Future<List<Manga>> getFavorites(num selectedLanguage) async {
     await _openDatabase();
 
     List<Map<String, dynamic>> query =
@@ -58,7 +58,10 @@ class MangaedenDatabase extends MangaDatabase {
             return Chapter.fromMap(map);
           }).toList();
 
-          manga.mangaDetail.chapters = chapters;
+          manga = Manga.copyWithMangaDetail(
+              manga, MangaDetail.copyWithChapters(manga.mangaDetail, chapters));
+
+//          manga.mangaDetail.chapters = chapters;
         }
 
         return manga.mangaDetail;

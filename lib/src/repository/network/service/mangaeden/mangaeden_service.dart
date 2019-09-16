@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter_app/src/config/configuration.dart' as configuration;
 import 'package:flutter_app/src/domain/chapter.dart' as domain;
 import 'package:flutter_app/src/domain/chapter_image.dart' as domain;
 import 'package:flutter_app/src/domain/manga.dart' as domain;
@@ -17,7 +16,7 @@ import 'package:flutter_app/src/repository/network/service/manga_service.dart';
 import 'package:http/http.dart' as http;
 
 const String BASE_URL = "https://www.mangaeden.com/api";
-String mangaList = "$BASE_URL/list/${configuration.mangaLanguage}";
+const String MANGA_LIST = "$BASE_URL/list/";
 const String MANGA_DETAIL = "$BASE_URL/manga/";
 const String CHAPTER_DETAIL = "$BASE_URL/chapter/";
 
@@ -95,8 +94,8 @@ class MangaedenService extends MangaService {
   MangaedenService(this._client);
 
   @override
-  Future<List<domain.Manga>> getMangaList() async {
-    final response = await _client.get(mangaList);
+  Future<List<domain.Manga>> getMangaList(num selectedLanguage) async {
+    final response = await _client.get("$MANGA_LIST$selectedLanguage");
 
     if (response.statusCode == 200) {
       List<domain.Manga> result;

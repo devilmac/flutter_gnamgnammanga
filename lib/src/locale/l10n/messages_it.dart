@@ -20,15 +20,16 @@ class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'it';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
-
-  static _notInlinedMessages(_) => <String, Function>{
-        "detailAuthor": MessageLookupByLibrary.simpleMessage("Autore"),
-        "detailChapters": MessageLookupByLibrary.simpleMessage("Capitoli"),
-        "detailStatus": MessageLookupByLibrary.simpleMessage("Stato"),
-        "detailUpdated": MessageLookupByLibrary.simpleMessage("Aggiornato"),
-        "statusCompleted": MessageLookupByLibrary.simpleMessage("Completato"),
-        "statusInProgress": MessageLookupByLibrary.simpleMessage("In corso"),
-        "tabAllManga": MessageLookupByLibrary.simpleMessage("Tutti i manga"),
-        "tabFavoritesManga": MessageLookupByLibrary.simpleMessage("Preferiti")
-      };
+  static _notInlinedMessages(_) => <String, Function> {
+    "detailAuthor" : MessageLookupByLibrary.simpleMessage("Autore"),
+    "detailChapters" : MessageLookupByLibrary.simpleMessage("Capitoli"),
+    "detailStatus" : MessageLookupByLibrary.simpleMessage("Stato"),
+    "detailUpdated" : MessageLookupByLibrary.simpleMessage("Aggiornato"),
+    "enLang" : MessageLookupByLibrary.simpleMessage("Inglese"),
+    "itLang" : MessageLookupByLibrary.simpleMessage("Italiano"),
+    "statusCompleted" : MessageLookupByLibrary.simpleMessage("Completato"),
+    "statusInProgress" : MessageLookupByLibrary.simpleMessage("In corso"),
+    "tabAllManga" : MessageLookupByLibrary.simpleMessage("Tutti i manga"),
+    "tabFavoritesManga" : MessageLookupByLibrary.simpleMessage("Preferiti")
+  };
 }

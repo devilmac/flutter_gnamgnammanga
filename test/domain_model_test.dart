@@ -7,25 +7,26 @@ import 'package:test/test.dart';
 
 main() {
   group("Manga class of domain package", () {
-    Manga manga = Manga();
-    MangaDetail mangaDetail = MangaDetail();
+    Manga manga;
+    MangaDetail mangaDetail;
     Map<String, dynamic> map = Map();
 
     setUp(() {
-      mangaDetail.lastChapterDate = 34214;
-      mangaDetail.categories = ["", "", ""];
-      mangaDetail.chapters = [Chapter()];
-      mangaDetail.aka = [""];
-      mangaDetail.author = "";
-      mangaDetail.status = "";
+      mangaDetail = MangaDetail(
+          lastChapterDate: 354235,
+          categories: ["srwguf"],
+          chapters: [Chapter()],
+          aka: ["djfvsjk"],
+          author: "dfgsfhsi",
+          status: "dfukhsfiuhfl");
 
-      manga.mangaID = "";
-      manga.categories = ["", "", ""];
-      manga.lastChapterDate = 342421;
-      manga.title = "";
-      manga.image = "";
-
-      manga.mangaDetail = mangaDetail;
+      manga = Manga(
+          mangaID: "sdjhfgsdf",
+          mangaDetail: mangaDetail,
+          categories: ["dfsjk", "difsgi"],
+          lastChapterDate: 45355,
+          title: "dsjfsgj",
+          image: "dfsjdhfks");
 
       map[SqliteUtilMangaeden.MANGA_ID_COLUMN] = "";
       map[SqliteUtilMangaeden.CATEGORIES_COLUMN] = "ihfsihf|3jkrbo";
@@ -56,16 +57,17 @@ main() {
   });
 
   group("MangaDetail class of domain package", () {
-    MangaDetail mangaDetail = MangaDetail();
+    MangaDetail mangaDetail;
     Map<String, dynamic> map = Map();
 
     setUp(() {
-      mangaDetail.lastChapterDate = 34214;
-      mangaDetail.categories = ["", "", ""];
-      mangaDetail.chapters = [Chapter()];
-      mangaDetail.aka = [""];
-      mangaDetail.author = "";
-      mangaDetail.status = "";
+      mangaDetail = MangaDetail(
+          lastChapterDate: 354235,
+          categories: ["srwguf"],
+          chapters: [Chapter()],
+          aka: ["djfvsjk"],
+          author: "dfgsfhsi",
+          status: "dfukhsfiuhfl");
 
       map[SqliteUtilMangaeden.LAST_CHAPTER_DATE_COLUMN] = 543535;
       map[SqliteUtilMangaeden.TITLE_COLUMN] = "";
@@ -93,18 +95,20 @@ main() {
   });
 
   group("Chapter class of domain package", () {
-    Chapter chapter = Chapter();
+    Chapter chapter;
     Map<String, dynamic> map = Map();
 
     setUp(() {
-      chapter.title = "";
-      chapter.mangaID = "";
-      chapter.chapterID = "";
-      chapter.images = [
-        ChapterImage(height: 423, imageUrl: "", page: 342, width: 4534)
-      ];
-      chapter.number = "";
-      chapter.date = 37523502;
+      chapter = Chapter(
+          title: "dkfgsdfl",
+          mangaID: "dklfsfhsif",
+          chapterID: "dfskdfbilf",
+          images: [
+            ChapterImage(
+                imageUrl: "sfgsdfuidi", height: 432, page: 4534, width: 4523)
+          ],
+          number: "fsff",
+          date: 354353);
 
       map[SqliteUtilMangaeden.CHAPTER_MANGA_ID_COLUMN] = "";
       map[SqliteUtilMangaeden.CHAPTER_NUMBER_COLUMN] = "";
@@ -120,7 +124,7 @@ main() {
     });
 
     test("Convert a chapter to map when chapter has mangaID null", () {
-      chapter.mangaID = null;
+      chapter = Chapter.copyWithMangaID(chapter, null);
 
       try {
         chapter.toMap();
@@ -130,9 +134,9 @@ main() {
     });
 
     test("Set mangaID to chapter", () {
-      chapter.mangaID = null;
+      chapter = Chapter.copyWithMangaID(chapter, null);
 
-      chapter.setMangaID("rfgsfh");
+      chapter = Chapter.copyWithMangaID(chapter, "rfgsfh");
 
       expect(chapter.mangaID, isNotNull);
     });
@@ -145,14 +149,12 @@ main() {
   });
 
   group("ChapterImage class of domain package", () {
-    ChapterImage chapterImage = ChapterImage();
+    ChapterImage chapterImage;
     Map<String, dynamic> map = Map();
 
     setUp(() {
-      chapterImage.imageUrl = "";
-      chapterImage.width = 354;
-      chapterImage.height = 342;
-      chapterImage.page = 345;
+      chapterImage = ChapterImage(
+          page: 5234, height: 5342, width: 45423, imageUrl: "ufhsiofhof");
 
       map[SqliteUtilMangaeden.CHAPTER_PAGE_NUMBER_COLUMN] = 432;
       map[SqliteUtilMangaeden.CHAPTER_WIDTH_COLUMN] = 5345;

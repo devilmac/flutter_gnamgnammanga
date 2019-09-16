@@ -14,11 +14,11 @@ class Repository {
       MangaNetworkAdapter(MangaedenService(Client()));
   final MangaDbAdapter _mangaDbAdapter = MangaDbAdapter(MangaEdenDbFactory());
 
-  Future<List<Manga>> getAllManga() async =>
-      await _mangaNetworkAdapter.getMangaList();
+  Future<List<Manga>> getAllManga(num selectedLanguage) async =>
+      await _mangaNetworkAdapter.getMangaList(selectedLanguage);
 
-  Future<List<Manga>> getFavorites() async =>
-      await _mangaDbAdapter.getMangaList();
+  Future<List<Manga>> getFavorites(num selectedLanguage) async =>
+      await _mangaDbAdapter.getMangaList(selectedLanguage);
 
   Future<MangaDetail> getMangaDetail(String mangaID) async {
     //before check if manga is saved into the database

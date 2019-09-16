@@ -1,5 +1,5 @@
 {
-  "@@last_modified": "2019-09-03T15:23:53.634521",
+  "@@last_modified": "2019-09-05T15:42:46.389524",
   "tabAllManga": "All manga",
   "@tabAllManga": {
     "description": "Label of all manga's TabView on the home page",
@@ -45,6 +45,16 @@
   "detailChapters": "Chapters",
   "@detailChapters": {
     "description": "Chapter label on detail page",
+    "type": "text",
+    "placeholders": {}
+  },
+  "enLang": "English",
+  "@enLang": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "itLang": "Italian",
+  "@itLang": {
     "type": "text",
     "placeholders": {}
   }

@@ -23,10 +23,10 @@ void main() {
 
       var service = MangaedenService(client);
 
-      await service.getMangaList();
+      await service.getMangaList(0);
 
       verify(await client.get(any));
-      expect(await service.getMangaList(), isA<List<Manga>>());
+      expect(await service.getMangaList(0), isA<List<Manga>>());
     });
 
     test("Return null from service", () async {
@@ -36,10 +36,10 @@ void main() {
 
       var service = MangaedenService(client);
 
-      await service.getMangaList();
+      await service.getMangaList(0);
 
       verify(await client.get(any));
-      expect(await service.getMangaList(), isNull);
+      expect(await service.getMangaList(0), isNull);
     });
 
     test("Return exception from service", () async {
@@ -51,7 +51,7 @@ void main() {
 
       try {
         verify(await client.get(any));
-        await service.getMangaList();
+        await service.getMangaList(0);
       } on FormatException catch (e) {
         expect(e, isFormatException);
       }

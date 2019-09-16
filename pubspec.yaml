@@ -32,13 +32,16 @@ dependencies:
   intro_views_flutter:
   clippy_flutter:
   flutter_swiper:
-  shared_preferences:
   photo_view:
+  scroll_to_index: any
+  streaming_shared_preferences:
 
   # Firebase plugins
   firebase_core:
   firebase_auth:
   google_sign_in:
+
+  moor_flutter:
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -56,6 +59,8 @@ dev_dependencies:
 
   intl: any
   intl_translation: ^0.17.6
+
+  moor_generator:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
