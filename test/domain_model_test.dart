@@ -2,7 +2,7 @@ import 'package:flutter_app/src/domain/chapter.dart';
 import 'package:flutter_app/src/domain/chapter_image.dart';
 import 'package:flutter_app/src/domain/manga.dart';
 import 'package:flutter_app/src/domain/manga_detail.dart';
-import 'package:flutter_app/src/repository/local/mangaeden/sqlite_util.dart';
+import 'package:flutter_app/src/repository/local/mangaeden/sqflite/sqlite_util.dart';
 import 'package:test/test.dart';
 
 main() {

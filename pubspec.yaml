@@ -1,7 +1,7 @@
 name: flutter_app
 description: A new Flutter application.
 
-version: 0.2.0
+version: 0.2.1
 
 dependencies:
   flutter:
@@ -9,7 +9,7 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
+  cupertino_icons:
 
   flutter_localizations:
     sdk: flutter
@@ -19,10 +19,10 @@ dependencies:
   # 3th-party libraries
   get_it:
   flutter_staggered_grid_view:
-  http: any
+  http:
   json_annotation:
   sqflite:
-  path_provider: any
+  path_provider:
   smooth_star_rating:
   equatable:
   path:
@@ -33,7 +33,7 @@ dependencies:
   clippy_flutter:
   flutter_swiper:
   photo_view:
-  scroll_to_index: any
+  scroll_to_index:
   streaming_shared_preferences:
 
   # Firebase plugins
@@ -50,15 +50,15 @@ dev_dependencies:
   mobx_codegen:
   json_serializable:
 
-  mockito: any
+  mockito:
   flutter_driver:
     sdk: flutter
-  test: any
+  test:
 
-  image_test_utils: any
+  image_test_utils:
 
-  intl: any
-  intl_translation: ^0.17.6
+  intl:
+  intl_translation:
 
   moor_generator:
 

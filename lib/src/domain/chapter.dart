@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_app/src/domain/chapter_image.dart';
-import 'package:flutter_app/src/repository/local/mangaeden/sqlite_util.dart';
+import 'package:flutter_app/src/repository/local/mangaeden/sqflite/sqlite_util.dart';
 
 class Chapter extends Equatable {
   final String number;

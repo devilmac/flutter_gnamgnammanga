@@ -3,6 +3,7 @@ import 'package:flutter_app/src/domain/manga.dart';
 import 'package:flutter_app/src/domain/manga_detail.dart';
 import 'package:flutter_app/src/repository/local/manga_db_adapter.dart';
 import 'package:flutter_app/src/repository/local/mangaeden/mangaeden_db_factory.dart';
+import 'package:flutter_app/src/repository/local/sqlite_util.dart';
 import 'package:flutter_app/src/repository/network/manga_network_adapter.dart';
 import 'package:flutter_app/src/repository/network/service/mangaeden/mangaeden_service.dart';
 import 'package:http/http.dart';
@@ -12,7 +13,8 @@ import 'manga_adapter.dart';
 class Repository {
   final MangaAdapter _mangaNetworkAdapter =
       MangaNetworkAdapter(MangaedenService(Client()));
-  final MangaDbAdapter _mangaDbAdapter = MangaDbAdapter(MangaEdenDbFactory());
+  final MangaDbAdapter _mangaDbAdapter =
+      MangaDbAdapter(MangaEdenDbFactory(), sqlType.sqflite);
 
   Future<List<Manga>> getAllManga(num selectedLanguage) async =>
       await _mangaNetworkAdapter.getMangaList(selectedLanguage);

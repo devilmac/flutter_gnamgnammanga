@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_app/src/repository/local/mangaeden/sqlite_util.dart';
+import 'package:flutter_app/src/repository/local/mangaeden/sqflite/sqlite_util.dart';
 
 class ChapterImage extends Equatable {
   final int page;

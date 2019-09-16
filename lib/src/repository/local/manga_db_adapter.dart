@@ -2,17 +2,19 @@ import 'package:flutter_app/src/domain/chapter_image.dart';
 import 'package:flutter_app/src/domain/manga.dart';
 import 'package:flutter_app/src/domain/manga_detail.dart';
 import 'package:flutter_app/src/repository/local/manga_db_factory.dart';
+import 'package:flutter_app/src/repository/local/sqlite_util.dart';
 
 import '../manga_adapter.dart';
 import 'manga_database.dart';
 
 class MangaDbAdapter implements MangaAdapter {
-  final MangaDbAbstractFactory dbFactory;
+  final MangaDbAbstractFactory _dbFactory;
+  final sqlType _type;
 
   MangaDatabase _database;
 
-  MangaDbAdapter(this.dbFactory) {
-    _database = dbFactory.createMangaDatabase();
+  MangaDbAdapter(this._dbFactory, this._type) {
+    _database = _dbFactory.createMangaDatabase(_type);
   }
 
   @override

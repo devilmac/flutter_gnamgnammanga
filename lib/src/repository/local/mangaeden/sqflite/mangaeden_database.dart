@@ -3,7 +3,7 @@ import 'package:flutter_app/src/domain/chapter_image.dart';
 import 'package:flutter_app/src/domain/manga.dart';
 import 'package:flutter_app/src/domain/manga_detail.dart';
 import 'package:flutter_app/src/repository/local/manga_database.dart';
-import 'package:flutter_app/src/repository/local/mangaeden/sqlite_util.dart';
+import 'package:flutter_app/src/repository/local/mangaeden/sqflite/sqlite_util.dart';
 import 'package:flutter_app/src/repository/local/sqlite_util.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
