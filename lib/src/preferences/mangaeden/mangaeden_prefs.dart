@@ -1,18 +1,16 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter_app/src/config/configuration.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'mangaeden_prefs.g.dart';
 
 @JsonSerializable()
-class MangaedenPrefs extends Equatable {
+class MangaedenPrefs {
   static const KEY = MangaPrefsType.MANGAEDEN;
 
   num mangaLanguage;
   bool shouldReadJapaneseStyle;
 
-  MangaedenPrefs(this.mangaLanguage, this.shouldReadJapaneseStyle)
-      : super([mangaLanguage, shouldReadJapaneseStyle]);
+  MangaedenPrefs(this.mangaLanguage, this.shouldReadJapaneseStyle);
 
   MangaedenPrefs.defaultPrefs()
       : mangaLanguage = 0,

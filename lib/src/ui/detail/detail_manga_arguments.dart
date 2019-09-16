@@ -1,9 +1,7 @@
 import 'package:flutter_app/src/domain/manga.dart';
 
 class DetailMangaArguments {
-  final Manga _manga;
+  Manga manga;
 
-  DetailMangaArguments(this._manga);
-
-  Manga get manga => _manga;
+  DetailMangaArguments(this.manga);
 }

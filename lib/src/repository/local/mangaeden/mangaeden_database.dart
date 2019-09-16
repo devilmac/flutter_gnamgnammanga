@@ -58,7 +58,10 @@ class MangaedenDatabase extends MangaDatabase {
             return Chapter.fromMap(map);
           }).toList();
 
-          manga.mangaDetail.chapters = chapters;
+          manga = Manga.copyWithMangaDetail(
+              manga, MangaDetail.copyWithChapters(manga.mangaDetail, chapters));
+
+//          manga.mangaDetail.chapters = chapters;
         }
 
         return manga.mangaDetail;

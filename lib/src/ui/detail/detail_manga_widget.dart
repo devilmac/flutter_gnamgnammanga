@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_app/src/config/configuration.dart';
+import 'package:flutter_app/src/domain/chapter.dart';
 import 'package:flutter_app/src/domain/manga.dart';
+import 'package:flutter_app/src/domain/manga_detail.dart';
 import 'package:flutter_app/src/resource/resource_string.dart';
 import 'package:flutter_app/src/state/app_state.dart';
 import 'package:flutter_app/src/ui/detail/detail_body_widget.dart';
@@ -55,12 +57,22 @@ class _DetailMangaWidgetState extends State<DetailMangaWidget> {
         : Icon(Icons.favorite_border);
 
     if (appState.mangaDetail != null) {
-      args.manga.mangaDetail = appState.mangaDetail;
+      args.manga = Manga.copyWithMangaDetail(args.manga, appState.mangaDetail);
 
-      args.manga.mangaDetail.chapters =
-          appState.mangaDetail.chapters.map((element) {
-        return element.setMangaID(args.manga.mangaID);
-      }).toList();
+//      args.manga.mangaDetail = appState.mangaDetail;
+
+      args.manga = Manga.copyWithMangaDetail(
+          args.manga,
+          MangaDetail.copyWithChapters(
+              args.manga.mangaDetail,
+              appState.mangaDetail.chapters.map((element) {
+                return Chapter.copyWithMangaID(element, args.manga.mangaID);
+              }).toList()));
+
+//      args.manga.mangaDetail.chapters =
+//          appState.mangaDetail.chapters.map((element) {
+//        return element.setMangaID(args.manga.mangaID);
+//      }).toList();
     }
 
     return Scaffold(

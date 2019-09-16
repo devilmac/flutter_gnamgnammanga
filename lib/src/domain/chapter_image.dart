@@ -2,10 +2,10 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_app/src/repository/local/mangaeden/sqlite_util.dart';
 
 class ChapterImage extends Equatable {
-  int page;
-  String imageUrl;
-  int height;
-  int width;
+  final int page;
+  final String imageUrl;
+  final int height;
+  final int width;
 
   ChapterImage({this.page, this.imageUrl, this.height, this.width})
       : super([page, imageUrl, height, width]);
@@ -21,12 +21,13 @@ class ChapterImage extends Equatable {
     return map;
   }
 
-  ChapterImage.fromMap(Map<String, dynamic> map) {
-    page = map[SqliteUtilMangaeden.CHAPTER_PAGE_NUMBER_COLUMN];
-    width = map[SqliteUtilMangaeden.CHAPTER_WIDTH_COLUMN];
-    height = map[SqliteUtilMangaeden.CHAPTER_HEIGHT_COLUMN];
-    imageUrl = map[SqliteUtilMangaeden.CHAPTER_IMAGE_URL_COLUMN];
-  }
+  ChapterImage.fromMap(Map<String, dynamic> map)
+      : this(
+          page: map[SqliteUtilMangaeden.CHAPTER_PAGE_NUMBER_COLUMN],
+          width: map[SqliteUtilMangaeden.CHAPTER_WIDTH_COLUMN],
+          height: map[SqliteUtilMangaeden.CHAPTER_HEIGHT_COLUMN],
+          imageUrl: map[SqliteUtilMangaeden.CHAPTER_IMAGE_URL_COLUMN],
+        );
 
   @override
   String toString() {
