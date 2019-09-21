@@ -58,4 +58,9 @@
     "type": "text",
     "placeholders": {}
   }
+  "selectMangaLanguage": "Select manga language",
+  "@selectMangaLanguage": {
+    "type": "text",
+    "placeholders": {}
+  }
 }

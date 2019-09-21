@@ -111,7 +111,7 @@ class MangaHomePageState extends State<MangaHomePage>
                   children: <Widget>[
                     Row(
                       children: <Widget>[
-                        Text("Select manga language"),
+                        Text(AppLocalizations.of(context).selectMangaLanguage),
                         Spacer(),
                         DropdownButton(
                           value: mangaedenState.selectedLanguage,

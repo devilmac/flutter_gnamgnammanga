@@ -75,4 +75,9 @@ class AppLocalizations {
   String get itLang {
     return Intl.message("Italian", locale: "en", name: "itLang");
   }
+
+  String get selectMangaLanguage {
+    return Intl.message("Select manga language",
+        locale: "en", name: "selectMangaLanguage");
+  }
 }

@@ -36,6 +36,15 @@ class AppWidget extends StatelessWidget {
         const Locale("en", "EN"),
         const Locale("it", "IT"),
       ],
+      localeResolutionCallback:
+          (Locale locale, Iterable<Locale> supportedLocales) {
+        for (Locale supported in supportedLocales) {
+          if (supported.languageCode == locale.languageCode) {
+            return supported;
+          }
+        }
+        return supportedLocales.first;
+      },
     );
   }
 }

@@ -18,6 +18,7 @@ dependencies:
 
   # 3th-party libraries
   intl:
+  intl_translation:
   get_it:
   flutter_staggered_grid_view:
   http:
@@ -57,8 +58,6 @@ dev_dependencies:
   test:
 
   image_test_utils:
-
-  intl_translation:
 
   moor_generator:
 

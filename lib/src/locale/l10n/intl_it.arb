@@ -1,19 +1,19 @@
 {
-  "@@last_modified": "2019-08-27T14:50:29.053910",
-  "@@locale": "it",
-  "tabAllManga": "Tutti i manga",
-  "@tabAllManga": {
+    "@@last_modified": "2019-08-27T14:50:29.053910",
+    "@@locale": "it",
+    "tabAllManga": "Tutti i manga",
+    "@tabAllManga": {
     "description": "Etichetta del tab per la lista completa dei manga nella pagina iniziale",
     "type": "text",
     "placeholders": {}
-  },
-  "tabFavoritesManga": "Preferiti",
-  "@tabFavoritesManga": {
+    },
+    "tabFavoritesManga": "Preferiti",
+    "@tabFavoritesManga": {
     "description": "Etichetta del tab per la lista dei manga preferiti nella pagina iniziale",
     "type": "text",
     "placeholders": {}
-  },
-  "detailAuthor": "Autore",
+    },
+    "detailAuthor": "Autore",
     "@detailAuthor": {
       "description": "Author label on detail page",
       "type": "text",
@@ -54,9 +54,14 @@
         "type": "text",
         "placeholders": {}
       },
-      "enLang": "Inglese",
-      "@enLang": {
+    "enLang": "Inglese",
+    "@enLang": {
         "type": "text",
         "placeholders": {}
-      }
+    },
+    "selectMangaLanguage": "Seleziona la lingua dei manga",
+    "@selectMangaLanguage": {
+        "type": "text",
+        "placeholders": {}
+    }
 }
