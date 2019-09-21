@@ -2,6 +2,7 @@ import 'package:flutter_app/src/domain/chapter.dart';
 import 'package:flutter_app/src/domain/chapter_image.dart';
 import 'package:flutter_app/src/domain/manga.dart';
 import 'package:flutter_app/src/domain/manga_detail.dart';
+import 'package:flutter_app/src/domain/manga_status.dart';
 import 'package:flutter_app/src/repository/local/mangaeden/sqflite/sqlite_util.dart';
 import 'package:test/test.dart';
 
@@ -18,7 +19,7 @@ main() {
           chapters: [Chapter()],
           aka: ["djfvsjk"],
           author: "dfgsfhsi",
-          status: "dfukhsfiuhfl");
+          status: mangaStatus.IN_PROGRESS);
 
       manga = Manga(
           mangaID: "sdjhfgsdf",
@@ -37,7 +38,7 @@ main() {
       map[SqliteUtilMangaeden.DESCRIPTION_COLUMN] = "";
       map[SqliteUtilMangaeden.LANGUAGE_COLUMN] = "";
       map[SqliteUtilMangaeden.RELEASED_COLUMN] = 759920;
-      map[SqliteUtilMangaeden.STATUS_COLUMN] = "";
+      map[SqliteUtilMangaeden.STATUS_COLUMN] = mangaStatus.COMPLETED;
       map[SqliteUtilMangaeden.AUTHOR_COLUMN] = "";
       map[SqliteUtilMangaeden.LAST_CHAPTER_DATE_COLUMN] = 5435634;
       map[SqliteUtilMangaeden.CATEGORIES_COLUMN] = "dga|0frurp";
@@ -67,7 +68,7 @@ main() {
           chapters: [Chapter()],
           aka: ["djfvsjk"],
           author: "dfgsfhsi",
-          status: "dfukhsfiuhfl");
+          status: mangaStatus.COMPLETED);
 
       map[SqliteUtilMangaeden.LAST_CHAPTER_DATE_COLUMN] = 543535;
       map[SqliteUtilMangaeden.TITLE_COLUMN] = "";
@@ -75,7 +76,7 @@ main() {
       map[SqliteUtilMangaeden.DESCRIPTION_COLUMN] = "";
       map[SqliteUtilMangaeden.LANGUAGE_COLUMN] = "";
       map[SqliteUtilMangaeden.RELEASED_COLUMN] = 759920;
-      map[SqliteUtilMangaeden.STATUS_COLUMN] = "";
+      map[SqliteUtilMangaeden.STATUS_COLUMN] = mangaStatus.IN_PROGRESS;
       map[SqliteUtilMangaeden.AUTHOR_COLUMN] = "";
       map[SqliteUtilMangaeden.LAST_CHAPTER_DATE_COLUMN] = 5435634;
       map[SqliteUtilMangaeden.CATEGORIES_COLUMN] = "dga|0frurp";

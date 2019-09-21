@@ -42,7 +42,9 @@ domain.MangaDetail _mapMangaDetail(network.MangaDetail mangaDetail) {
       chapters: _mapChapters(mangaDetail.chapters),
       language: _mapLanguage(mangaDetail.language),
       released: mangaDetail.released,
-      status: _mapStatus(mangaDetail.status));
+      status: mangaDetail.status == 1
+          ? mangaStatus.IN_PROGRESS
+          : mangaStatus.COMPLETED);
   return result;
 }
 
@@ -68,10 +70,6 @@ List<domain.ChapterImage> _mapChapterDetail(List<List<dynamic>> chapterImages) {
   })?.toList();
 
   return List.from(images.reversed);
-}
-
-String _mapStatus(int status) {
-  return mangaStatus[status];
 }
 
 String _mapLanguage(int language) {

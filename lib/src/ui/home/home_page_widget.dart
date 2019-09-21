@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/locale/app_localizations.dart';
 import 'package:flutter_app/src/preferences/mangaeden/manga_preferences_mangaeden.dart';
@@ -8,15 +7,15 @@ import 'package:flutter_app/src/state/app_state.dart';
 import 'package:flutter_app/src/state/mangaeden/mangaeden_state.dart';
 import 'package:flutter_app/src/ui/home/home_grid_manga_favorites_widget.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 import 'home_grid_manga_widget.dart';
 import 'home_manga_search_delegate.dart';
 
 class MangaHomePage extends StatefulWidget {
   final String title;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+//  final GoogleSignIn _googleSignIn = GoogleSignIn();
+//  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   MangaHomePage({Key key, this.title}) : super(key: key);
 
@@ -47,23 +46,23 @@ class MangaHomePageState extends State<MangaHomePage>
     return DefaultTabController(
       length: mangaTabs.length,
       child: Scaffold(
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                ),
-                child: Container(),
-              ),
-              RaisedButton(
-                onPressed: () {},
-                child: Text("Accedi con Google"),
-              ),
-            ],
-          ),
-        ),
+//        drawer: Drawer(
+//          child: ListView(
+//            padding: EdgeInsets.zero,
+//            children: <Widget>[
+//              DrawerHeader(
+//                decoration: BoxDecoration(
+//                  color: Theme.of(context).primaryColor,
+//                ),
+//                child: Container(),
+//              ),
+//              RaisedButton(
+//                onPressed: () {},
+//                child: Text("Accedi con Google"),
+//              ),
+//            ],
+//          ),
+//        ),
         appBar: AppBar(
           actions: <Widget>[
             IconButton(
@@ -120,6 +119,7 @@ class MangaHomePageState extends State<MangaHomePage>
                           onChanged: (value) {
                             setState(() {
                               mangaedenState.selectedLanguage = value;
+                              mangaedenState.reloadManga();
                             });
                             prefs.mangaLanguage = value;
                             preferencesMangaeden.setValue(prefs);
@@ -134,7 +134,7 @@ class MangaHomePageState extends State<MangaHomePage>
           },
         );
       },
-      elevation: 6.0,
+      elevation: 8.0,
     );
   }
 

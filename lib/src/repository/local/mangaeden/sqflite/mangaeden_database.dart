@@ -14,7 +14,7 @@ class MangaedenDatabase extends MangaDatabase {
   String get dbName => "mangaeden.db";
 
   @override
-  int get dbVersion => 1;
+  int get dbVersion => 2;
 
   Database _db;
 
@@ -169,7 +169,10 @@ class MangaedenDatabase extends MangaDatabase {
 
   Future<void> _openDatabase() async {
     _db = await openDatabase(join(await _getDatabasePath(), dbName),
-        version: dbVersion, onCreate: _onCreate, onConfigure: _onConfigure);
+        version: dbVersion,
+        onCreate: _onCreate,
+        onConfigure: _onConfigure,
+        onUpgrade: _onUpgrade);
   }
 
   Future<String> _getDatabasePath() async {
@@ -191,5 +194,10 @@ class MangaedenDatabase extends MangaDatabase {
       batch.execute(SqliteUtil.SQL_PRAGMA_FOREIGN_KEY);
       batch.commit(noResult: true, continueOnError: false);
     });
+  }
+
+  _onUpgrade(Database db, int version, int oldVersion) async {
+    await db
+        .rawQuery(SqliteUtilMangaeden.alterMangaDetailTableChangeStatusType);
   }
 }

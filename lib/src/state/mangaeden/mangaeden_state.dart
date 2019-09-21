@@ -30,6 +30,11 @@ abstract class _MangaedenState with Store {
 
     appState.getManga(selectedLanguage);
   }
+
+  @action
+  void reloadManga() {
+    appState.getManga(selectedLanguage);
+  }
 }
 
 final mangaedenState = MangaedenState();

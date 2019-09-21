@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_app/src/domain/chapter.dart';
+import 'package:flutter_app/src/domain/manga_status.dart';
 import 'package:flutter_app/src/repository/local/mangaeden/sqflite/sqlite_util.dart';
 
 class MangaDetail extends Equatable {
@@ -9,7 +10,7 @@ class MangaDetail extends Equatable {
   final List<Chapter> chapters;
   final String language;
   final num released;
-  final String status;
+  final mangaStatus status;
   final num lastChapterDate;
   final List<String> categories;
 
@@ -70,7 +71,7 @@ class MangaDetail extends Equatable {
           String description,
           String language,
           num released,
-          String status,
+          num status,
           num lastChapterDate,
           List<String> categories}) =>
       MangaDetail(

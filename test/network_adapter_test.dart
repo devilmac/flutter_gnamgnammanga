@@ -2,6 +2,7 @@ import 'package:flutter_app/src/domain/chapter.dart';
 import 'package:flutter_app/src/domain/chapter_image.dart';
 import 'package:flutter_app/src/domain/manga.dart';
 import 'package:flutter_app/src/domain/manga_detail.dart';
+import 'package:flutter_app/src/domain/manga_status.dart';
 import 'package:flutter_app/src/repository/network/manga_network_adapter.dart';
 import 'package:flutter_app/src/repository/network/service/manga_service.dart';
 import 'package:mockito/mockito.dart';
@@ -33,7 +34,7 @@ main() {
                         chapters: [],
                         language: "",
                         released: 34542,
-                        status: "",
+                        status: mangaStatus.IN_PROGRESS,
                         lastChapterDate: 542352,
                         categories: []))
               ]));
@@ -65,7 +66,7 @@ main() {
             aka: [],
             categories: [],
             lastChapterDate: 4535,
-            status: "",
+            status: mangaStatus.COMPLETED,
             released: 45353,
             language: "",
             chapters: [

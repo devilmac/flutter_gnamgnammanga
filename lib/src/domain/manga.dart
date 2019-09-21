@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_app/src/domain/manga_detail.dart';
+import 'package:flutter_app/src/domain/manga_status.dart';
 import 'package:flutter_app/src/repository/local/mangaeden/sqflite/sqlite_util.dart';
 
 class Manga extends Equatable {
@@ -31,7 +32,7 @@ class Manga extends Equatable {
       SqliteUtilMangaeden.LANGUAGE_COLUMN: mangaDetail.language,
       SqliteUtilMangaeden.LAST_CHAPTER_DATE_COLUMN: lastChapterDate,
       SqliteUtilMangaeden.RELEASED_COLUMN: mangaDetail.released,
-      SqliteUtilMangaeden.STATUS_COLUMN: mangaDetail.status,
+      SqliteUtilMangaeden.STATUS_COLUMN: mangaDetail.status.index,
       SqliteUtilMangaeden.TITLE_COLUMN: title,
     };
 
@@ -55,7 +56,7 @@ class Manga extends Equatable {
             description: map[SqliteUtilMangaeden.DESCRIPTION_COLUMN],
             language: map[SqliteUtilMangaeden.LANGUAGE_COLUMN],
             released: map[SqliteUtilMangaeden.RELEASED_COLUMN],
-            status: map[SqliteUtilMangaeden.STATUS_COLUMN],
+            status: mangaStatus.values[map[SqliteUtilMangaeden.STATUS_COLUMN]],
             author: map[SqliteUtilMangaeden.AUTHOR_COLUMN],
             lastChapterDate: map[SqliteUtilMangaeden.LAST_CHAPTER_DATE_COLUMN],
             categories: (map[SqliteUtilMangaeden.CATEGORIES_COLUMN] as String)
