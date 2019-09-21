@@ -38,7 +38,7 @@ main() {
       map[SqliteUtilMangaeden.DESCRIPTION_COLUMN] = "";
       map[SqliteUtilMangaeden.LANGUAGE_COLUMN] = "";
       map[SqliteUtilMangaeden.RELEASED_COLUMN] = 759920;
-      map[SqliteUtilMangaeden.STATUS_COLUMN] = mangaStatus.COMPLETED;
+      map[SqliteUtilMangaeden.STATUS_COLUMN] = mangaStatus.COMPLETED.index;
       map[SqliteUtilMangaeden.AUTHOR_COLUMN] = "";
       map[SqliteUtilMangaeden.LAST_CHAPTER_DATE_COLUMN] = 5435634;
       map[SqliteUtilMangaeden.CATEGORIES_COLUMN] = "dga|0frurp";
