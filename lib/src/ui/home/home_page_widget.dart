@@ -39,8 +39,12 @@ class MangaHomePageState extends State<MangaHomePage>
   @override
   Widget build(BuildContext context) {
     final List<Tab> mangaTabs = <Tab>[
-      Tab(text: AppLocalizations.of(context).tabAllManga),
-      Tab(text: AppLocalizations.of(context).tabFavoritesManga),
+      Tab(
+        text: AppLocalizations.of(context).tabAllManga,
+      ),
+      Tab(
+        text: AppLocalizations.of(context).tabFavoritesManga,
+      ),
     ];
 
     return DefaultTabController(

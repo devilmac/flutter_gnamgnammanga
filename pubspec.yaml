@@ -1,7 +1,7 @@
 name: flutter_app
 description: A new Flutter application.
 
-version: 0.2.1
+version: 0.3.0
 
 dependencies:
   flutter:
@@ -23,7 +23,6 @@ dependencies:
   flutter_staggered_grid_view:
   http:
   json_annotation:
-  sqflite:
   path_provider:
   smooth_star_rating:
   equatable:
@@ -43,6 +42,8 @@ dependencies:
   firebase_auth:
   google_sign_in:
 
+  # DB plugins
+  sqflite:
   moor_flutter:
 dev_dependencies:
   flutter_test:

@@ -43,13 +43,13 @@ class DetailBodyWidget extends StatelessWidget {
               ],
             ),
             Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                      children:
-                          categoryChips(context, _mangaDetail.categories)),
-                )),
+              padding: const EdgeInsets.only(top: 8.0),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                    children: categoryChips(context, _mangaDetail.categories)),
+              ),
+            ),
             Padding(
                 padding: const EdgeInsets.only(top: 8.0),
                 child: Text(_mangaDetail.description)),

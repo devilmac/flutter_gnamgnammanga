@@ -10,3 +10,4 @@ build/
 /codealike.json
 /keystore/
 /coverage/
+*.zip

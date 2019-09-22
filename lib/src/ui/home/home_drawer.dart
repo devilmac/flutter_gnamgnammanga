@@ -1,32 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-class HomwDrawer extends StatefulWidget {
+class HomeDrawer extends StatefulWidget {
   @override
-  _HomwDrawerState createState() => _HomwDrawerState();
+  _HomeDrawerState createState() => _HomeDrawerState();
 }
 
-class _HomwDrawerState extends State<HomwDrawer> {
+class _HomeDrawerState extends State<HomeDrawer> {
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) {
         return Drawer(
-            child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                ),
+                child: Container(),
               ),
-              child: Container(),
-            ),
-            RaisedButton(
-              onPressed: () {},
-              child: Text("Accedi con Google"),
-            )
-          ],
-        ));
+              RaisedButton(
+                onPressed: () {},
+                child: Text("Accedi con Google"),
+              )
+            ],
+          ),
+        );
       },
     );
   }

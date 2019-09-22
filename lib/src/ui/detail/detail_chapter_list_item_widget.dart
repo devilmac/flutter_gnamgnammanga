@@ -13,45 +13,50 @@ class ChapterListItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        child: Card(
-      elevation: 2,
-      clipBehavior: Clip.antiAlias,
-      child: Stack(
-        children: <Widget>[
-          Column(
-            children: <Widget>[
-              Expanded(
-                child: Stack(
-                  textDirection: TextDirection.ltr,
-                  children: <Widget>[
-                    Center(
+      child: Card(
+        elevation: 2,
+        clipBehavior: Clip.antiAlias,
+        child: Stack(
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Expanded(
+                  child: Stack(
+                    textDirection: TextDirection.ltr,
+                    children: <Widget>[
+                      Center(
                         child: Hero(
-                            tag: _chapter.chapterID,
-                            child: Image.asset(
-                              "assets/chapter_placeholder.png",
-                              fit: BoxFit.cover,
-                            )))
-                  ],
+                          tag: _chapter.chapterID,
+                          child: Image.asset(
+                            "assets/chapter_placeholder.png",
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Text(
-                  "Chapter " + _chapter.number,
-                ),
-              )
-            ],
-          ),
-          Positioned.fill(child: MaterialRipple(
-            onPressed: () {
-              appState.getChapterDetail(_chapter.chapterID);
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Text(
+                    "Chapter " + _chapter.number,
+                  ),
+                )
+              ],
+            ),
+            Positioned.fill(
+              child: MaterialRipple(
+                onPressed: () {
+                  appState.getChapterDetail(_chapter.chapterID);
 
-              Navigator.pushNamed(context, ReadingChapterWidget.routeName,
-                  arguments: ReadingChapterArguments(_chapter));
-            },
-          ))
-        ],
+                  Navigator.pushNamed(context, ReadingChapterWidget.routeName,
+                      arguments: ReadingChapterArguments(_chapter));
+                },
+              ),
+            )
+          ],
+        ),
       ),
-    ));
+    );
   }
 }

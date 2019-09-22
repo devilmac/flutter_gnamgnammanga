@@ -24,31 +24,35 @@ class HomeGridItemWidget extends StatelessWidget {
                 textDirection: TextDirection.ltr,
                 children: <Widget>[
                   Center(
-                      child: Hero(
-                          tag: _manga.mangaID,
-                          child: _getGridItemImage(_manga.image)))
+                    child: Hero(
+                        tag: _manga.mangaID,
+                        child: _getGridItemImage(_manga.image)),
+                  )
                 ],
               ),
               Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: Directionality(
+                padding: const EdgeInsets.all(4.0),
+                child: Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: Text(
+                    _manga.title,
+                    key: Key(_manga.title),
                     textDirection: TextDirection.ltr,
-                    child: Text(
-                      _manga.title,
-                      key: Key(_manga.title),
-                      textDirection: TextDirection.ltr,
-                    ),
-                  ))
+                  ),
+                ),
+              )
             ],
           ),
-          Positioned.fill(child: MaterialRipple(
-            onPressed: () {
-              appState.mangaDetail = null;
-              appState.isMangaFavorite(_manga.mangaID);
-              appState.getMangaDetail(_manga.mangaID);
-              _navigateToMangaDetailPage(context);
-            },
-          ))
+          Positioned.fill(
+            child: MaterialRipple(
+              onPressed: () {
+                appState.mangaDetail = null;
+                appState.isMangaFavorite(_manga.mangaID);
+                appState.getMangaDetail(_manga.mangaID);
+                _navigateToMangaDetailPage(context);
+              },
+            ),
+          )
         ],
       ),
     );
