@@ -81,33 +81,7 @@ class MangaDetail extends Equatable {
     this.updatedKeywords,
     this.categories,
     this.status,
-  ) : super([
-          aka,
-          akaAlias,
-          artist,
-          artistKw,
-          author,
-          authorKw,
-          baka,
-          chapters,
-          chaptersLen,
-          created,
-          description,
-          hits,
-          image,
-          imageURL,
-          language,
-          lastChapterDate,
-          random,
-          released,
-          startsWith,
-          title,
-          titleKw,
-          type,
-          updatedKeywords,
-          categories,
-          status
-        ]);
+  );
 
   factory MangaDetail.fromJson(Map<String, dynamic> json) =>
       _$MangaDetailFromJson(json);
@@ -118,4 +92,33 @@ class MangaDetail extends Equatable {
   String toString() {
     return 'Manga{aka: $aka, akaAlias: $akaAlias, alias: $alias, artist: $artist, artistKw: $artistKw, author: $author, authorKw: $authorKw, baka: $baka, categories: $categories, chaptersLen: $chaptersLen, created: $created, description: $description, hits: $hits, image: $image, imageURL: $imageURL, language: $language, lastChapterDate: $lastChapterDate, random: $random, released: $released, startsWith: $startsWith, status: $status, title: $title, titleKw: $titleKw, type: $type, updatedKeywords: $updatedKeywords}';
   }
+
+  @override
+  List<Object> get props => [
+        aka,
+        akaAlias,
+        artist,
+        artistKw,
+        author,
+        authorKw,
+        baka,
+        chapters,
+        chaptersLen,
+        created,
+        description,
+        hits,
+        image,
+        imageURL,
+        language,
+        lastChapterDate,
+        random,
+        released,
+        startsWith,
+        title,
+        titleKw,
+        type,
+        updatedKeywords,
+        categories,
+        status
+      ];
 }

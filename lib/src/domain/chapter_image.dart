@@ -7,8 +7,7 @@ class ChapterImage extends Equatable {
   final int height;
   final int width;
 
-  ChapterImage({this.page, this.imageUrl, this.height, this.width})
-      : super([page, imageUrl, height, width]);
+  ChapterImage({this.page, this.imageUrl, this.height, this.width});
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
@@ -33,4 +32,7 @@ class ChapterImage extends Equatable {
   String toString() {
     return 'ChapterImage{page: $page, imageUrl: $imageUrl, height: $height, width: $width}';
   }
+
+  @override
+  List<Object> get props => [page, imageUrl, height, width];
 }
