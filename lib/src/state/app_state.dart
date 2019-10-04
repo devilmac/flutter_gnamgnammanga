@@ -1,4 +1,7 @@
+import 'dart:isolate';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_app/src/domain/category.dart';
 import 'package:flutter_app/src/domain/chapter_image.dart';
 import 'package:flutter_app/src/domain/manga.dart';
 import 'package:flutter_app/src/domain/manga_detail.dart';
@@ -32,16 +35,29 @@ abstract class _AppState with Store {
   @observable
   FirebaseUser firebaseUser;
 
+  @observable
+  List<Category> categories;
+
   @action
   Future getManga(num selectedLanguage) async {
     var _response = await _repository.getAllManga(selectedLanguage);
 
+    // Add category to database
+    Isolate.spawn(_addCategoriesToDB(_response), null);
+
     this.mangaList = _response;
   }
 
+  _addCategoriesToDB(List<Manga> mangaList) {
+    _repository.addCategoriesToDB(mangaList);
+  } 
+  
   @action
-  Future getMangaDetail(String mangaID) async {
-    var _response = await _repository.getMangaDetail(mangaID);
+  Future getMangaDetail(String mangaID, num lastChapterDate) async {
+    var isMangaUpToDate =
+        await _repository.isMangaUpToDate(mangaID, lastChapterDate);
+
+    var _response = await _repository.getMangaDetail(mangaID, isMangaUpToDate);
 
     this.mangaDetail = _response;
   }

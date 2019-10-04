@@ -1,16 +1,19 @@
 import 'package:flutter_app/src/repository/local/sqlite_util.dart';
 
 class SqliteUtilMangaeden extends SqliteUtil {
-  ///Manga table name
+  /// Manga table name
   static const MANGA_TABLE_NAME = "manga";
 
-  ///Chapter table name
+  /// Chapter table name
   static const CHAPTER_TABLE_NAME = "chapter";
 
-  ///Chapters' images table name
+  /// Chapters images table name
   static const CHAPTER_IMAGE_TABLE_NAME = "chapter_image";
 
-  //Manga table columns
+  /// Category table name
+  static const CATEGORY_TABLE_NAME = "category";
+
+  // Manga table columns
   static const MANGA_ID_COLUMN = "manga_id";
   static const AKA_COLUMN = "aka";
   static const AUTHOR_COLUMN = "author";
@@ -23,19 +26,23 @@ class SqliteUtilMangaeden extends SqliteUtil {
   static const STATUS_COLUMN = "status";
   static const TITLE_COLUMN = "title";
 
-  //Chapter table columns
+  // Chapter table columns
   static const CHAPTER_ID_COLUMN = "chapter_id";
   static const CHAPTER_NUMBER_COLUMN = "number";
   static const CHAPTER_DATE_COLUMN = "date";
   static const CHAPTER_TITLE_COLUMN = "title";
   static const CHAPTER_MANGA_ID_COLUMN = "manga_id";
 
-  //Chapter image table columns
+  // Chapter image table columns
   static const CHAPTER_PAGE_NUMBER_COLUMN = "page_number";
   static const CHAPTER_IMAGE_URL_COLUMN = "image_url";
   static const CHAPTER_WIDTH_COLUMN = "width";
   static const CHAPTER_HEIGHT_COLUMN = "height";
   static const CHAPTER_IMAGE_CHAPTER_ID_COLUMN = "chapter_id";
+
+  // Category table columns
+  static const CATEGORY_ID_COLUMN = "category_id";
+  static const CATEGORY_NAME_COLUMN = "category_name";
 
   static const createMangaTable =
       "CREATE TABLE $MANGA_TABLE_NAME ($MANGA_ID_COLUMN TEXT PRIMARY KEY, "
@@ -66,12 +73,23 @@ class SqliteUtilMangaeden extends SqliteUtil {
       "$CHAPTER_IMAGE_CHAPTER_ID_COLUMN TEXT,"
       "FOREIGN KEY($CHAPTER_IMAGE_CHAPTER_ID_COLUMN) REFERENCES $CHAPTER_TABLE_NAME($CHAPTER_ID_COLUMN) ON DELETE CASCADE)";
 
+  static const createCategoryTable =
+      "CREATE TABLE $CATEGORY_TABLE_NAME($CATEGORY_NAME_COLUMN TEXT PRIMARY KEY)";
+
+  // Alter SQL query to migrate from DB version 1 to DB version 2
   static const alterMangaDetailTableChangeStatusType =
       "PRAGMA foreign_keys=off;\n"
-      "BEGIN TRANSACTION;"
+      "BEGIN TRANSACTION;\n"
       "ALTER TABLE $MANGA_TABLE_NAME RENAME TO _${MANGA_TABLE_NAME}_old;\n"
       "$createMangaTable;\n"
       "INSERT INTO $MANGA_TABLE_NAME ($MANGA_ID_COLUMN, $AKA_COLUMN, $AUTHOR_COLUMN, $CATEGORIES_COLUMN, $DESCRIPTION_COLUMN, $IMAGE_COLUMN, $LANGUAGE_COLUMN, $LAST_CHAPTER_DATE_COLUMN, $RELEASED_COLUMN, $STATUS_COLUMN, $TITLE_COLUMN) SELECT $MANGA_ID_COLUMN, $AKA_COLUMN, $AUTHOR_COLUMN, $CATEGORIES_COLUMN, $DESCRIPTION_COLUMN, $IMAGE_COLUMN, $LANGUAGE_COLUMN, $LAST_CHAPTER_DATE_COLUMN, $RELEASED_COLUMN, $STATUS_COLUMN, $TITLE_COLUMN FROM _${MANGA_TABLE_NAME}_old;\n"
       "COMMIT;\n"
       "PRAGMA foreign_keys=on;";
+
+  // Alter SQL query to migrate from DB version 2 to DB version 3
+  static const alterAddCategoryTable = "PRAGMA foreign_keys=off;\n"
+      "BEGIN TRANSACTION;\n"
+      "$createCategoryTable;\n"
+      "COMMIT;\n"
+      "PRAGMAN foreign_keys=on;";
 }

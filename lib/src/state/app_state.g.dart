@@ -125,8 +125,9 @@ mixin _$AppState on _AppState, Store {
   final _$getMangaDetailAsyncAction = AsyncAction('getMangaDetail');
 
   @override
-  Future getMangaDetail(String mangaID) {
-    return _$getMangaDetailAsyncAction.run(() => super.getMangaDetail(mangaID));
+  Future getMangaDetail(String mangaID, num lastChapterDate) {
+    return _$getMangaDetailAsyncAction
+        .run(() => super.getMangaDetail(mangaID, lastChapterDate));
   }
 
   final _$getChapterDetailAsyncAction = AsyncAction('getChapterDetail');

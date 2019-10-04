@@ -1,3 +1,4 @@
+import 'package:flutter_app/src/domain/category.dart';
 import 'package:flutter_app/src/domain/chapter.dart';
 import 'package:flutter_app/src/domain/chapter_image.dart';
 import 'package:flutter_app/src/domain/manga.dart';
@@ -14,7 +15,7 @@ class MangaedenDatabase extends MangaDatabase {
   String get dbName => "mangaeden.db";
 
   @override
-  int get dbVersion => 2;
+  int get dbVersion => 3;
 
   Database _db;
 
@@ -28,9 +29,7 @@ class MangaedenDatabase extends MangaDatabase {
     _db.close();
 
     if (query.isNotEmpty) {
-      return query.map((Map map) {
-        return Manga.fromMap(map);
-      }).toList();
+      return query.map((Map map) => Manga.fromMap(map)).toList();
     }
 
     return null;
@@ -54,14 +53,11 @@ class MangaedenDatabase extends MangaDatabase {
             whereArgs: [mangaID]);
 
         if (queryChapters.isNotEmpty) {
-          var chapters = queryChapters.map((map) {
-            return Chapter.fromMap(map);
-          }).toList();
+          var chapters =
+              queryChapters.map((map) => Chapter.fromMap(map)).toList();
 
           manga = Manga.copyWithMangaDetail(
               manga, MangaDetail.copyWithChapters(manga.mangaDetail, chapters));
-
-//          manga.mangaDetail.chapters = chapters;
         }
 
         return manga.mangaDetail;
@@ -122,9 +118,7 @@ class MangaedenDatabase extends MangaDatabase {
     _db.close();
 
     if (query.isNotEmpty) {
-      return query.map((Map map) {
-        return Chapter.fromMap(map);
-      }).toList();
+      return query.map((Map map) => Chapter.fromMap(map)).toList();
     }
 
     return null;
@@ -141,9 +135,7 @@ class MangaedenDatabase extends MangaDatabase {
         whereArgs: [chapterID]);
 
     if (query.isNotEmpty && query.length == 1) {
-      var pages = query.map((map) {
-        return ChapterImage.fromMap(map);
-      }).toList();
+      var pages = query.map((map) => ChapterImage.fromMap(map)).toList();
 
       return pages;
     }
@@ -165,6 +157,58 @@ class MangaedenDatabase extends MangaDatabase {
     _db.close();
 
     return query.isNotEmpty && query.length == 1;
+  }
+
+  @override
+  Future<bool> isMangaUpToDate(String mangaID, num lastChapterDate) async {
+    await _openDatabase();
+
+    var query = await _db.query(SqliteUtilMangaeden.MANGA_TABLE_NAME,
+        columns: [
+          SqliteUtilMangaeden.MANGA_ID_COLUMN,
+          SqliteUtilMangaeden.CHAPTER_DATE_COLUMN
+        ],
+        where: "${SqliteUtilMangaeden.MANGA_ID_COLUMN} = ?",
+        whereArgs: [mangaID]);
+
+    _db.close();
+
+    if (query.isNotEmpty && query.length == 1) {
+      var manga = Manga.fromMap(query[0]);
+
+      if (manga.lastChapterDate.compareTo(lastChapterDate).isNegative) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  @override
+  Future<void> addCategory(Category category) async {
+    await _openDatabase();
+
+    await _db.insert(SqliteUtilMangaeden.CATEGORY_TABLE_NAME, category.toMap());
+
+    _db.close();
+  }
+
+  @override
+  Future<List<Category>> getCategories() async {
+    await _openDatabase();
+
+    var query = await _db.query(SqliteUtilMangaeden.CATEGORY_TABLE_NAME,
+        columns: [
+          SqliteUtilMangaeden.CATEGORY_ID_COLUMN,
+          SqliteUtilMangaeden.CATEGORY_NAME_COLUMN
+        ]);
+
+    if (query.isNotEmpty) {
+      var categories = query.map((map) => Category.fromMap(map));
+      return categories;
+    }
+
+    return null;
   }
 
   Future<void> _openDatabase() async {
@@ -197,7 +241,13 @@ class MangaedenDatabase extends MangaDatabase {
   }
 
   _onUpgrade(Database db, int version, int oldVersion) async {
-    await db
-        .rawQuery(SqliteUtilMangaeden.alterMangaDetailTableChangeStatusType);
+    if (oldVersion == 1 && version == 2) {
+      await db
+          .rawQuery(SqliteUtilMangaeden.alterMangaDetailTableChangeStatusType);
+    }
+
+    if (oldVersion == 2 && version == 3) {
+      await db.rawQuery(SqliteUtilMangaeden.createCategoryTable);
+    }
   }
 }

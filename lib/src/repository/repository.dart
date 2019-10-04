@@ -22,11 +22,12 @@ class Repository {
   Future<List<Manga>> getFavorites(num selectedLanguage) async =>
       await _mangaDbAdapter.getMangaList(selectedLanguage);
 
-  Future<MangaDetail> getMangaDetail(String mangaID) async {
-    //before check if manga is saved into the database
+  Future<MangaDetail> getMangaDetail(
+      String mangaID, bool isMangaUpToDate) async {
+    //before check if manga is saved into the database and if the manga is already up to date
     var isMangaFavorite = await _mangaDbAdapter.isMangaFavorite(mangaID);
 
-    if (isMangaFavorite) {
+    if (isMangaFavorite && isMangaUpToDate) {
       return await _mangaDbAdapter.getMangaDetail(mangaID);
     } else {
       return await _mangaNetworkAdapter.getMangaDetail(mangaID);
@@ -50,4 +51,13 @@ class Repository {
 
   Future<bool> isMangaFavorite(String mangaID) async =>
       await _mangaDbAdapter.isMangaFavorite(mangaID);
+
+  Future<bool> isMangaUpToDate(String mangaID, num lastChapterDate) async =>
+      await _mangaDbAdapter.isMangaUpToDate(mangaID, lastChapterDate);
+
+  void addCategoriesToDB(List<Manga> mangaList) {
+    mangaList.forEach((manga) {
+      _mangaDbAdapter.addCategories(manga.categories);
+    });
+  }
 }

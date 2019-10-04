@@ -3,6 +3,7 @@ import 'package:flutter_app/src/domain/manga.dart';
 import 'package:flutter_app/src/domain/manga_detail.dart';
 import 'package:flutter_app/src/repository/local/manga_db_factory.dart';
 import 'package:flutter_app/src/repository/local/sqlite_util.dart';
+import 'package:flutter_app/src/domain/category.dart';
 
 import '../manga_adapter.dart';
 import 'manga_database.dart';
@@ -38,5 +39,15 @@ class MangaDbAdapter implements MangaAdapter {
 
   Future<bool> isMangaFavorite(String mangaID) {
     return _database.isMangaFavorite(mangaID);
+  }
+
+  Future<bool> isMangaUpToDate(String mangaID, num lastChapterDate) {
+    return _database.isMangaUpToDate(mangaID, lastChapterDate);
+  }
+
+  void addCategories(List<String> categories) {
+    categories.forEach((category){
+      return _database.addCategory(Category(category));
+    });
   }
 }

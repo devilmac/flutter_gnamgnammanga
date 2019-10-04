@@ -51,4 +51,17 @@ mixin _$MangaedenState on _MangaedenState, Store {
     return _$getSharedPreferencesAsyncAction
         .run(() => super.getSharedPreferences());
   }
+
+  final _$_MangaedenStateActionController =
+      ActionController(name: '_MangaedenState');
+
+  @override
+  void reloadManga() {
+    final _$actionInfo = _$_MangaedenStateActionController.startAction();
+    try {
+      return super.reloadManga();
+    } finally {
+      _$_MangaedenStateActionController.endAction(_$actionInfo);
+    }
+  }
 }
