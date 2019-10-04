@@ -16,8 +16,7 @@ class Chapter extends Equatable {
       this.title,
       this.chapterID,
       this.mangaID,
-      this.images})
-      : super([number, date, title, chapterID]);
+      this.images});
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
@@ -67,4 +66,7 @@ class Chapter extends Equatable {
   String toString() {
     return 'Chapter{number: $number, date: $date, title: $title, chapterID: $chapterID, mangaID: $mangaID, images: $images}';
   }
+
+  @override
+  List<Object> get props => [number, date, title, chapterID, mangaID, images];
 }

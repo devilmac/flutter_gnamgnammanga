@@ -18,9 +18,7 @@ class Manga extends Equatable {
       this.image,
       this.lastChapterDate,
       this.title,
-      this.mangaDetail})
-      : super(
-            [mangaID, categories, image, lastChapterDate, title, mangaDetail]);
+      this.mangaDetail});
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
@@ -88,4 +86,8 @@ class Manga extends Equatable {
   String toString() {
     return 'Manga{mangaID: $mangaID, categories: $categories, image: $image, lastChapterDate: $lastChapterDate, title: $title, mangaDetail: $mangaDetail}';
   }
+
+  @override
+  List<Object> get props =>
+      [mangaID, categories, image, lastChapterDate, title, mangaDetail];
 }

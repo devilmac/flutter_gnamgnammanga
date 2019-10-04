@@ -19,5 +19,8 @@ class _MangaedenLanguage extends Equatable {
   final String name;
   final num value;
 
-  _MangaedenLanguage(this.name, this.value) : super([name, value]);
+  _MangaedenLanguage(this.name, this.value);
+
+  @override
+  List<Object> get props => [name, value];
 }
