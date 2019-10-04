@@ -3,19 +3,24 @@ import 'package:flutter_app/src/domain/manga.dart';
 import 'package:flutter_app/src/domain/manga_detail.dart';
 import 'package:flutter_app/src/repository/local/manga_db_adapter.dart';
 import 'package:flutter_app/src/repository/local/mangaeden/mangaeden_db_factory.dart';
+import 'package:flutter_app/src/repository/local/sqlite_util.dart';
 import 'package:flutter_app/src/repository/network/manga_network_adapter.dart';
 import 'package:flutter_app/src/repository/network/service/mangaeden/mangaeden_service.dart';
+import 'package:http/http.dart';
+
+import 'manga_adapter.dart';
 
 class Repository {
-  final MangaNetworkAdapter _mangaNetworkAdapter =
-      MangaNetworkAdapter(MangaedenService());
-  final MangaDbAdapter _mangaDbAdapter = MangaDbAdapter(MangaEdenDbFactory());
+  final MangaAdapter _mangaNetworkAdapter =
+      MangaNetworkAdapter(MangaedenService(Client()));
+  final MangaDbAdapter _mangaDbAdapter =
+      MangaDbAdapter(MangaEdenDbFactory(), sqlType.sqflite);
 
-  Future<List<Manga>> getAllManga() async =>
-      await _mangaNetworkAdapter.getMangaList();
+  Future<List<Manga>> getAllManga(num selectedLanguage) async =>
+      await _mangaNetworkAdapter.getMangaList(selectedLanguage);
 
-  Future<List<Manga>> getFavorites() async =>
-      await _mangaDbAdapter.getMangaList();
+  Future<List<Manga>> getFavorites(num selectedLanguage) async =>
+      await _mangaDbAdapter.getMangaList(selectedLanguage);
 
   Future<MangaDetail> getMangaDetail(String mangaID) async {
     //before check if manga is saved into the database

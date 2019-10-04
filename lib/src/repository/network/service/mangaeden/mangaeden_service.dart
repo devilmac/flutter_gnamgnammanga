@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter_app/src/config/configuration.dart' as configuration;
 import 'package:flutter_app/src/domain/chapter.dart' as domain;
 import 'package:flutter_app/src/domain/chapter_image.dart' as domain;
 import 'package:flutter_app/src/domain/manga.dart' as domain;
@@ -18,53 +16,11 @@ import 'package:flutter_app/src/repository/network/service/manga_service.dart';
 import 'package:http/http.dart' as http;
 
 const String BASE_URL = "https://www.mangaeden.com/api";
-String mangaList = "$BASE_URL/list/${configuration.mangaLanguage}";
+const String MANGA_LIST = "$BASE_URL/list/";
 const String MANGA_DETAIL = "$BASE_URL/manga/";
 const String CHAPTER_DETAIL = "$BASE_URL/chapter/";
 
 String baseImageUrl = "https://cdn.mangaeden.com/mangasimg/";
-
-List<domain.Manga> manageGetMangaListResponse(String responseBody) {
-  List<domain.Manga> result;
-
-  var body = json.decode(responseBody);
-
-  var mangaList = body["manga"] as List;
-
-  var mappedList =
-      mangaList.map((json) => network.Manga.fromJson(json)).toList();
-
-  result = mappedList
-      .map((networkManga) => _mapManga(networkManga))
-      .toSet()
-      .toList();
-
-  return result;
-}
-
-domain.MangaDetail manageGetMangaDetailResponse(String responseBody) {
-  domain.MangaDetail result;
-
-  var body = json.decode(responseBody);
-
-  var mangaDetail = network.MangaDetail.fromJson(body);
-
-  result = _mapMangaDetail(mangaDetail);
-
-  return result;
-}
-
-List<domain.ChapterImage> manageGetChapterDetailResponse(String responseBody) {
-  List<domain.ChapterImage> result;
-
-  var body = json.decode(responseBody);
-
-  var chapter = network.Chapter.fromJson(body);
-
-  result = _mapChapterDetail(chapter.images);
-
-  return result;
-}
 
 domain.Manga _mapManga(network.Manga manga) {
   domain.Manga result = domain.Manga(
@@ -86,14 +42,19 @@ domain.MangaDetail _mapMangaDetail(network.MangaDetail mangaDetail) {
       chapters: _mapChapters(mangaDetail.chapters),
       language: _mapLanguage(mangaDetail.language),
       released: mangaDetail.released,
-      status: _mapStatus(mangaDetail.status));
+      status: mangaDetail.status == 1
+          ? mangaStatus.IN_PROGRESS
+          : mangaStatus.COMPLETED);
   return result;
 }
 
 List<domain.Chapter> _mapChapters(List<List<dynamic>> chaptersFromNetwork) {
   var chapters = chaptersFromNetwork?.map((List<dynamic> chapter) {
-    return domain.Chapter(chapter[0].toString(), chapter[1] as double,
-        chapter[2] as String, chapter[3] as String);
+    return domain.Chapter(
+        number: chapter[0].toString(),
+        date: chapter[1] as double,
+        title: chapter[2] as String,
+        chapterID: chapter[3] as String);
   })?.toList();
 
   return chapters;
@@ -101,15 +62,14 @@ List<domain.Chapter> _mapChapters(List<List<dynamic>> chaptersFromNetwork) {
 
 List<domain.ChapterImage> _mapChapterDetail(List<List<dynamic>> chapterImages) {
   var images = chapterImages?.map((element) {
-    return domain.ChapterImage(element[0] as int, _mapImage(element[1]),
-        element[2] as int, element[3] as int);
+    return domain.ChapterImage(
+        page: element[0] as int,
+        imageUrl: _mapImage(element[1]),
+        height: element[2] as int,
+        width: element[3] as int);
   })?.toList();
 
   return List.from(images.reversed);
-}
-
-String _mapStatus(int status) {
-  return mangaStatus[status];
 }
 
 String _mapLanguage(int language) {
@@ -127,12 +87,32 @@ String _mapImage(String image) {
 }
 
 class MangaedenService extends MangaService {
+  final http.Client _client;
+
+  MangaedenService(this._client);
+
   @override
-  Future<List<domain.Manga>> getManga() async {
-    final response = await http.get(mangaList);
+  Future<List<domain.Manga>> getMangaList(num selectedLanguage) async {
+    final response = await _client.get("$MANGA_LIST$selectedLanguage");
 
     if (response.statusCode == 200) {
-      return compute(manageGetMangaListResponse, response.body);
+      List<domain.Manga> result;
+
+      try {
+        var body = jsonDecode(response.body);
+
+        var mangaList = body["manga"] as List;
+
+        var mappedList =
+            mangaList.map((json) => network.Manga.fromJson(json)).toList();
+
+        result = mappedList
+            .map((networkManga) => _mapManga(networkManga))
+            .toSet()
+            .toList();
+      } on FormatException {}
+
+      return result;
     }
 
     return null;
@@ -140,10 +120,20 @@ class MangaedenService extends MangaService {
 
   @override
   Future<domain.MangaDetail> getMangaDetail(String mangaID) async {
-    final response = await http.get("$MANGA_DETAIL$mangaID");
+    final response = await _client.get("$MANGA_DETAIL$mangaID");
 
     if (response.statusCode == 200) {
-      return compute(manageGetMangaDetailResponse, response.body);
+      domain.MangaDetail result;
+
+      try {
+        var body = jsonDecode(response.body);
+
+        var mangaDetail = network.MangaDetail.fromJson(body);
+
+        result = _mapMangaDetail(mangaDetail);
+      } on FormatException {}
+
+      return result;
     }
 
     return null;
@@ -151,10 +141,20 @@ class MangaedenService extends MangaService {
 
   @override
   Future<List<domain.ChapterImage>> getChapterDetail(String chapterID) async {
-    var response = await http.get("$CHAPTER_DETAIL$chapterID");
+    var response = await _client.get("$CHAPTER_DETAIL$chapterID");
 
     if (response.statusCode == 200) {
-      return compute(manageGetChapterDetailResponse, response.body);
+      List<domain.ChapterImage> result;
+
+      try {
+        var body = jsonDecode(response.body);
+
+        var chapter = network.Chapter.fromJson(body);
+
+        result = _mapChapterDetail(chapter.images);
+      } on FormatException {}
+
+      return result;
     }
 
     return null;

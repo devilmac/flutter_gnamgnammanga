@@ -1,14 +1,16 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_app/src/domain/manga_detail.dart';
-import 'package:flutter_app/src/repository/local/mangaeden/sqlite_util.dart';
+import 'package:flutter_app/src/domain/manga_status.dart';
+import 'package:flutter_app/src/repository/local/mangaeden/sqflite/sqlite_util.dart';
 
-class Manga {
-  String mangaID;
-  List<String> categories;
-  String image;
-  num lastChapterDate;
-  String title;
+class Manga extends Equatable {
+  final String mangaID;
+  final List<String> categories;
+  final String image;
+  final num lastChapterDate;
+  final String title;
 
-  MangaDetail mangaDetail;
+  final MangaDetail mangaDetail;
 
   Manga(
       {this.mangaID,
@@ -28,7 +30,7 @@ class Manga {
       SqliteUtilMangaeden.LANGUAGE_COLUMN: mangaDetail.language,
       SqliteUtilMangaeden.LAST_CHAPTER_DATE_COLUMN: lastChapterDate,
       SqliteUtilMangaeden.RELEASED_COLUMN: mangaDetail.released,
-      SqliteUtilMangaeden.STATUS_COLUMN: mangaDetail.status,
+      SqliteUtilMangaeden.STATUS_COLUMN: mangaDetail.status.index,
       SqliteUtilMangaeden.TITLE_COLUMN: title,
     };
 
@@ -39,27 +41,46 @@ class Manga {
     return map;
   }
 
-  Manga.fromMap(Map<String, dynamic> map) {
-    mangaID = map[SqliteUtilMangaeden.MANGA_ID_COLUMN];
-    categories =
-        (map[SqliteUtilMangaeden.CATEGORIES_COLUMN] as String).split("|");
-    image = map[SqliteUtilMangaeden.IMAGE_COLUMN];
-    lastChapterDate = map[SqliteUtilMangaeden.LAST_CHAPTER_DATE_COLUMN];
-    title = map[SqliteUtilMangaeden.TITLE_COLUMN];
+  Manga.fromMap(Map<String, dynamic> map)
+      : this(
+          mangaID: map[SqliteUtilMangaeden.MANGA_ID_COLUMN],
+          categories:
+              (map[SqliteUtilMangaeden.CATEGORIES_COLUMN] as String).split("|"),
+          image: map[SqliteUtilMangaeden.IMAGE_COLUMN],
+          lastChapterDate: map[SqliteUtilMangaeden.LAST_CHAPTER_DATE_COLUMN],
+          title: map[SqliteUtilMangaeden.TITLE_COLUMN],
+          mangaDetail: MangaDetail(
+            aka: (map[SqliteUtilMangaeden.AKA_COLUMN] as String).split("|"),
+            description: map[SqliteUtilMangaeden.DESCRIPTION_COLUMN],
+            language: map[SqliteUtilMangaeden.LANGUAGE_COLUMN],
+            released: map[SqliteUtilMangaeden.RELEASED_COLUMN],
+            status: mangaStatus.values[map[SqliteUtilMangaeden.STATUS_COLUMN]],
+            author: map[SqliteUtilMangaeden.AUTHOR_COLUMN],
+            lastChapterDate: map[SqliteUtilMangaeden.LAST_CHAPTER_DATE_COLUMN],
+            categories: (map[SqliteUtilMangaeden.CATEGORIES_COLUMN] as String)
+                .split("|"),
+          ),
+        );
 
-    mangaDetail = MangaDetail();
-    mangaDetail.aka =
-        (map[SqliteUtilMangaeden.AKA_COLUMN] as String).split("|");
-    mangaDetail.description = map[SqliteUtilMangaeden.DESCRIPTION_COLUMN];
-    mangaDetail.language = map[SqliteUtilMangaeden.LANGUAGE_COLUMN];
-    mangaDetail.released = map[SqliteUtilMangaeden.RELEASED_COLUMN];
-    mangaDetail.status = map[SqliteUtilMangaeden.STATUS_COLUMN];
-    mangaDetail.author = map[SqliteUtilMangaeden.AUTHOR_COLUMN];
-    mangaDetail.lastChapterDate =
-        map[SqliteUtilMangaeden.LAST_CHAPTER_DATE_COLUMN];
-    mangaDetail.categories =
-        (map[SqliteUtilMangaeden.CATEGORIES_COLUMN] as String).split("|");
-  }
+  static Manga copyWithMangaDetail(
+    Manga oldManga,
+    MangaDetail mangaDetail, {
+    String mangaID,
+    List<String> categories,
+    String image,
+    num lastChapterDate,
+    String title,
+  }) =>
+      Manga(
+        mangaDetail: mangaDetail,
+        mangaID: mangaID != null ? mangaID : oldManga.mangaID,
+        categories: categories != null ? categories : oldManga.categories,
+        image: image != null ? image : oldManga.image,
+        lastChapterDate: lastChapterDate != null
+            ? lastChapterDate
+            : oldManga.lastChapterDate,
+        title: title != null ? title : oldManga.title,
+      );
 
   @override
   String toString() {
@@ -67,23 +88,6 @@ class Manga {
   }
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is Manga &&
-          runtimeType == other.runtimeType &&
-          mangaID == other.mangaID &&
-          categories == other.categories &&
-          image == other.image &&
-          lastChapterDate == other.lastChapterDate &&
-          title == other.title &&
-          mangaDetail == other.mangaDetail;
-
-  @override
-  int get hashCode =>
-      mangaID.hashCode ^
-      categories.hashCode ^
-      image.hashCode ^
-      lastChapterDate.hashCode ^
-      title.hashCode ^
-      mangaDetail.hashCode;
+  List<Object> get props =>
+      [mangaID, categories, image, lastChapterDate, title, mangaDetail];
 }

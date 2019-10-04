@@ -9,3 +9,5 @@ build/
 .dart_tool
 /codealike.json
 /keystore/
+/coverage/
+*.zip

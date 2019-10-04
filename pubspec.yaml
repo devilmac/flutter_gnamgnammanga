@@ -1,7 +1,7 @@
 name: flutter_app
 description: A new Flutter application.
 
-version: 0.2.0
+version: 0.3.0
 
 dependencies:
   flutter:
@@ -9,32 +9,42 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
+  cupertino_icons:
 
   flutter_localizations:
     sdk: flutter
 
   flutter_cupertino_localizations:
 
+  # 3th-party libraries
+  intl:
+  intl_translation:
+  get_it:
   flutter_staggered_grid_view:
-  http: any
+  http:
   json_annotation:
-  sqflite:
-  path_provider: any
+  path_provider:
   smooth_star_rating:
   equatable:
   path:
-
   mobx:
   flutter_mobx:
-
   transparent_image:
   intro_views_flutter:
   clippy_flutter:
   flutter_swiper:
-  shared_preferences:
-
   photo_view:
+  scroll_to_index:
+  streaming_shared_preferences:
+
+  # Firebase plugins
+  firebase_core:
+  firebase_auth:
+  google_sign_in:
+
+  # DB plugins
+  sqflite:
+  moor_flutter:
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -43,15 +53,14 @@ dev_dependencies:
   mobx_codegen:
   json_serializable:
 
-  mockito: any
+  mockito:
   flutter_driver:
     sdk: flutter
-  test: any
+  test:
 
-  image_test_utils: any
+  image_test_utils:
 
-  intl: any
-  intl_translation: ^0.17.6
+  moor_generator:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec

@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'manga.g.dart';
 
 @JsonSerializable()
-class Manga {
+class Manga extends Equatable {
   @JsonKey(name: "i")
   final String i;
 
@@ -40,27 +41,5 @@ class Manga {
   }
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is Manga &&
-          runtimeType == other.runtimeType &&
-          i == other.i &&
-          c == other.c &&
-          h == other.h &&
-          a == other.a &&
-          im == other.im &&
-          ld == other.ld &&
-          s == other.s &&
-          t == other.t;
-
-  @override
-  int get hashCode =>
-      i.hashCode ^
-      c.hashCode ^
-      h.hashCode ^
-      a.hashCode ^
-      im.hashCode ^
-      ld.hashCode ^
-      s.hashCode ^
-      t.hashCode;
+  List<Object> get props => [i, c, h, a, im, ld, s, t];
 }

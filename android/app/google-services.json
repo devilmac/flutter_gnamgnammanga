@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "445432870866",
+    "firebase_url": "https://gnamgnammanga-eca39.firebaseio.com",
+    "project_id": "gnamgnammanga-eca39",
+    "storage_bucket": "gnamgnammanga-eca39.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:445432870866:android:1e0343cc12274a34753a0b",
+        "android_client_info": {
+          "package_name": "com.colantoni.federico.flutterapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "445432870866-guv3pq3kcfoqqpt7ugftuqulsikvm13b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0fcVv_hmwUpR3U-6aF_WdQn_GD_j6Vjk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "445432870866-guv3pq3kcfoqqpt7ugftuqulsikvm13b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

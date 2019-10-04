@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'manga_detail.g.dart';
 
 @JsonSerializable()
-class MangaDetail {
+class MangaDetail extends Equatable {
   @JsonKey(name: "aka")
   final List<String> aka;
 
@@ -93,63 +94,31 @@ class MangaDetail {
   }
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is MangaDetail &&
-          runtimeType == other.runtimeType &&
-          aka == other.aka &&
-          akaAlias == other.akaAlias &&
-          alias == other.alias &&
-          artist == other.artist &&
-          artistKw == other.artistKw &&
-          author == other.author &&
-          authorKw == other.authorKw &&
-          baka == other.baka &&
-          categories == other.categories &&
-          chapters == other.chapters &&
-          chaptersLen == other.chaptersLen &&
-          created == other.created &&
-          description == other.description &&
-          hits == other.hits &&
-          image == other.image &&
-          imageURL == other.imageURL &&
-          language == other.language &&
-          lastChapterDate == other.lastChapterDate &&
-          random == other.random &&
-          released == other.released &&
-          startsWith == other.startsWith &&
-          status == other.status &&
-          title == other.title &&
-          titleKw == other.titleKw &&
-          type == other.type &&
-          updatedKeywords == other.updatedKeywords;
-
-  @override
-  int get hashCode =>
-      aka.hashCode ^
-      akaAlias.hashCode ^
-      alias.hashCode ^
-      artist.hashCode ^
-      artistKw.hashCode ^
-      author.hashCode ^
-      authorKw.hashCode ^
-      baka.hashCode ^
-      categories.hashCode ^
-      chapters.hashCode ^
-      chaptersLen.hashCode ^
-      created.hashCode ^
-      description.hashCode ^
-      hits.hashCode ^
-      image.hashCode ^
-      imageURL.hashCode ^
-      language.hashCode ^
-      lastChapterDate.hashCode ^
-      random.hashCode ^
-      released.hashCode ^
-      startsWith.hashCode ^
-      status.hashCode ^
-      title.hashCode ^
-      titleKw.hashCode ^
-      type.hashCode ^
-      updatedKeywords.hashCode;
+  List<Object> get props => [
+        aka,
+        akaAlias,
+        artist,
+        artistKw,
+        author,
+        authorKw,
+        baka,
+        chapters,
+        chaptersLen,
+        created,
+        description,
+        hits,
+        image,
+        imageURL,
+        language,
+        lastChapterDate,
+        random,
+        released,
+        startsWith,
+        title,
+        titleKw,
+        type,
+        updatedKeywords,
+        categories,
+        status
+      ];
 }

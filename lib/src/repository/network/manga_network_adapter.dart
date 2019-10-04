@@ -11,8 +11,8 @@ class MangaNetworkAdapter implements MangaAdapter {
   MangaNetworkAdapter(this._mangaService);
 
   @override
-  Future<List<domain.Manga>> getMangaList() async {
-    return _mangaService.getManga();
+  Future<List<domain.Manga>> getMangaList(num selectedLanguage) async {
+    return _mangaService.getMangaList(selectedLanguage);
   }
 
   @override

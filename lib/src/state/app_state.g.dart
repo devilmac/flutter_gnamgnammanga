@@ -98,11 +98,28 @@ mixin _$AppState on _AppState, Store {
     }, _$checkMangaFavoriteAtom, name: '${_$checkMangaFavoriteAtom.name}_set');
   }
 
+  final _$firebaseUserAtom = Atom(name: '_AppState.firebaseUser');
+
+  @override
+  FirebaseUser get firebaseUser {
+    _$firebaseUserAtom.context.enforceReadPolicy(_$firebaseUserAtom);
+    _$firebaseUserAtom.reportObserved();
+    return super.firebaseUser;
+  }
+
+  @override
+  set firebaseUser(FirebaseUser value) {
+    _$firebaseUserAtom.context.conditionallyRunInAction(() {
+      super.firebaseUser = value;
+      _$firebaseUserAtom.reportChanged();
+    }, _$firebaseUserAtom, name: '${_$firebaseUserAtom.name}_set');
+  }
+
   final _$getMangaAsyncAction = AsyncAction('getManga');
 
   @override
-  Future getManga() {
-    return _$getMangaAsyncAction.run(() => super.getManga());
+  Future getManga(num selectedLanguage) {
+    return _$getMangaAsyncAction.run(() => super.getManga(selectedLanguage));
   }
 
   final _$getMangaDetailAsyncAction = AsyncAction('getMangaDetail');
@@ -132,8 +149,9 @@ mixin _$AppState on _AppState, Store {
   final _$getFavoritesAsyncAction = AsyncAction('getFavorites');
 
   @override
-  Future getFavorites() {
-    return _$getFavoritesAsyncAction.run(() => super.getFavorites());
+  Future getFavorites(num selectedLanguage) {
+    return _$getFavoritesAsyncAction
+        .run(() => super.getFavorites(selectedLanguage));
   }
 
   final _$isMangaFavoriteAsyncAction = AsyncAction('isMangaFavorite');
@@ -142,5 +160,13 @@ mixin _$AppState on _AppState, Store {
   Future isMangaFavorite(String mangaID) {
     return _$isMangaFavoriteAsyncAction
         .run(() => super.isMangaFavorite(mangaID));
+  }
+
+  final _$signWithGoogleAsyncAction = AsyncAction('signWithGoogle');
+
+  @override
+  Future signWithGoogle(GoogleSignIn googleSignIn, FirebaseAuth firebaseAuth) {
+    return _$signWithGoogleAsyncAction
+        .run(() => super.signWithGoogle(googleSignIn, firebaseAuth));
   }
 }

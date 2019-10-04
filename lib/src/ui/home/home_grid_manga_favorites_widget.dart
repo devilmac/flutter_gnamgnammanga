@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/domain/manga.dart';
+import 'package:flutter_app/src/locale/app_localizations.dart';
 import 'package:flutter_app/src/state/app_state.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -15,6 +16,9 @@ class GridMangaFavoritesWidget extends StatelessWidget {
             appState.favoriteMangaList.isNotEmpty) {
           var staggeredGrid = StaggeredGridView.countBuilder(
             crossAxisCount: 4,
+            key: PageStorageKey<String>(
+                AppLocalizations.of(context).tabFavoritesManga),
+            addAutomaticKeepAlives: true,
             mainAxisSpacing: 1.0,
             itemCount: appState.favoriteMangaList.length,
             padding: const EdgeInsets.all(4.0),

@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_app/src/domain/chapter_image.dart';
 import 'package:flutter_app/src/domain/manga.dart';
 import 'package:flutter_app/src/domain/manga_detail.dart';
 import 'package:flutter_app/src/repository/repository.dart';
+import 'package:flutter_app/src/state/mangaeden/mangaeden_state.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mobx/mobx.dart';
 
 part 'app_state.g.dart';
@@ -26,9 +29,12 @@ abstract class _AppState with Store {
   @observable
   bool checkMangaFavorite = false;
 
+  @observable
+  FirebaseUser firebaseUser;
+
   @action
-  Future getManga() async {
-    var _response = await _repository.getAllManga();
+  Future getManga(num selectedLanguage) async {
+    var _response = await _repository.getAllManga(selectedLanguage);
 
     this.mangaList = _response;
   }
@@ -55,12 +61,12 @@ abstract class _AppState with Store {
 
     checkMangaFavorite = await _repository.isMangaFavorite(manga.mangaID);
 
-    getFavorites();
+    getFavorites(mangaedenState.selectedLanguage);
   }
 
   @action
-  Future getFavorites() async {
-    var _response = await _repository.getFavorites();
+  Future getFavorites(num selectedLanguage) async {
+    var _response = await _repository.getFavorites(selectedLanguage);
 
     this.favoriteMangaList = _response;
   }
@@ -70,6 +76,22 @@ abstract class _AppState with Store {
     var _response = await _repository.isMangaFavorite(mangaID);
 
     checkMangaFavorite = _response;
+  }
+
+  @action
+  Future signWithGoogle(
+      GoogleSignIn googleSignIn, FirebaseAuth firebaseAuth) async {
+    var googleUser = await googleSignIn.signIn();
+    var googleAuth = await googleUser.authentication;
+
+    var credential = GoogleAuthProvider.getCredential(
+        idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
+
+    var authResult = await firebaseAuth.signInWithCredential(credential);
+
+    var user = authResult.user;
+
+    this.firebaseUser = user;
   }
 }
 

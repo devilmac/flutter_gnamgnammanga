@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_app/src/config/configuration.dart';
+import 'package:flutter_app/src/domain/chapter.dart';
 import 'package:flutter_app/src/domain/manga.dart';
+import 'package:flutter_app/src/domain/manga_detail.dart';
+import 'package:flutter_app/src/domain/manga_status.dart';
+import 'package:flutter_app/src/locale/app_localizations.dart';
 import 'package:flutter_app/src/resource/resource_string.dart';
 import 'package:flutter_app/src/state/app_state.dart';
-import 'package:flutter_app/src/ui/custom/waves_header_custom_clipper.dart';
 import 'package:flutter_app/src/ui/detail/detail_body_widget.dart';
-import 'package:flutter_app/src/ui/detail/manga_detail_arguments.dart';
+import 'package:flutter_app/src/ui/detail/detail_manga_arguments.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:intl/intl.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class DetailMangaWidget extends StatefulWidget {
@@ -18,7 +22,7 @@ class DetailMangaWidget extends StatefulWidget {
 }
 
 class _DetailMangaWidgetState extends State<DetailMangaWidget> {
-  final sliverAppBarHeight = 232.0;
+  final sliverAppBarHeight = 256.0;
 
   double translateFab = 0.0;
 
@@ -42,7 +46,7 @@ class _DetailMangaWidgetState extends State<DetailMangaWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final MangaDetailArguments args = ModalRoute.of(context).settings.arguments;
+    final DetailMangaArguments args = ModalRoute.of(context).settings.arguments;
 
     return Observer(builder: (_) {
       return getBodyWithCustomScrollView(context, args);
@@ -50,71 +54,132 @@ class _DetailMangaWidgetState extends State<DetailMangaWidget> {
   }
 
   Widget getBodyWithCustomScrollView(
-      BuildContext context, MangaDetailArguments args) {
-    var fabIcon =
-        appState.checkMangaFavorite ? Icons.favorite : Icons.favorite_border;
+      BuildContext context, DetailMangaArguments args) {
+    var fabIcon = appState.checkMangaFavorite
+        ? Icon(Icons.favorite)
+        : Icon(Icons.favorite_border);
 
     if (appState.mangaDetail != null) {
-      args.manga.mangaDetail = appState.mangaDetail;
+      args.manga = Manga.copyWithMangaDetail(args.manga, appState.mangaDetail);
 
-      args.manga.mangaDetail.chapters =
+      args.manga = Manga.copyWithMangaDetail(
+        args.manga,
+        MangaDetail.copyWithChapters(
+          args.manga.mangaDetail,
           appState.mangaDetail.chapters.map((element) {
-        return element.setMangaID(args.manga.mangaID);
-      }).toList();
+            return Chapter.copyWithMangaID(element, args.manga.mangaID);
+          }).toList(),
+        ),
+      );
     }
 
     return Scaffold(
       backgroundColor: Colors.white,
-      extendBody: true,
-      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
-      floatingActionButton: AnimatedBuilder(
-        child: FittedBox(
-          child: FloatingActionButton(
-              tooltip: MANGA_DETAIL_FAB_TOOLTIP,
-              onPressed: () {
-                appState.addRemoveMangaFavorite(args.manga);
-              },
-              child: Icon(fabIcon)),
+      bottomNavigationBar: BottomAppBar(
+        color: Theme.of(context).primaryColor,
+        shape: CircularNotchedRectangle(),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: Container(
+            height: 56.0,
+            child: Row(
+              children: <Widget>[
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          "${AppLocalizations.of(context).detailStatus}: ",
+                          style: TextStyle(
+                              fontSize: 14.0,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        Text(
+                          args.manga.mangaDetail != null
+                              ? getLocalizedStatus(
+                                  context, args.manga.mangaDetail.status)
+                              : "...",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(4.0),
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          "${AppLocalizations.of(context).detailUpdated}: ",
+                          style: TextStyle(
+                              fontSize: 14.0,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        Text(
+                          args.manga.mangaDetail != null
+                              ? DateFormat.yMd().format(
+                                  DateTime.fromMillisecondsSinceEpoch(args
+                                          .manga.mangaDetail.lastChapterDate
+                                          .toInt() *
+                                      1000),
+                                )
+                              : "...",
+                          style: TextStyle(color: Colors.white),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ),
-        builder: (BuildContext context, Widget child) {
-          return Transform.translate(
-            offset: Offset(0.0, translateFab),
-            child: child,
-          );
-        },
-        animation: _controller,
       ),
-      body: CustomScrollView(
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+      floatingActionButton: FittedBox(
+        child: FloatingActionButton(
+            tooltip: MANGA_DETAIL_FAB_TOOLTIP,
+            onPressed: () {
+              appState.addRemoveMangaFavorite(args.manga);
+            },
+            child: fabIcon),
+      ),
+      body: NestedScrollView(
         controller: _controller,
         physics: ClampingScrollPhysics(),
-        slivers: <Widget>[
-          SliverAppBar(
-            elevation: 0.0,
-            backgroundColor: Colors.white,
-//            forceElevated: true,
-            expandedHeight: sliverAppBarHeight,
-            floating: true,
-            pinned: true,
-            snap: false,
-            leading: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                color: Theme.of(context).primaryColor,
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[getDetailBody(args.manga)],
+          ),
+        ),
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return [
+            SliverAppBar(
+              forceElevated: true,
+              expandedHeight: sliverAppBarHeight,
+              floating: true,
+              pinned: true,
+              snap: true,
+              leading: IconButton(
+                icon: Icon(
+                  Icons.arrow_back,
+                ),
+                onPressed: () {
+                  Navigator.pop(context, null);
+                },
               ),
-              onPressed: () {
-                Navigator.pop(context, null);
-              },
-            ),
-            flexibleSpace: FlexibleSpaceBar(
-              collapseMode: CollapseMode.none,
-              background: ClipPath(
-                  clipper: WavesHeaderCustomClipper(),
-                  child: Container(
-                    height: sliverAppBarHeight,
-                    child: Flex(
-                      children: <Widget>[
-                        Expanded(
-                            child: Hero(
+              flexibleSpace: FlexibleSpaceBar(
+                collapseMode: CollapseMode.none,
+                background: Container(
+                  height: sliverAppBarHeight,
+                  child: Flex(
+                    children: <Widget>[
+                      Expanded(
+                        child: Hero(
                           child: FadeInImage.assetNetwork(
                               placeholder: kTransparentImage.toString(),
                               fit: BoxFit.cover,
@@ -122,21 +187,16 @@ class _DetailMangaWidgetState extends State<DetailMangaWidget> {
                                   ? args.manga.image
                                   : gridImagePlaceholder),
                           tag: args.manga.mangaID,
-                        ))
-                      ],
-                      direction: Axis.horizontal,
-                    ),
-                  )),
+                        ),
+                      )
+                    ],
+                    direction: Axis.horizontal,
+                  ),
+                ),
+              ),
             ),
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate([
-              Column(
-                children: <Widget>[getDetailBody(args.manga)],
-              )
-            ]),
-          )
-        ],
+          ];
+        },
       ),
     );
   }

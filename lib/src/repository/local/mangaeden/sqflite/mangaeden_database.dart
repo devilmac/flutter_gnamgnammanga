@@ -3,7 +3,7 @@ import 'package:flutter_app/src/domain/chapter_image.dart';
 import 'package:flutter_app/src/domain/manga.dart';
 import 'package:flutter_app/src/domain/manga_detail.dart';
 import 'package:flutter_app/src/repository/local/manga_database.dart';
-import 'package:flutter_app/src/repository/local/mangaeden/sqlite_util.dart';
+import 'package:flutter_app/src/repository/local/mangaeden/sqflite/sqlite_util.dart';
 import 'package:flutter_app/src/repository/local/sqlite_util.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -14,12 +14,12 @@ class MangaedenDatabase extends MangaDatabase {
   String get dbName => "mangaeden.db";
 
   @override
-  int get dbVersion => 1;
+  int get dbVersion => 2;
 
   Database _db;
 
   @override
-  Future<List<Manga>> getFavorites() async {
+  Future<List<Manga>> getFavorites(num selectedLanguage) async {
     await _openDatabase();
 
     List<Map<String, dynamic>> query =
@@ -58,7 +58,10 @@ class MangaedenDatabase extends MangaDatabase {
             return Chapter.fromMap(map);
           }).toList();
 
-          manga.mangaDetail.chapters = chapters;
+          manga = Manga.copyWithMangaDetail(
+              manga, MangaDetail.copyWithChapters(manga.mangaDetail, chapters));
+
+//          manga.mangaDetail.chapters = chapters;
         }
 
         return manga.mangaDetail;
@@ -166,7 +169,10 @@ class MangaedenDatabase extends MangaDatabase {
 
   Future<void> _openDatabase() async {
     _db = await openDatabase(join(await _getDatabasePath(), dbName),
-        version: dbVersion, onCreate: _onCreate, onConfigure: _onConfigure);
+        version: dbVersion,
+        onCreate: _onCreate,
+        onConfigure: _onConfigure,
+        onUpgrade: _onUpgrade);
   }
 
   Future<String> _getDatabasePath() async {
@@ -188,5 +194,10 @@ class MangaedenDatabase extends MangaDatabase {
       batch.execute(SqliteUtil.SQL_PRAGMA_FOREIGN_KEY);
       batch.commit(noResult: true, continueOnError: false);
     });
+  }
+
+  _onUpgrade(Database db, int version, int oldVersion) async {
+    await db
+        .rawQuery(SqliteUtilMangaeden.alterMangaDetailTableChangeStatusType);
   }
 }
