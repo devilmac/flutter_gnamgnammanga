@@ -166,7 +166,7 @@ class MangaedenDatabase extends MangaDatabase {
     var query = await _db.query(SqliteUtilMangaeden.MANGA_TABLE_NAME,
         columns: [
           SqliteUtilMangaeden.MANGA_ID_COLUMN,
-          SqliteUtilMangaeden.CHAPTER_DATE_COLUMN
+          SqliteUtilMangaeden.LAST_CHAPTER_DATE_COLUMN
         ],
         where: "${SqliteUtilMangaeden.MANGA_ID_COLUMN} = ?",
         whereArgs: [mangaID]);
@@ -185,23 +185,31 @@ class MangaedenDatabase extends MangaDatabase {
   }
 
   @override
-  Future<void> addCategory(Category category) async {
+  Future<void> addCategory(List<Category> categories) async {
     await _openDatabase();
 
-    await _db.insert(SqliteUtilMangaeden.CATEGORY_TABLE_NAME, category.toMap());
+//    categories.forEach((category) async {
+//      await _db.transaction((transaction) async {
+//        var batch = transaction.batch();
+//        batch.insert(SqliteUtilMangaeden.CATEGORY_TABLE_NAME, category.toMap());
+//        batch.commit();
+//      });
+//    });
 
     _db.close();
   }
 
   @override
-  Future<List<Category>> getCategories() async {
+  Future<List<Category>> getCategories(String selectedLanguage) async {
     await _openDatabase();
 
     var query = await _db.query(SqliteUtilMangaeden.CATEGORY_TABLE_NAME,
         columns: [
           SqliteUtilMangaeden.CATEGORY_ID_COLUMN,
           SqliteUtilMangaeden.CATEGORY_NAME_COLUMN
-        ]);
+        ],
+        where: "${SqliteUtilMangaeden.CATEGORY_LANGUAGE_COLUMN} = ?",
+        whereArgs: [selectedLanguage]);
 
     if (query.isNotEmpty) {
       var categories = query.map((map) => Category.fromMap(map));
@@ -228,6 +236,7 @@ class MangaedenDatabase extends MangaDatabase {
       transaction.execute(SqliteUtilMangaeden.createMangaTable);
       transaction.execute(SqliteUtilMangaeden.createChapterTable);
       transaction.execute(SqliteUtilMangaeden.createChapterImageTable);
+      transaction.execute(SqliteUtilMangaeden.createCategoryTable);
     });
   }
 
@@ -244,10 +253,6 @@ class MangaedenDatabase extends MangaDatabase {
     if (oldVersion == 1 && version == 2) {
       await db
           .rawQuery(SqliteUtilMangaeden.alterMangaDetailTableChangeStatusType);
-    }
-
-    if (oldVersion == 2 && version == 3) {
-      await db.rawQuery(SqliteUtilMangaeden.createCategoryTable);
     }
   }
 }

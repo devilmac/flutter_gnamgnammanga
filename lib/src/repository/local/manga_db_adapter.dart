@@ -1,9 +1,11 @@
+import 'package:flutter_app/src/domain/category.dart';
 import 'package:flutter_app/src/domain/chapter_image.dart';
 import 'package:flutter_app/src/domain/manga.dart';
 import 'package:flutter_app/src/domain/manga_detail.dart';
+import 'package:flutter_app/src/domain/manga_language.dart'
+    as languageConverter;
 import 'package:flutter_app/src/repository/local/manga_db_factory.dart';
 import 'package:flutter_app/src/repository/local/sqlite_util.dart';
-import 'package:flutter_app/src/domain/category.dart';
 
 import '../manga_adapter.dart';
 import 'manga_database.dart';
@@ -19,35 +21,30 @@ class MangaDbAdapter implements MangaAdapter {
   }
 
   @override
-  Future<List<Manga>> getMangaList(num selectedLanguage) {
-    return _database.getFavorites(selectedLanguage);
-  }
+  Future<List<Manga>> getMangaList(num selectedLanguage) =>
+      _database.getFavorites(selectedLanguage);
 
   @override
-  Future<MangaDetail> getMangaDetail(String mangaID) {
-    return _database.getFavorite(mangaID);
-  }
+  Future<MangaDetail> getMangaDetail(String mangaID) =>
+      _database.getFavorite(mangaID);
 
   @override
-  Future<List<ChapterImage>> getChapterDetail(String chapterID) {
-    return _database.getChapterDetail(chapterID);
+  Future<List<ChapterImage>> getChapterDetail(String chapterID) =>
+      _database.getChapterDetail(chapterID);
+
+  Future<void> addRemoveMangaFavorite(Manga manga) =>
+      _database.addRemoveToFavorites(manga);
+
+  Future<bool> isMangaFavorite(String mangaID) =>
+      _database.isMangaFavorite(mangaID);
+
+  Future<bool> isMangaUpToDate(String mangaID, num lastChapterDate) =>
+      _database.isMangaUpToDate(mangaID, lastChapterDate);
+
+  void addCategories(List<Category> categories) {
+    _database.addCategory(categories);
   }
 
-  Future<void> addRemoveMangaFavorite(Manga manga) {
-    return _database.addRemoveToFavorites(manga);
-  }
-
-  Future<bool> isMangaFavorite(String mangaID) {
-    return _database.isMangaFavorite(mangaID);
-  }
-
-  Future<bool> isMangaUpToDate(String mangaID, num lastChapterDate) {
-    return _database.isMangaUpToDate(mangaID, lastChapterDate);
-  }
-
-  void addCategories(List<String> categories) {
-    categories.forEach((category){
-      return _database.addCategory(Category(category));
-    });
-  }
+  Future<List<Category>> getCategories(String selectedLanguage) =>
+      _database.getCategories(selectedLanguage);
 }

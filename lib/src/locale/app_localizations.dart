@@ -80,4 +80,9 @@ class AppLocalizations {
     return Intl.message("Select manga language",
         locale: "en", name: "selectMangaLanguage");
   }
+
+  String get searchMangaHint {
+    return Intl.message("Search a manga...",
+        locale: "en", name: "searchMangaHint");
+  }
 }

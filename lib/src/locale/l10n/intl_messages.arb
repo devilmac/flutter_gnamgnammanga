@@ -63,4 +63,9 @@
     "type": "text",
     "placeholders": {}
   }
+  "searchMangaHint": "Search a manga...",
+  "@searchMangaHint": {
+    "type": "text",
+    "placeholders": {}
+  }
 }

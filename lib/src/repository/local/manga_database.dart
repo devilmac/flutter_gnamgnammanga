@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' as prefix0;
 import 'package:flutter_app/src/domain/category.dart';
 import 'package:flutter_app/src/domain/chapter.dart';
 import 'package:flutter_app/src/domain/chapter_image.dart';
@@ -30,8 +31,8 @@ abstract class MangaDatabase {
   Future<bool> isMangaUpToDate(String mangaID, num lastChapterDate);
 
   /// Add a category to database
-  Future<void> addCategory(Category category);
+  Future<void> addCategory(List<Category> categories);
 
   /// Get manga categories
-  Future<List<Category>> getCategories();
+  Future<List<Category>> getCategories(String selectedLanguage);
 }

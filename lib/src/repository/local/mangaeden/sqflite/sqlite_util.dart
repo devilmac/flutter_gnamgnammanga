@@ -43,6 +43,7 @@ class SqliteUtilMangaeden extends SqliteUtil {
   // Category table columns
   static const CATEGORY_ID_COLUMN = "category_id";
   static const CATEGORY_NAME_COLUMN = "category_name";
+  static const CATEGORY_LANGUAGE_COLUMN = "category_language";
 
   static const createMangaTable =
       "CREATE TABLE $MANGA_TABLE_NAME ($MANGA_ID_COLUMN TEXT PRIMARY KEY, "
@@ -74,7 +75,9 @@ class SqliteUtilMangaeden extends SqliteUtil {
       "FOREIGN KEY($CHAPTER_IMAGE_CHAPTER_ID_COLUMN) REFERENCES $CHAPTER_TABLE_NAME($CHAPTER_ID_COLUMN) ON DELETE CASCADE)";
 
   static const createCategoryTable =
-      "CREATE TABLE $CATEGORY_TABLE_NAME($CATEGORY_NAME_COLUMN TEXT PRIMARY KEY)";
+      "CREATE TABLE $CATEGORY_TABLE_NAME($CATEGORY_NAME_COLUMN TEXT,"
+      "$CATEGORY_LANGUAGE_COLUMN TEXT,"
+      "PRIMARY KEY($CATEGORY_NAME_COLUMN, $CATEGORY_LANGUAGE_COLUMN))";
 
   // Alter SQL query to migrate from DB version 1 to DB version 2
   static const alterMangaDetailTableChangeStatusType =
@@ -86,7 +89,6 @@ class SqliteUtilMangaeden extends SqliteUtil {
       "COMMIT;\n"
       "PRAGMA foreign_keys=on;";
 
-  // Alter SQL query to migrate from DB version 2 to DB version 3
   static const alterAddCategoryTable = "PRAGMA foreign_keys=off;\n"
       "BEGIN TRANSACTION;\n"
       "$createCategoryTable;\n"

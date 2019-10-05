@@ -6,6 +6,21 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'home_grid_item_widget.dart';
 
 class MangaSearchDelegate extends SearchDelegate {
+  MangaSearchDelegate(String hintText)
+      : super(
+          searchFieldLabel: hintText,
+          keyboardType: TextInputType.text,
+          textInputAction: TextInputAction.search,
+        );
+
+  @override
+  ThemeData appBarTheme(BuildContext context) {
+    assert(context != null);
+    final ThemeData theme = Theme.of(context);
+    assert(theme != null);
+    return theme;
+  }
+
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -40,20 +55,19 @@ class MangaSearchDelegate extends SearchDelegate {
       );
     }
 
-//    Pattern searchPattern = RegExp("(\w+)", caseSensitive: false);
-
     var searchResult =
         mangaList.where((element) => element.title.contains(query)).toList();
 
     if (searchResult.isNotEmpty) {
       return StaggeredGridView.countBuilder(
-          crossAxisCount: 4,
-          mainAxisSpacing: 1.0,
-          itemCount: searchResult.length,
-          padding: const EdgeInsets.all(4.0),
-          crossAxisSpacing: 1.0,
-          itemBuilder: (context, index) => _getItemList(searchResult, index),
-          staggeredTileBuilder: (index) => StaggeredTile.fit(2));
+        crossAxisCount: 4,
+        mainAxisSpacing: 1.0,
+        itemCount: searchResult.length,
+        padding: const EdgeInsets.all(4.0),
+        crossAxisSpacing: 1.0,
+        itemBuilder: (context, index) => _getItemList(searchResult, index),
+        staggeredTileBuilder: (index) => StaggeredTile.fit(2),
+      );
     } else {
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,

@@ -32,7 +32,7 @@ class MangaHomePageState extends State<MangaHomePage>
     super.initState();
 
     mangaedenState.getSharedPreferences();
-    appState.getManga(mangaedenState.selectedLanguage);
+//    appState.getManga(mangaedenState.selectedLanguage);
     appState.getFavorites(mangaedenState.selectedLanguage);
   }
 
@@ -72,7 +72,11 @@ class MangaHomePageState extends State<MangaHomePage>
             IconButton(
               icon: Icon(Icons.search),
               onPressed: () {
-                showSearch(context: context, delegate: MangaSearchDelegate());
+                showSearch(
+                  context: context,
+                  delegate: MangaSearchDelegate(
+                      AppLocalizations.of(context).searchMangaHint),
+                );
               },
             ),
             IconButton(

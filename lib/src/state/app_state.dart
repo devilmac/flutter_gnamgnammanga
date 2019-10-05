@@ -1,10 +1,10 @@
-import 'dart:isolate';
-
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_app/src/domain/category.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_app/src/domain/category.dart' as domainCategory;
 import 'package:flutter_app/src/domain/chapter_image.dart';
 import 'package:flutter_app/src/domain/manga.dart';
 import 'package:flutter_app/src/domain/manga_detail.dart';
+import 'package:flutter_app/src/domain/manga_language.dart';
 import 'package:flutter_app/src/repository/repository.dart';
 import 'package:flutter_app/src/state/mangaeden/mangaeden_state.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -36,22 +36,24 @@ abstract class _AppState with Store {
   FirebaseUser firebaseUser;
 
   @observable
-  List<Category> categories;
+  List<domainCategory.Category> categories;
+
+  num selectedLanguage = 0;
 
   @action
   Future getManga(num selectedLanguage) async {
+    this.selectedLanguage = selectedLanguage;
+
     var _response = await _repository.getAllManga(selectedLanguage);
 
     // Add category to database
-    Isolate.spawn(_addCategoriesToDB(_response), null);
+    if (_response != null) {
+      compute(addCategoriesToDB, _response);
+    }
 
     this.mangaList = _response;
   }
 
-  _addCategoriesToDB(List<Manga> mangaList) {
-    _repository.addCategoriesToDB(mangaList);
-  } 
-  
   @action
   Future getMangaDetail(String mangaID, num lastChapterDate) async {
     var isMangaUpToDate =
@@ -109,6 +111,17 @@ abstract class _AppState with Store {
 
     this.firebaseUser = user;
   }
+
+  @action
+  Future getCategories() async {
+    var selectedLanguage = mangaedenState.selectedLanguage;
+
+    _repository.getCategories(mangaLanguage[selectedLanguage]);
+  }
 }
 
 final appState = AppState();
+
+addCategoriesToDB(List<Manga> mangaList) async {
+  appState._repository.addCategoriesToDB(mangaList, appState.selectedLanguage);
+}
