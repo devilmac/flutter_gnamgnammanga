@@ -14,7 +14,11 @@ The architecture used to make the app is the clean architecture (at least I'm tr
 - locale (contains the code used to internationalizing the app)
 - state (code used to manage the state of the app
 
-## Getting Started
+## Features of the app
 
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
+Flutter_GnamGnamManga allows you to do the following:
+
+- you can search your manga from a variety of online services (only [Mangaeden](https://www.mangaeden.com/it/) supported right now)
+- you can choose the language of manga, if supported by service
+- you can save your favorite manga in a separate section without search it over and over from all the others
+- you can navigate from several categories (TODO)
